@@ -18,14 +18,14 @@
     <div class="aero-grid-4">
       {%- if merch_collection != blank and merch_collection.products_count > 0 -%}
         {%- for product in merch_collection.products limit: 4 -%}
-          {% render 'product-card-aero', product: product, theme_variant: 'day', show_swatches: false %}
+          {% render 'product-card-aero', product: product, theme_variant: 'day', show_swatches: true %}
         {%- endfor -%}
       {%- else -%}
         {%- assign fallback_merch = 'terpscoop-flower-embroidered-dad-hat,terpmetrix-heavyweight-t-shirt,terps-next-door-heavyweight-t-shirt,terpscoops-lightweight-t-shirt' | split: ',' -%}
         {%- for handle in fallback_merch -%}
           {%- assign prod = all_products[handle] -%}
           {%- if prod != blank and prod.id != blank -%}
-            {% render 'product-card-aero', product: prod, theme_variant: 'day', show_swatches: false %}
+            {% render 'product-card-aero', product: prod, theme_variant: 'day', show_swatches: true %}
           {%- endif -%}
         {%- endfor -%}
       {%- endif -%}

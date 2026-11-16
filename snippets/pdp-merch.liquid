@@ -38,6 +38,7 @@
                   {{ product.variants | json }}
                 </script>
                 {%- for option in product.options_with_values -%}
+                  {%- assign opt_name_lower = option.name | strip | downcase -%}
                   <div class="aero-option-group">
                     <div class="aero-option-group__title">{{ option.name }}</div>
                     <div class="aero-option-pills">
@@ -50,7 +51,12 @@
                             data-option-position="{{ option.position }}"
                             {% if option.selected_value == value %}checked{% endif %}
                           >
-                          <span>{{ value }}</span>
+                          <span>
+                            {%- if opt_name_lower == 'color' -%}
+                              {% render 'merch-color-swatch', color_name: value %}
+                            {%- endif -%}
+                            {{ value }}
+                          </span>
                         </label>
                       {%- endfor -%}
                     </div>

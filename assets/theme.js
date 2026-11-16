@@ -92,6 +92,7 @@
       this.submitBtn = this.form ? this.form.querySelector('[type="submit"]') : null;
       this.restockDrawer = this.section.querySelector('[data-restock-drawer]');
       this.restockVariantInput = this.section.querySelector('[data-restock-variant-label]');
+      this.galleryMainImg = this.section.querySelector('[data-gallery-main-img]');
 
       this.addEventListener('change', () => this.onOptionChange());
       this.onOptionChange(true);
@@ -121,6 +122,11 @@
         const url = new URL(window.location.href);
         url.searchParams.set('variant', matched.id);
         window.history.replaceState({}, '', url.toString());
+      }
+
+      if (!initial && this.galleryMainImg && matched.featured_image && matched.featured_image.src) {
+        this.galleryMainImg.src = matched.featured_image.src;
+        this.galleryMainImg.srcset = '';
       }
 
       if (this.priceEl) {

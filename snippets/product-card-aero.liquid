@@ -11,7 +11,11 @@
   assign display_swatches = show_swatches | default: true
   assign handle_lower = product.handle | downcase
   if handle_lower contains 'stainless' or handle_lower contains 'titanium' or handle_lower contains 'silver'
-    assign card_variant = 'chrome'
+    if theme_variant == 'chrome'
+      assign card_variant = 'chrome'
+    else
+      assign card_variant = 'metal-light'
+    endif
   endif
 
   assign is_color_pack = false
@@ -25,7 +29,7 @@
   endif
 -%}
 
-<article class="aero-product-card{% if card_variant == 'chrome' %} aero-product-card--chrome{% else %} aero-glass{% endif %}">
+<article class="aero-product-card{% if card_variant == 'chrome' %} aero-product-card--chrome{% elsif card_variant == 'metal-light' %} aero-product-card--metal-light{% else %} aero-glass{% endif %}">
   <a href="{{ product.url }}" class="aero-product-card__media-link" aria-label="{{ product.title | escape }}">
     <div class="aero-product-card__media">
       {%- if badge_label != blank -%}
@@ -74,18 +78,26 @@
       {{ product.metafields.judgeme.badge }}
     </div>
 
-    {%- if display_swatches and is_color_pack -%}
-      <div class="aero-product-card__swatches" aria-label="Available colors">
-        {%- assign swatch_colors = 'Pink,Red,Orange,Yellow,Green,Cyan,Blue,Purple' | split: ',' -%}
-        {%- for color_name in swatch_colors -%}
-          {%- assign color_slug = color_name | downcase -%}
-          <span
-            class="swatch-aero-resin swatch-aero-resin--mini"
-            style="--resin-color: var(--swatch-{{ color_slug }});"
-            title="{{ color_name }}"
-          ></span>
-        {%- endfor -%}
-      </div>
+    {%- if display_swatches -%}
+      {%- if is_color_pack -%}
+        <div class="aero-product-card__swatches" aria-label="Available colors">
+          {%- assign swatch_colors = 'Pink,Red,Orange,Yellow,Green,Cyan,Blue,Purple' | split: ',' -%}
+          {%- for color_name in swatch_colors -%}
+            {%- assign color_slug = color_name | downcase -%}
+            <span
+              class="swatch-aero-resin swatch-aero-resin--mini"
+              style="--resin-color: var(--swatch-{{ color_slug }});"
+              title="{{ color_name }}"
+            ></span>
+          {%- endfor -%}
+        </div>
+      {%- elsif product.options_by_name['Color'].values.size > 0 -%}
+        <div class="aero-product-card__swatches" aria-label="Available colors">
+          {%- for color_val in product.options_by_name['Color'].values -%}
+            {% render 'merch-color-swatch', color_name: color_val %}
+          {%- endfor -%}
+        </div>
+      {%- endif -%}
     {%- endif -%}
 
     <div class="aero-product-card__footer">

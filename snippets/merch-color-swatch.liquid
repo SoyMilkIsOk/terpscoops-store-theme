@@ -1,0 +1,58 @@
+{%- comment -%}
+  Renders a glossy color swatch bubble mapped to live store merch fabric hexes & PROYGBIP scoop hexes.
+  Params:
+    - color_name: string
+{%- endcomment -%}
+
+{%- liquid
+  assign normalized = color_name | strip | downcase
+  assign swatch_hex = '#CCCCCC'
+
+  case normalized
+    when 'black heather'
+      assign swatch_hex = '#484848'
+    when 'heather midnight navy'
+      assign swatch_hex = '#59576C'
+    when 'heather raspberry'
+      assign swatch_hex = '#CA617B'
+    when 'heather grass green'
+      assign swatch_hex = '#69896A'
+    when 'heather true royal'
+      assign swatch_hex = '#6C7FAE'
+    when 'heather autumn'
+      assign swatch_hex = '#CC8761'
+    when 'heather team purple'
+      assign swatch_hex = '#B590BD'
+    when 'black'
+      assign swatch_hex = '#232323'
+    when 'white'
+      assign swatch_hex = '#F0F0F0'
+    when 'ivory'
+      assign swatch_hex = '#EBE1C8'
+    when 'pink'
+      assign swatch_hex = 'var(--swatch-pink)'
+    when 'red'
+      assign swatch_hex = 'var(--swatch-red)'
+    when 'orange'
+      assign swatch_hex = 'var(--swatch-orange)'
+    when 'yellow'
+      assign swatch_hex = 'var(--swatch-yellow)'
+    when 'green'
+      assign swatch_hex = 'var(--swatch-green)'
+    when 'cyan'
+      assign swatch_hex = 'var(--swatch-cyan)'
+    when 'blue'
+      assign swatch_hex = 'var(--swatch-blue)'
+    when 'purple'
+      assign swatch_hex = 'var(--swatch-purple)'
+    when 'clear'
+      assign swatch_hex = 'var(--swatch-clear)'
+  endcase
+-%}
+
+<span
+  class="swatch-aero-resin swatch-aero-resin--mini"
+  style="--resin-color: {{ swatch_hex }};"
+  title="{{ color_name | escape }}"
+></span>
+

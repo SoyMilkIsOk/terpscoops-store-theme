@@ -1,3 +1,9 @@
+{%- liquid
+  assign jar_product = all_products['jar-of-scoops']
+  assign jar_image = section.settings.wholesale_image | default: jar_product.featured_media
+  assign merch_collection = collections['merch']
+-%}
+
 <section class="aero-section aero-section--tight">
   <div class="page-width">
     <div class="aero-grid-2">
@@ -9,18 +15,35 @@
           </span>
         </div>
 
-        <div style="padding:clamp(1.5rem, 3.2vw, 2.25rem);display:flex;flex-direction:column;flex:1;">
-          <h2>{{ section.settings.heading | escape }}</h2>
-          <p class="aero-muted" style="font-size:1.02rem;margin-bottom:1.5rem;">
-            {{ section.settings.subheading | escape }}
-          </p>
-          <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:auto;">
-            <a href="/products/jar-of-scoops" class="btn-aero-gel">
-              <span>Shop Display Jar</span>
-            </a>
-            <a href="/pages/wholesale" class="btn-aero-sky">
-              <span>Wholesale Portal</span>
-            </a>
+        <div class="aero-split-card">
+          <div class="aero-split-card__copy">
+            <h2>{{ section.settings.heading | escape }}</h2>
+            <p class="aero-muted" style="font-size:1.02rem;margin-bottom:1.25rem;">
+              {{ section.settings.subheading | escape }}
+            </p>
+            <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:auto;">
+              <a href="/products/jar-of-scoops" class="btn-aero-gel">
+                <span>Shop Display Jar</span>
+              </a>
+              <a href="/pages/wholesale" class="btn-aero-sky">
+                <span>Wholesale Portal</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="aero-split-card__media">
+            {%- if jar_image != blank -%}
+              <a href="/products/jar-of-scoops" class="aero-split-card__img-link" aria-label="25ct Display Jar">
+                <img
+                  src="{{ jar_image | image_url: width: 400 }}"
+                  alt="{{ jar_image.alt | default: '25ct Terpscoop Display Jar' | escape }}"
+                  width="180"
+                  height="180"
+                  loading="lazy"
+                  class="aero-split-card__img"
+                >
+              </a>
+            {%- endif -%}
           </div>
         </div>
       </div>
@@ -33,19 +56,56 @@
           </span>
         </div>
 
-        <div style="padding:clamp(1.5rem, 3.2vw, 2.25rem);display:flex;flex-direction:column;flex:1;">
-          <h2>{{ section.settings.merch_heading | escape }}</h2>
-          <p class="aero-muted" style="font-size:1.02rem;margin-bottom:1.5rem;">
-            {{ section.settings.merch_subheading | escape }}
-          </p>
-          <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:auto;">
-            <a href="{{ routes.collections_url }}/merch" class="btn-aero-sky">
-              <span>Shop Merch</span>
-              {% render 'aero-icon', icon: 'arrow-right' %}
-            </a>
-            <a href="/products/terpscoop-flower-embroidered-dad-hat" class="btn-aero-ghost">
-              <span>Shop Dad Hat</span>
-            </a>
+        <div class="aero-split-card">
+          <div class="aero-split-card__copy">
+            <h2>{{ section.settings.merch_heading | escape }}</h2>
+            <p class="aero-muted" style="font-size:1.02rem;margin-bottom:1.25rem;">
+              {{ section.settings.merch_subheading | escape }}
+            </p>
+            <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:auto;">
+              <a href="{{ routes.collections_url }}/merch" class="btn-aero-sky">
+                <span>Shop Merch</span>
+                {% render 'aero-icon', icon: 'arrow-right' %}
+              </a>
+            </div>
+          </div>
+
+          <div class="aero-split-card__media">
+            <div class="aero-merch-collage">
+              {%- if merch_collection != blank and merch_collection.products_count >= 4 -%}
+                {%- for merch_item in merch_collection.products limit: 4 -%}
+                  <a href="{{ merch_item.url }}" class="aero-merch-collage__tile" aria-label="{{ merch_item.title | escape }}">
+                    {%- if merch_item.featured_media != blank -%}
+                      <img
+                        src="{{ merch_item.featured_media | image_url: width: 400 }}"
+                        alt="{{ merch_item.featured_media.alt | default: merch_item.title | escape }}"
+                        width="180"
+                        height="180"
+                        loading="lazy"
+                      >
+                    {%- endif -%}
+                  </a>
+                {%- endfor -%}
+              {%- else -%}
+                {%- assign merch_handles = 'terpscoop-flower-embroidered-dad-hat,terpmetrix-heavyweight-t-shirt,terps-next-door-heavyweight-t-shirt,terpscoops-lightweight-t-shirt' | split: ',' -%}
+                {%- for handle in merch_handles -%}
+                  {%- assign merch_item = all_products[handle] -%}
+                  {%- if merch_item != blank and merch_item.id != blank -%}
+                    <a href="{{ merch_item.url }}" class="aero-merch-collage__tile" aria-label="{{ merch_item.title | escape }}">
+                      {%- if merch_item.featured_media != blank -%}
+                        <img
+                          src="{{ merch_item.featured_media | image_url: width: 400 }}"
+                          alt="{{ merch_item.featured_media.alt | default: merch_item.title | escape }}"
+                          width="180"
+                          height="180"
+                          loading="lazy"
+                        >
+                      {%- endif -%}
+                    </a>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endif -%}
+            </div>
           </div>
         </div>
       </div>
@@ -70,10 +130,15 @@
       "default": "Custom display jar packed with 25 vibrant scoops, a comic strip explaining how it fits inside any grinder, giveaway QR tie-in, and extra stickers for your customers."
     },
     {
+      "type": "image_picker",
+      "id": "wholesale_image",
+      "label": "Wholesale Jar Image"
+    },
+    {
       "type": "text",
       "id": "merch_heading",
       "label": "Merch Heading",
-      "default": "Rep the Ritual. Terp Merch."
+      "default": "Rep the Ritual."
     },
     {
       "type": "textarea",
