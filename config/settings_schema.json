@@ -224,25 +224,25 @@
         "type": "text",
         "id": "age_gate_heading",
         "label": "Modal Heading",
-        "default": "Welcome to Terpscoops"
+        "default": "Are you 21+?"
       },
       {
         "type": "textarea",
         "id": "age_gate_subtext",
         "label": "Modal Description",
-        "default": "Precision grinder tools, heirloom metal editions, and botanical accessories crafted in Boulder, CO. Please confirm you are 21 years of age or older to enter."
+        "default": "You must be 21 or older to enter."
       },
       {
         "type": "text",
         "id": "age_gate_button_label",
         "label": "Confirm Button Label",
-        "default": "I am 21+ — Enter Store"
+        "default": "Yes, I'm 21+"
       },
       {
         "type": "text",
         "id": "age_gate_exit_label",
         "label": "Exit Button Label",
-        "default": "Under 21 — Exit"
+        "default": "Exit"
       },
       {
         "type": "url",

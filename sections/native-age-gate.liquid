@@ -26,24 +26,45 @@
           class="aero-header__logo-mark"
           style="width:64px;height:64px;"
         >
-        <h2 id="TerpAgeGateTitle" style="margin-bottom:0.2rem;">
-          {{ settings.age_gate_heading | default: 'Welcome to Terpscoops' }}
+        {%- liquid
+          assign gate_heading = settings.age_gate_heading | default: 'Are you 21+?'
+          if gate_heading == 'Welcome to Terpscoops'
+            assign gate_heading = 'Are you 21+?'
+          endif
+
+          assign gate_subtext = settings.age_gate_subtext | default: 'You must be 21 or older to enter.'
+          if gate_subtext contains 'Precision grinder tools'
+            assign gate_subtext = 'You must be 21 or older to enter.'
+          endif
+
+          assign gate_btn = settings.age_gate_button_label | default: "Yes, I'm 21+"
+          if gate_btn contains 'Enter Store'
+            assign gate_btn = "Yes, I'm 21+"
+          endif
+
+          assign gate_exit = settings.age_gate_exit_label | default: 'Exit'
+          if gate_exit contains 'Under 21'
+            assign gate_exit = 'Exit'
+          endif
+        -%}
+        <h2 id="TerpAgeGateTitle" style="margin-bottom:0.15rem;">
+          {{ gate_heading }}
         </h2>
-        <p class="aero-muted" style="margin-bottom:0;max-width:40ch;">
-          {{ settings.age_gate_subtext }}
+        <p class="aero-muted" style="margin-bottom:0;">
+          {{ gate_subtext }}
         </p>
 
         <div class="aero-age-dialog__actions">
           <button type="button" class="btn-aero-gel btn-aero-gel--full" data-age-confirm>
             {% render 'aero-icon', icon: 'check' %}
-            <span>{{ settings.age_gate_button_label | default: 'I am 21+ — Enter Store' }}</span>
+            <span>{{ gate_btn }}</span>
           </button>
 
           <a
             href="{{ settings.age_gate_exit_url | default: 'https://www.google.com' }}"
             class="btn-aero-ghost btn-aero-gel--full"
           >
-            {{ settings.age_gate_exit_label | default: 'Under 21 — Exit' }}
+            {{ gate_exit }}
           </a>
         </div>
       </div>
