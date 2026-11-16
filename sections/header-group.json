@@ -47,7 +47,7 @@
       "type": "header",
       "settings": {
         "menu": "main-menu",
-        "show_search": true
+        "show_search": false
       }
     }
   },
