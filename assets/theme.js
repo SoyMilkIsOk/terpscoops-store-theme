@@ -453,7 +453,18 @@
     const wheelStage = document.querySelector('[data-hero-wheel-stage]');
     const wheelWrap = document.querySelector('[data-hero-wheel-wrap]');
     const wheelEl = document.querySelector('[data-hero-wheel]');
+    const wheelTargetAngles = {
+      Pink: 22.5,
+      Red: -22.5,
+      Orange: -67.5,
+      Yellow: -112.5,
+      Green: -157.5,
+      Cyan: -202.5,
+      Blue: -247.5,
+      Purple: -292.5,
+    };
     let angle = 0;
+    let targetAngle = null;
     let spinVelocity = 0;
     let isDragging = false;
     let lastPointerAngle = 0;
@@ -480,8 +491,6 @@
           angle += delta;
           spinVelocity = delta * 0.45;
           lastPointerAngle = nextAngle;
-        } else {
-          spinVelocity += nx * 0.04;
         }
       });
 
@@ -492,6 +501,7 @@
 
       wheelWrap.addEventListener('pointerdown', (e) => {
         isDragging = true;
+        targetAngle = null;
         lastPointerAngle = getPointerAngle(e);
         if (wheelWrap.setPointerCapture) {
           try {
@@ -507,7 +517,16 @@
       wheelWrap.addEventListener('pointercancel', endDrag);
 
       const tick = () => {
-        if (!isDragging) {
+        if (isDragging) {
+          targetAngle = null;
+        } else if (targetAngle !== null) {
+          const remaining = targetAngle - angle;
+          if (Math.abs(remaining) < 0.05) {
+            angle = targetAngle;
+          } else {
+            angle += remaining * 0.14;
+          }
+        } else {
           angle = (angle + 0.22 + spinVelocity) % 360;
           spinVelocity *= 0.94;
         }
@@ -523,13 +542,17 @@
         if (!root) return;
         root.querySelectorAll('[data-hero-color-btn]').forEach((b) => b.classList.remove('is-selected'));
         btn.classList.add('is-selected');
-        const label = root.querySelector('[data-hero-active-color]');
         const orb = root.querySelector('[data-hero-preview-orb]');
-        if (label) label.textContent = btn.dataset.colorName || 'Cyan';
         if (orb) {
           orb.style.setProperty('--resin-color', btn.dataset.colorHex || '#60AEDB');
         }
-        spinVelocity += 4.5;
+        const colorName = btn.dataset.colorName;
+        if (colorName && Object.prototype.hasOwnProperty.call(wheelTargetAngles, colorName)) {
+          const desiredAngle = wheelTargetAngles[colorName];
+          const diff = (((desiredAngle - angle) % 360) + 540) % 360 - 180;
+          targetAngle = angle + diff;
+          spinVelocity = 0;
+        }
       });
     });
 

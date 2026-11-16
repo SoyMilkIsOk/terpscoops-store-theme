@@ -533,6 +533,18 @@ p {
     0 4px 12px rgba(96, 174, 219, 0.28);
 }
 
+.swatch-merch-matte {
+  --matte-color: #484848;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  border-radius: 50%;
+  background-color: var(--matte-color);
+  border: 1.5px solid rgba(10, 34, 57, 0.2);
+  box-shadow: none;
+  flex-shrink: 0;
+}
+
 /* ==========================================================================
    Announcement Bar & Floating Aero Taskbar Header
    ========================================================================== */
@@ -1416,7 +1428,7 @@ p {
   pointer-events: none;
 }
 
-.aero-option-pill span {
+.aero-option-pill > span {
   display: inline-flex;
   align-items: center;
   gap: 0.42rem;
@@ -1433,17 +1445,17 @@ p {
   transition: all 0.16s ease;
 }
 
-.aero-option-pill span:hover {
+.aero-option-pill > span:hover {
   background: rgba(255, 255, 255, 0.38);
 }
 
-.scheme-aero-chrome .aero-option-pill span {
+.scheme-aero-chrome .aero-option-pill > span {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.28);
   color: #FFFFFF;
 }
 
-.aero-option-pill input:checked+span {
+.aero-option-pill input:checked + span {
   background: rgba(255, 255, 255, 0.46);
   border-color: var(--aero-gel-sky);
   color: var(--aero-ink);
@@ -1456,7 +1468,7 @@ p {
     max-width: 455px;
   }
 
-  .aero-option-pills--terpscoop .aero-option-pill span {
+  .aero-option-pills--terpscoop .aero-option-pill > span {
     padding: 0.36rem clamp(0.45rem, 0.7vw, 0.64rem);
     gap: 0.3rem;
     font-size: clamp(0.75rem, 0.85vw, 0.81rem);
@@ -2243,4 +2255,114 @@ p {
 
 .aero-grid-item>.aero-product-card {
   width: 100%;
+}
+
+/* ==========================================================================
+   Shopify Policy & Rich Text Windows
+   ========================================================================== */
+
+.aero-policy-window {
+  max-width: 920px;
+  margin-inline: auto;
+}
+
+.aero-policy-window__body {
+  padding: clamp(1.5rem, 3.5vw, 2.75rem);
+}
+
+.shopify-policy__container {
+  max-width: 100% !important;
+  margin: 0 !important;
+  padding: 0 !important;
+}
+
+.shopify-policy__title {
+  text-align: left !important;
+  padding-bottom: 1rem;
+  margin-bottom: 1.5rem;
+  border-bottom: 1px solid rgba(10, 34, 57, 0.12);
+}
+
+.shopify-policy__title h1 {
+  font-size: clamp(1.75rem, 3.2vw, 2.45rem);
+  margin: 0;
+  color: var(--aero-ink);
+}
+
+.shopify-policy__body,
+.aero-rte {
+  color: var(--aero-ink-muted);
+  font-size: 1rem;
+  line-height: 1.72;
+}
+
+.shopify-policy__body h2,
+.shopify-policy__body h3,
+.shopify-policy__body h4,
+.aero-rte h2,
+.aero-rte h3,
+.aero-rte h4 {
+  color: var(--aero-ink);
+  margin-top: 1.65rem;
+  margin-bottom: 0.6rem;
+}
+
+.shopify-policy__body h2,
+.aero-rte h2 {
+  font-size: 1.35rem;
+}
+
+.shopify-policy__body h3,
+.aero-rte h3 {
+  font-size: 1.12rem;
+}
+
+.shopify-policy__body p,
+.shopify-policy__body ul,
+.shopify-policy__body ol,
+.aero-rte p,
+.aero-rte ul,
+.aero-rte ol {
+  margin: 0 0 1rem;
+}
+
+.shopify-policy__body ul,
+.shopify-policy__body ol,
+.aero-rte ul,
+.aero-rte ol {
+  padding-left: 1.35rem;
+}
+
+.shopify-policy__body li,
+.aero-rte li {
+  margin-bottom: 0.4rem;
+}
+
+.shopify-policy__body a,
+.aero-rte a {
+  color: var(--aero-gel-sky);
+  text-decoration: underline;
+  text-underline-offset: 2px;
+}
+
+.shopify-policy__body a:hover,
+.aero-rte a:hover {
+  color: var(--aero-gel-green);
+}
+
+.shopify-policy__body table,
+.aero-rte table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 1.25rem;
+  font-size: 0.92rem;
+}
+
+.shopify-policy__body th,
+.shopify-policy__body td,
+.aero-rte th,
+.aero-rte td {
+  padding: 0.65rem 0.85rem;
+  border: 1px solid rgba(10, 34, 57, 0.12);
+  text-align: left;
 }

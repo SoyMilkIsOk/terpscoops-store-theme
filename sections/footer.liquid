@@ -87,7 +87,10 @@
         <div style="display:flex;flex-wrap:wrap;gap:1rem;">
           {%- for policy in shop.policies -%}
             {%- if policy != blank -%}
-              <a href="{{ policy.url }}">{{ policy.title }}</a>
+              {%- assign policy_title_lower = policy.title | downcase -%}
+              {%- unless policy_title_lower contains 'contact' or policy.url contains 'contact-information' -%}
+                <a href="{{ policy.url }}">{{ policy.title }}</a>
+              {%- endunless -%}
             {%- endif -%}
           {%- endfor -%}
         </div>

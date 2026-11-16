@@ -119,7 +119,26 @@
     {% sections 'header-group' %}
 
     <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
-      {{ content_for_layout }}
+      {%- if request.page_type == 'policy' -%}
+        <section class="aero-section aero-section--tight">
+          <div class="page-width">
+            <div class="aero-glass aero-window aero-policy-window">
+              <div class="aero-window__bar">
+                <span class="aero-window__dots" aria-hidden="true">
+                  <span class="aero-window__dot aero-window__dot--cyan"></span>
+                  <span class="aero-window__dot aero-window__dot--green"></span>
+                  <span class="aero-window__dot aero-window__dot--pink"></span>
+                </span>
+              </div>
+              <div class="aero-policy-window__body">
+                {{ content_for_layout }}
+              </div>
+            </div>
+          </div>
+        </section>
+      {%- else -%}
+        {{ content_for_layout }}
+      {%- endif -%}
     </main>
 
     {% sections 'footer-group' %}
