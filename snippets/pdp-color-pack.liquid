@@ -106,7 +106,7 @@
                 {%- for option in product.options_with_values -%}
                   <div class="aero-option-group">
                     <div class="aero-option-group__title">{{ option.name }}</div>
-                    <div class="aero-option-pills">
+                    <div class="aero-option-pills aero-option-pills--terpscoop">
                       {%- for value in option.values -%}
                         {%- assign val_slug = value | downcase -%}
                         <label class="aero-option-pill">

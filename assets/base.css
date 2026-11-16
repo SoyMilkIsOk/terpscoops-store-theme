@@ -517,8 +517,7 @@ p {
   background:
     radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.35) 26%, transparent 54%),
     radial-gradient(circle at 72% 76%, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0.12) 42%, transparent 70%),
-    conic-gradient(
-      from 0deg,
+    conic-gradient(from 0deg,
       color-mix(in srgb, var(--swatch-pink) 62%, rgba(255, 255, 255, 0.16)),
       color-mix(in srgb, var(--swatch-red) 62%, rgba(255, 255, 255, 0.16)),
       color-mix(in srgb, var(--swatch-orange) 62%, rgba(255, 255, 255, 0.16)),
@@ -527,8 +526,7 @@ p {
       color-mix(in srgb, var(--swatch-cyan) 62%, rgba(255, 255, 255, 0.16)),
       color-mix(in srgb, var(--swatch-blue) 62%, rgba(255, 255, 255, 0.16)),
       color-mix(in srgb, var(--swatch-purple) 62%, rgba(255, 255, 255, 0.16)),
-      color-mix(in srgb, var(--swatch-pink) 62%, rgba(255, 255, 255, 0.16))
-    );
+      color-mix(in srgb, var(--swatch-pink) 62%, rgba(255, 255, 255, 0.16)));
   box-shadow:
     inset 0 2px 4px rgba(255, 255, 255, 0.88),
     inset 0 -3px 6px rgba(96, 174, 219, 0.35),
@@ -872,12 +870,10 @@ p {
   width: 210px;
   height: 210px;
   border-radius: 50%;
-  background: radial-gradient(
-    circle,
-    color-mix(in srgb, var(--resin-color) 46%, rgba(255, 255, 255, 0.35)) 0%,
-    color-mix(in srgb, var(--resin-color) 16%, transparent) 55%,
-    transparent 74%
-  );
+  background: radial-gradient(circle,
+      color-mix(in srgb, var(--resin-color) 46%, rgba(255, 255, 255, 0.35)) 0%,
+      color-mix(in srgb, var(--resin-color) 16%, transparent) 55%,
+      transparent 74%);
   filter: blur(18px);
   pointer-events: none;
   transition: background 0.3s ease;
@@ -1241,7 +1237,7 @@ p {
 
 .aero-pdp-grid {
   display: grid;
-  grid-template-columns: 1.05fr 0.95fr;
+  grid-template-columns: 1fr 1fr;
   gap: clamp(1.5rem, 3.5vw, 3rem);
   align-items: start;
 }
@@ -1454,6 +1450,25 @@ p {
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 6px 16px rgba(0, 150, 214, 0.24);
 }
 
+@media (min-width: 769px) {
+  .aero-option-pills--terpscoop {
+    gap: 0.36rem;
+    max-width: 455px;
+  }
+
+  .aero-option-pills--terpscoop .aero-option-pill span {
+    padding: 0.36rem clamp(0.45rem, 0.7vw, 0.64rem);
+    gap: 0.3rem;
+    font-size: clamp(0.75rem, 0.85vw, 0.81rem);
+    white-space: nowrap;
+  }
+
+  .aero-option-pills--terpscoop .swatch-aero-resin--mini {
+    width: 13px;
+    height: 13px;
+  }
+}
+
 /* Interactive "You Pick" Capsule Builder */
 .aero-pack-builder {
   display: flex;
@@ -1513,8 +1528,20 @@ p {
 
 .aero-capsule-tray {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
   gap: 0.55rem;
+}
+
+.aero-capsule-tray--2,
+.aero-pack-builder[data-pack-size="2"] .aero-capsule-tray {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.aero-capsule-tray--4,
+.aero-capsule-tray--8,
+.aero-pack-builder[data-pack-size="4"] .aero-capsule-tray,
+.aero-pack-builder[data-pack-size="8"] .aero-capsule-tray {
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
 .aero-capsule-slot {
@@ -2214,6 +2241,6 @@ p {
   display: flex;
 }
 
-.aero-grid-item > .aero-product-card {
+.aero-grid-item>.aero-product-card {
   width: 100%;
 }

@@ -4,6 +4,7 @@
   assign merch_collection = collections['merch']
 -%}
 
+{%- unless collection.handle == 'frontpage' or collection.handle == 'wholesale' or page.handle contains 'wholesale' -%}
 <section class="aero-section aero-section--tight">
   <div class="page-width">
     <div class="aero-grid-2">
@@ -114,6 +115,7 @@
     </div>
   </div>
 </section>
+{%- endunless -%}
 
 {% schema %}
 {

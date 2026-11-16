@@ -33,7 +33,7 @@
     </div>
   </div>
 
-  <div class="aero-capsule-tray" role="list" aria-label="Selected scoop slots">
+  <div class="aero-capsule-tray aero-capsule-tray--{{ count }}" role="list" aria-label="Selected scoop slots">
     {%- for i in (1..count) -%}
       <button
         type="button"
