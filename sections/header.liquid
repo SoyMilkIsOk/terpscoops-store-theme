@@ -46,11 +46,13 @@
           </a>
         {%- endfor -%}
       {%- else -%}
+        {%- assign wholesale_fallback = routes.collections_url | append: '/frontpage' -%}
+        {%- assign wholesale_url = pages['wholesale'].url | default: wholesale_fallback -%}
         <a href="{{ routes.all_products_collection_url }}" class="aero-nav__link">Shop All</a>
         <a href="{{ routes.collections_url }}/shop-terpscoops" class="aero-nav__link">Terpscoops</a>
         <a href="{{ routes.collections_url }}/metal-scoops" class="aero-nav__link">Metal</a>
         <a href="{{ routes.collections_url }}/merch" class="aero-nav__link">Merch</a>
-        <a href="/pages/wholesale" class="aero-nav__link">Wholesale</a>
+        <a href="{{ wholesale_url }}" class="aero-nav__link">Wholesale</a>
         <a href="/pages/about-us" class="aero-nav__link">Our Story</a>
       {%- endif -%}
     </nav>
@@ -101,11 +103,13 @@
           <a href="{{ link.url }}" class="aero-mobile-drawer__link">{{ link.title | escape }}</a>
         {%- endfor -%}
       {%- else -%}
+        {%- assign wholesale_fallback = routes.collections_url | append: '/frontpage' -%}
+        {%- assign wholesale_url = pages['wholesale'].url | default: wholesale_fallback -%}
         <a href="{{ routes.all_products_collection_url }}" class="aero-mobile-drawer__link">Shop All</a>
         <a href="{{ routes.collections_url }}/shop-terpscoops" class="aero-mobile-drawer__link">Terpscoops</a>
         <a href="{{ routes.collections_url }}/metal-scoops" class="aero-mobile-drawer__link">Metal</a>
         <a href="{{ routes.collections_url }}/merch" class="aero-mobile-drawer__link">Terp Merch</a>
-        <a href="/pages/wholesale" class="aero-mobile-drawer__link">Wholesale</a>
+        <a href="{{ wholesale_url }}" class="aero-mobile-drawer__link">Wholesale</a>
         <a href="/pages/about-us" class="aero-mobile-drawer__link">Our Story</a>
         <a href="/pages/contact" class="aero-mobile-drawer__link">Get In Touch</a>
       {%- endif -%}

@@ -46,7 +46,9 @@
         <div>
           <h4 style="margin-bottom:0.75rem;">Info</h4>
           <ul class="aero-footer__links">
-            <li><a href="/pages/wholesale">Wholesale</a></li>
+            {%- assign wholesale_fallback = routes.collections_url | append: '/frontpage' -%}
+            {%- assign wholesale_url = pages['wholesale'].url | default: wholesale_fallback -%}
+            <li><a href="{{ wholesale_url }}">Wholesale</a></li>
             <li><a href="/pages/about-us">Our Story</a></li>
             <li><a href="/pages/contact">Contact</a></li>
           </ul>

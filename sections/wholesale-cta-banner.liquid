@@ -22,10 +22,12 @@
               {{ section.settings.subheading | escape }}
             </p>
             <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:auto;">
+              {%- assign wholesale_fallback = routes.collections_url | append: '/frontpage' -%}
+              {%- assign wholesale_url = pages['wholesale'].url | default: wholesale_fallback -%}
               <a href="/products/jar-of-scoops" class="btn-aero-gel">
                 <span>Shop Display Jar</span>
               </a>
-              <a href="/pages/wholesale" class="btn-aero-sky">
+              <a href="{{ wholesale_url }}" class="btn-aero-sky">
                 <span>Wholesale Portal</span>
               </a>
             </div>

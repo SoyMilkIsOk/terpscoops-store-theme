@@ -1,21 +1,28 @@
-<section class="aero-section aero-section--tight">
-  <div class="page-width">
-    <div class="aero-glass aero-window" style="max-width:920px;margin-inline:auto;">
-      <div class="aero-window__bar">
-        <span class="aero-window__dots" aria-hidden="true">
-          <span class="aero-window__dot aero-window__dot--cyan"></span>
-          <span class="aero-window__dot aero-window__dot--green"></span>
-        </span>
-      </div>
-      <div style="padding:clamp(1.5rem, 3.5vw, 2.75rem);">
-        <h1>{{ page.title | escape }}</h1>
-        <div class="aero-muted" style="font-size:1.02rem;line-height:1.7;">
-          {{ page.content }}
+{%- assign page_handle_lower = page.handle | downcase -%}
+{%- if page_handle_lower contains 'wholesale' -%}
+  {% render 'wholesale-portal-content' %}
+{%- elsif page_handle_lower contains 'contact' -%}
+  {% render 'contact-form-content' %}
+{%- else -%}
+  <section class="aero-section aero-section--tight">
+    <div class="page-width">
+      <div class="aero-glass aero-window" style="max-width:920px;margin-inline:auto;">
+        <div class="aero-window__bar">
+          <span class="aero-window__dots" aria-hidden="true">
+            <span class="aero-window__dot aero-window__dot--cyan"></span>
+            <span class="aero-window__dot aero-window__dot--green"></span>
+          </span>
+        </div>
+        <div style="padding:clamp(1.5rem, 3.5vw, 2.75rem);">
+          <h1>{{ page.title | escape }}</h1>
+          <div class="aero-muted" style="font-size:1.02rem;line-height:1.7;">
+            {{ page.content }}
+          </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
+{%- endif -%}
 
 {% schema %}
 {

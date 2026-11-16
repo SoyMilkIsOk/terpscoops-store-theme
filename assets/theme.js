@@ -547,11 +547,39 @@
     });
   }
 
+  /* 6. Client-Side Collection Sort */
+  function initCollectionSort() {
+    const sortSelect = document.querySelector('[data-collection-sort]');
+    const grid = document.querySelector('[data-collection-grid]');
+    if (!sortSelect || !grid) return;
+
+    sortSelect.addEventListener('change', () => {
+      const mode = sortSelect.value;
+      const items = Array.from(grid.querySelectorAll('.aero-grid-item'));
+
+      items.sort((a, b) => {
+        if (mode === 'price-asc') {
+          return Number(a.dataset.productPrice || 0) - Number(b.dataset.productPrice || 0);
+        }
+        if (mode === 'price-desc') {
+          return Number(b.dataset.productPrice || 0) - Number(a.dataset.productPrice || 0);
+        }
+        if (mode === 'title-asc') {
+          return (a.dataset.productTitle || '').localeCompare(b.dataset.productTitle || '');
+        }
+        return Number(a.dataset.featuredIndex || 0) - Number(b.dataset.featuredIndex || 0);
+      });
+
+      items.forEach((item) => grid.appendChild(item));
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     initAgeGate();
     initCartDrawer();
     initWholesaleCalculator();
     initInteractiveUI();
+    initCollectionSort();
   });
 })();
 

@@ -68,7 +68,7 @@
               <s class="aero-price-compare" data-product-compare-price {% unless current_variant.compare_at_price > current_variant.price %}hidden{% endunless %}>
                 {{ current_variant.compare_at_price | money }}
               </s>
-              {%- if pack_size > 1 -%}
+              {%- if pack_size == 25 -%}
                 {%- assign unit_cents = current_variant.price | divided_by: pack_size -%}
                 <span class="aero-muted" style="font-family:var(--font-mono);font-size:0.84rem;">{{ unit_cents | money }} / scoop</span>
               {%- endif -%}
@@ -89,7 +89,9 @@
               <p class="aero-muted" style="margin:0.35rem 0 0.65rem;font-size:0.9rem;">
                 Packed with 25 assorted Terpscoops, comic instruction label, @terpscoops giveaway callout, and bonus handout stickers. Ordering tax-exempt bulk?
               </p>
-              <a href="/pages/wholesale" class="btn-aero-sky btn-aero-gel--xs">Open Wholesale Margin Calculator</a>
+              {%- assign wholesale_fallback = routes.collections_url | append: '/frontpage' -%}
+              {%- assign wholesale_url = pages['wholesale'].url | default: wholesale_fallback -%}
+              <a href="{{ wholesale_url }}" class="btn-aero-sky btn-aero-gel--xs">Open Wholesale Margin Calculator</a>
             </div>
           {%- endif -%}
 
@@ -116,7 +118,9 @@
                             {% if option.selected_value == value %}checked{% endif %}
                           >
                           <span>
-                            {%- if val_slug == 'pink' or val_slug == 'red' or val_slug == 'orange' or val_slug == 'yellow' or val_slug == 'green' or val_slug == 'cyan' or val_slug == 'blue' or val_slug == 'purple' or val_slug == 'clear' -%}
+                            {%- if val_slug contains 'you pick' or val_slug contains 'assorted' -%}
+                              <i class="swatch-aero-resin swatch-aero-resin--mini swatch-aero-resin--rainbow"></i>
+                            {%- elsif val_slug == 'pink' or val_slug == 'red' or val_slug == 'orange' or val_slug == 'yellow' or val_slug == 'green' or val_slug == 'cyan' or val_slug == 'blue' or val_slug == 'purple' or val_slug == 'clear' -%}
                               <i class="swatch-aero-resin swatch-aero-resin--mini" style="--resin-color: var(--swatch-{{ val_slug }});"></i>
                             {%- endif -%}
                             {{ value }}

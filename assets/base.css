@@ -513,6 +513,28 @@ p {
   height: 56px;
 }
 
+.swatch-aero-resin--rainbow {
+  background:
+    radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.96) 0%, rgba(255, 255, 255, 0.35) 26%, transparent 54%),
+    radial-gradient(circle at 72% 76%, rgba(255, 255, 255, 0.65) 0%, rgba(255, 255, 255, 0.12) 42%, transparent 70%),
+    conic-gradient(
+      from 0deg,
+      color-mix(in srgb, var(--swatch-pink) 62%, rgba(255, 255, 255, 0.16)),
+      color-mix(in srgb, var(--swatch-red) 62%, rgba(255, 255, 255, 0.16)),
+      color-mix(in srgb, var(--swatch-orange) 62%, rgba(255, 255, 255, 0.16)),
+      color-mix(in srgb, var(--swatch-yellow) 62%, rgba(255, 255, 255, 0.16)),
+      color-mix(in srgb, var(--swatch-green) 62%, rgba(255, 255, 255, 0.16)),
+      color-mix(in srgb, var(--swatch-cyan) 62%, rgba(255, 255, 255, 0.16)),
+      color-mix(in srgb, var(--swatch-blue) 62%, rgba(255, 255, 255, 0.16)),
+      color-mix(in srgb, var(--swatch-purple) 62%, rgba(255, 255, 255, 0.16)),
+      color-mix(in srgb, var(--swatch-pink) 62%, rgba(255, 255, 255, 0.16))
+    );
+  box-shadow:
+    inset 0 2px 4px rgba(255, 255, 255, 0.88),
+    inset 0 -3px 6px rgba(96, 174, 219, 0.35),
+    0 4px 12px rgba(96, 174, 219, 0.28);
+}
+
 /* ==========================================================================
    Announcement Bar & Floating Aero Taskbar Header
    ========================================================================== */
@@ -2112,4 +2134,86 @@ p {
   .aero-split-card__media {
     justify-content: flex-start;
   }
+}
+
+/* Shop Toolbar, Category Filter Tabs & Sort */
+.aero-shop-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.9rem 1.25rem;
+  padding-top: 0.9rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.72);
+}
+
+.aero-filter-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.45rem;
+}
+
+.aero-filter-tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  padding: 0.5rem 0.95rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.24);
+  backdrop-filter: blur(14px) saturate(170%);
+  -webkit-backdrop-filter: blur(14px) saturate(170%);
+  border: 1.5px solid rgba(255, 255, 255, 0.78);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 12px rgba(0, 130, 195, 0.1);
+  font-size: 0.86rem;
+  font-weight: 700;
+  color: var(--aero-ink);
+  transition: transform 0.16s ease, background 0.16s ease, border-color 0.16s ease;
+}
+
+.aero-filter-tab:hover {
+  transform: translateY(-1px);
+  background: rgba(255, 255, 255, 0.42);
+}
+
+.aero-filter-tab.is-active {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, rgba(190, 245, 255, 0.52) 100%);
+  border-color: var(--aero-gel-sky);
+  box-shadow: inset 0 1px 0 #FFFFFF, 0 6px 16px rgba(0, 150, 214, 0.22);
+}
+
+.aero-filter-tab__count {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  padding: 0.1rem 0.42rem;
+  border-radius: 999px;
+  background: rgba(10, 34, 57, 0.08);
+  color: var(--aero-ink-muted);
+}
+
+.aero-shop-toolbar__sort {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.aero-sort-select {
+  width: auto;
+  min-width: 175px;
+  padding: 0.48rem 0.85rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.36);
+  backdrop-filter: blur(14px) saturate(170%);
+  -webkit-backdrop-filter: blur(14px) saturate(170%);
+  border: 1.5px solid rgba(255, 255, 255, 0.82);
+  font-size: 0.86rem;
+  font-weight: 600;
+}
+
+.aero-grid-item {
+  display: flex;
+}
+
+.aero-grid-item > .aero-product-card {
+  width: 100%;
 }

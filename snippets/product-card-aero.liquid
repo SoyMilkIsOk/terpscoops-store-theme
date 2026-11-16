@@ -81,6 +81,10 @@
     {%- if display_swatches -%}
       {%- if is_color_pack -%}
         <div class="aero-product-card__swatches" aria-label="Available colors">
+          <span
+            class="swatch-aero-resin swatch-aero-resin--mini swatch-aero-resin--rainbow"
+            title="You Pick"
+          ></span>
           {%- assign swatch_colors = 'Pink,Red,Orange,Yellow,Green,Cyan,Blue,Purple' | split: ',' -%}
           {%- for color_name in swatch_colors -%}
             {%- assign color_slug = color_name | downcase -%}
