@@ -1,0 +1,115 @@
+<section class="aero-section">
+  <div class="page-width">
+    <div class="aero-glass aero-window">
+      <div class="aero-window__bar">
+        <span class="aero-window__dots" aria-hidden="true">
+          <span class="aero-window__dot aero-window__dot--cyan"></span>
+          <span class="aero-window__dot aero-window__dot--green"></span>
+          <span class="aero-window__dot aero-window__dot--pink"></span>
+        </span>
+        <span class="aero-window__title">Origin Story · Boulder, CO</span>
+        <span class="aero-pill aero-pill--green">Terpmetrix Lab</span>
+      </div>
+
+      <div class="aero-story-grid" style="padding:clamp(1.5rem, 3.5vw, 2.75rem);">
+        <div>
+          <span class="aero-mono-tag">FROM PROTOTYPE TO PRODUCT</span>
+          <h2 style="margin-top:0.35rem;">{{ section.settings.heading | escape }}</h2>
+          <p class="aero-muted" style="font-size:1.02rem;">
+            {{ section.settings.story_copy | escape }}
+          </p>
+
+          {%- if section.settings.story_image != blank -%}
+            <img
+              src="{{ section.settings.story_image | image_url: width: 900 }}"
+              alt="{{ section.settings.heading | escape }}"
+              style="border-radius:20px;border:1px solid rgba(255,255,255,0.85);margin-bottom:1.25rem;"
+              loading="lazy"
+            >
+          {%- endif -%}
+
+          <a href="{{ section.settings.cta_link | default: '/pages/about-us' }}" class="btn-aero-sky btn-aero-gel--sm">
+            <span>{{ section.settings.cta_label | escape }}</span>
+            {% render 'aero-icon', icon: 'arrow-right' %}
+          </a>
+        </div>
+
+        <div class="aero-timeline">
+          <div class="aero-glass aero-timeline__item">
+            <span class="aero-timeline__num">01</span>
+            <div>
+              <h4 style="margin-bottom:0.2rem;">One Broken 3D Print</h4>
+              <p class="aero-muted" style="margin:0;font-size:0.9rem;">Started as a happy accident by Sam in Boulder—solving sticky fingers and messy pinches once and for all.</p>
+            </div>
+          </div>
+
+          <div class="aero-glass aero-timeline__item">
+            <span class="aero-timeline__num">02</span>
+            <div>
+              <h4 style="margin-bottom:0.2rem;">Grinder-Chamber Ergonomics</h4>
+              <p class="aero-muted" style="margin:0;font-size:0.9rem;">Refined geometry engineered specifically to nest inside standard herb grinders so it's never misplaced.</p>
+            </div>
+          </div>
+
+          <div class="aero-glass aero-timeline__item">
+            <span class="aero-timeline__num">03</span>
+            <div>
+              <h4 style="margin-bottom:0.2rem;">8-Color Acrylic Injection Molding</h4>
+              <p class="aero-muted" style="margin:0;font-size:0.9rem;">Upgraded to glossy, durable injection-molded acrylic resin and hand-packed in a dime bag with love.</p>
+            </div>
+          </div>
+
+          <div class="aero-glass aero-timeline__item">
+            <span class="aero-timeline__num">04</span>
+            <div>
+              <h4 style="margin-bottom:0.2rem;">Metal &amp; Sterling Silver Editions</h4>
+              <p class="aero-muted" style="margin:0;font-size:0.9rem;">Expanded into 3D-printed 304 Stainless, Aerospace Titanium, and 15g Sterling Silver cast by @kevianjewelers.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Boulder Founder Story",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "What started as one broken 3D print turned into the cleanest way to handle herb."
+    },
+    {
+      "type": "textarea",
+      "id": "story_copy",
+      "label": "Story copy",
+      "default": "Welcome to Terpscoops, part of the Terpmetrix family. We believe enjoying cannabis should feel effortless and refined—no sticky fingers, no bits under your nails, just intentional design."
+    },
+    {
+      "type": "image_picker",
+      "id": "story_image",
+      "label": "Optional story photo"
+    },
+    {
+      "type": "text",
+      "id": "cta_label",
+      "label": "CTA Label",
+      "default": "Read Sam's Full Story"
+    },
+    {
+      "type": "url",
+      "id": "cta_link",
+      "label": "CTA Link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Boulder Founder Story"
+    }
+  ]
+}
+{% endschema %}
+

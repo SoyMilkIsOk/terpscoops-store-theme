@@ -1,0 +1,43 @@
+{
+  "name": "Header Group",
+  "type": "header",
+  "sections": {
+    "announcement-bar": {
+      "type": "announcement-bar",
+      "blocks": {
+        "msg-1": {
+          "type": "announcement",
+          "settings": {
+            "text": "🥄 Get a 2-Pack for $4.20!",
+            "link": "/products/terpscoop-2pk"
+          }
+        },
+        "msg-2": {
+          "type": "announcement",
+          "settings": {
+            "text": "🏔️ Hand-packed in Boulder, CO",
+            "link": "/pages/about-us"
+          }
+        },
+        "msg-3": {
+          "type": "announcement",
+          "settings": {
+            "text": "🏪 Buy a 25ct Display Jar for your shop →",
+            "link": "/pages/wholesale"
+          }
+        }
+      },
+      "block_order": ["msg-1", "msg-2", "msg-3"],
+      "settings": {}
+    },
+    "header": {
+      "type": "header",
+      "settings": {
+        "menu": "main-menu",
+        "show_search": true
+      }
+    }
+  },
+  "order": ["announcement-bar", "header"]
+}
+

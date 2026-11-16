@@ -1,0 +1,79 @@
+<section class="aero-section aero-section--tight">
+  <div class="page-width">
+    <div class="aero-glass aero-window">
+      <div class="aero-window__bar">
+        <span class="aero-window__dots" aria-hidden="true">
+          <span class="aero-window__dot aero-window__dot--green"></span>
+          <span class="aero-window__dot aero-window__dot--cyan"></span>
+        </span>
+        <span class="aero-window__title">Dispensaries &amp; Headshops · Wholesale Counter Display</span>
+        <span class="aero-pill aero-pill--green">$1.60 / Scoop Cost</span>
+      </div>
+
+      <div class="aero-story-grid" style="padding:clamp(1.5rem, 3.5vw, 2.5rem);">
+        <div>
+          <span class="aero-mono-tag">RETAIL COUNTERTOP BESTSELLER</span>
+          <h2 style="margin-top:0.35rem;">{{ section.settings.heading | escape }}</h2>
+          <p class="aero-muted" style="font-size:1.02rem;">
+            {{ section.settings.subheading | escape }}
+          </p>
+          <div style="display:flex;flex-wrap:wrap;gap:0.75rem;margin-top:1rem;">
+            <a href="/products/jar-of-scoops" class="btn-aero-gel">
+              <span>Order 25ct Display Jar — $40</span>
+            </a>
+            <a href="/pages/wholesale" class="btn-aero-sky">
+              <span>Margin Calculator &amp; Tax-Exempt Form</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="aero-glass" style="padding:1.4rem;border-radius:20px;">
+          <div class="aero-calc-metrics" style="margin-top:0;">
+            <div class="aero-calc-stat">
+              <span class="aero-calc-stat__label">Jar Count</span>
+              <span class="aero-calc-stat__val">25 Scoops</span>
+            </div>
+            <div class="aero-calc-stat">
+              <span class="aero-calc-stat__label">Wholesale Unit Cost</span>
+              <span class="aero-calc-stat__val">$1.60</span>
+            </div>
+            <div class="aero-calc-stat">
+              <span class="aero-calc-stat__label">Counter Label</span>
+              <span class="aero-calc-stat__val" style="font-size:1rem;">Use Comic + IG</span>
+            </div>
+            <div class="aero-calc-stat">
+              <span class="aero-calc-stat__label">Bonus Included</span>
+              <span class="aero-calc-stat__val" style="font-size:1rem;">Free Stickers</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Wholesale Jar Banner",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Stock the 25ct Terpscoop Display Jar at your register."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Custom display jar packed with 25 vibrant scoops, a comic strip explaining how it fits inside any grinder, giveaway QR tie-in, and extra stickers for your customers."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Wholesale Jar Banner"
+    }
+  ]
+}
+{% endschema %}
+

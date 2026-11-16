@@ -1,0 +1,33 @@
+{%- liquid
+  assign handle_lower = product.handle | downcase
+  if handle_lower contains 'titanium' or handle_lower contains 'stainless' or handle_lower contains 'silver'
+    render 'pdp-metal', product: product
+  elsif handle_lower contains '2pk' or handle_lower contains '4pk' or handle_lower contains '8pk' or handle_lower contains 'jar'
+    render 'pdp-color-pack', product: product
+  else
+    render 'pdp-merch', product: product
+  endif
+-%}
+
+{%- for block in section.blocks -%}
+  {%- if block.type == '@app' -%}
+    <div class="page-width aero-section--tight" {{ block.shopify_attributes }}>
+      <div class="aero-glass" style="padding:1.5rem;">
+        {% render block %}
+      </div>
+    </div>
+  {%- endif -%}
+{%- endfor -%}
+
+{% schema %}
+{
+  "name": "Smart Aero Product",
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "settings": []
+}
+{% endschema %}
+

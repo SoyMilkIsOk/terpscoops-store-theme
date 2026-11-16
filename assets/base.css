@@ -1,0 +1,1926 @@
+/* ==========================================================================
+   TerpAero — Frutiger Aero Design System for terpscoops.com
+   Translucent Resin & Liquid Chrome
+   ========================================================================== */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+  scroll-behavior: smooth;
+  -webkit-font-smoothing: antialiased;
+}
+
+body.terp-aero-body {
+  margin: 0;
+  min-height: 100vh;
+  font-family: var(--font-body);
+  font-size: calc(1rem * var(--body-scale, 1));
+  line-height: 1.55;
+  color: var(--aero-ink);
+  background:
+    radial-gradient(950px 520px at 8% -5%, rgba(0, 212, 255, 0.22), transparent 65%),
+    radial-gradient(880px 540px at 95% 12%, rgba(95, 227, 161, 0.25), transparent 62%),
+    linear-gradient(180deg, var(--aero-sky-top) 0%, var(--aero-mint-mid) 45%, #F6FBFF 100%);
+  background-attachment: fixed;
+  overflow-x: hidden;
+  position: relative;
+}
+
+body.age-gate-locked,
+body.drawer-open {
+  overflow: hidden;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5 {
+  font-family: var(--font-heading);
+  line-height: 1.12;
+  letter-spacing: -0.02em;
+  margin: 0 0 0.65em;
+  color: var(--aero-ink);
+}
+
+h1 {
+  font-size: calc(clamp(2.2rem, 4.4vw, 3.65rem) * var(--heading-scale, 1));
+}
+
+h2 {
+  font-size: calc(clamp(1.75rem, 3.1vw, 2.55rem) * var(--heading-scale, 1));
+}
+
+h3 {
+  font-size: calc(clamp(1.2rem, 2vw, 1.55rem) * var(--heading-scale, 1));
+}
+
+h4 {
+  font-size: calc(1.08rem * var(--heading-scale, 1));
+}
+
+p {
+  margin: 0 0 1em;
+}
+
+.skip-to-content-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 9999;
+  padding: 0.75rem 1.25rem;
+  background: var(--aero-gel-sky);
+  color: #fff;
+  border-radius: 999px;
+  font-weight: 700;
+}
+
+.skip-to-content-link:focus {
+  left: 1rem;
+  top: 1rem;
+}
+
+.page-width {
+  width: 100%;
+  max-width: 1320px;
+  margin-inline: auto;
+  padding-inline: clamp(1rem, 3vw, 2.25rem);
+}
+
+.aero-section {
+  position: relative;
+  padding-block: clamp(2.5rem, 5vw, 4.5rem);
+  z-index: 1;
+}
+
+.aero-section--tight {
+  padding-block: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+/* ==========================================================================
+   Ambient Aero Bubbles & Light Orbs
+   ========================================================================== */
+
+.aero-ambient-stage {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  overflow: hidden;
+}
+
+.aero-bubbles-svg {
+  width: 100%;
+  height: 100%;
+  opacity: 0.68;
+}
+
+.aero-orb {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(55px);
+  opacity: 0.45;
+}
+
+.aero-orb--sky {
+  width: 480px;
+  height: 480px;
+  top: -120px;
+  left: -90px;
+  background: radial-gradient(circle, #5BE0FF, transparent 70%);
+}
+
+.aero-orb--mint {
+  width: 520px;
+  height: 520px;
+  top: 18%;
+  right: -140px;
+  background: radial-gradient(circle, #6CF0BA, transparent 70%);
+}
+
+.aero-orb--cyan {
+  width: 400px;
+  height: 400px;
+  bottom: -100px;
+  left: 35%;
+  background: radial-gradient(circle, #82D8FF, transparent 70%);
+}
+
+/* ==========================================================================
+   Aero Glass Surfaces & Windows
+   ========================================================================== */
+
+.aero-glass {
+  background: linear-gradient(145deg,
+      rgba(255, 255, 255, 0.82) 0%,
+      rgba(255, 255, 255, 0.56) 55%,
+      rgba(225, 247, 255, 0.64) 100%);
+  backdrop-filter: blur(var(--glass-blur, 20px)) saturate(185%);
+  -webkit-backdrop-filter: blur(var(--glass-blur, 20px)) saturate(185%);
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    0 14px 36px -10px rgba(0, 118, 178, 0.16),
+    0 2px 6px rgba(10, 34, 57, 0.05);
+  border-radius: 26px;
+}
+
+.aero-window {
+  overflow: hidden;
+}
+
+.aero-window__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  padding: 0.7rem 1.15rem;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.88) 0%, rgba(212, 242, 255, 0.58) 100%);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.78);
+}
+
+.aero-window__dots {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+
+.aero-window__dot {
+  width: 11px;
+  height: 11px;
+  border-radius: 50%;
+  box-shadow: inset 0 1px 2px rgba(255, 255, 255, 0.9), 0 1px 2px rgba(0, 0, 0, 0.14);
+}
+
+.aero-window__dot--cyan {
+  background: linear-gradient(180deg, #74EFFF, #00A6E8);
+}
+
+.aero-window__dot--green {
+  background: linear-gradient(180deg, #86F7C8, #00B27A);
+}
+
+.aero-window__dot--pink {
+  background: linear-gradient(180deg, #FF9BCE, #FF4FA3);
+}
+
+.aero-window__title {
+  font-family: var(--font-mono);
+  font-size: 0.73rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--aero-ink-muted);
+}
+
+/* ==========================================================================
+   Liquid Chrome Dark Vault Scheme
+   ========================================================================== */
+
+.scheme-aero-chrome {
+  color: #EFF7FF;
+  background:
+    radial-gradient(680px 380px at 15% 15%, rgba(0, 229, 255, 0.16), transparent 65%),
+    radial-gradient(620px 420px at 88% 85%, rgba(167, 210, 255, 0.14), transparent 65%),
+    linear-gradient(160deg, #071320 0%, #0D1E31 52%, #07101B 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  border-bottom: 1px solid rgba(0, 229, 255, 0.22);
+}
+
+.scheme-aero-chrome h1,
+.scheme-aero-chrome h2,
+.scheme-aero-chrome h3,
+.scheme-aero-chrome h4 {
+  color: #FFFFFF;
+}
+
+.scheme-aero-chrome p,
+.scheme-aero-chrome .aero-muted {
+  color: #B4C8DC;
+}
+
+.aero-chrome-glass {
+  background: linear-gradient(145deg,
+      rgba(255, 255, 255, 0.13) 0%,
+      rgba(160, 198, 232, 0.06) 55%,
+      rgba(0, 229, 255, 0.08) 100%);
+  backdrop-filter: blur(22px) saturate(160%);
+  -webkit-backdrop-filter: blur(22px) saturate(160%);
+  border: 1px solid rgba(226, 240, 255, 0.24);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.32),
+    0 20px 42px -12px rgba(0, 0, 0, 0.55);
+  border-radius: 26px;
+}
+
+/* ==========================================================================
+   Badges, Tags & Typography Helpers
+   ========================================================================== */
+
+.aero-mono-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--aero-gel-sky);
+}
+
+.scheme-aero-chrome .aero-mono-tag {
+  color: var(--aero-chrome-accent);
+}
+
+.aero-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.32rem 0.75rem;
+  border-radius: 999px;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  border: 1px solid rgba(255, 255, 255, 0.78);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 4px 12px rgba(0, 90, 140, 0.12);
+}
+
+.aero-pill--green {
+  background: linear-gradient(180deg, #D5FFEF 0%, #9AF3D2 100%);
+  color: #054E35;
+}
+
+.aero-pill--sky {
+  background: linear-gradient(180deg, #DCF6FF 0%, #A9E7FF 100%);
+  color: #064066;
+}
+
+.aero-pill--chrome {
+  background: linear-gradient(180deg, #F3F8FF 0%, #C6D5E6 100%);
+  color: #0B1929;
+}
+
+.aero-pill--muted {
+  background: rgba(255, 255, 255, 0.72);
+  color: #4D6278;
+}
+
+.aero-muted {
+  color: var(--aero-ink-muted);
+}
+
+.aero-section-header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-bottom: clamp(1.5rem, 3vw, 2.5rem);
+}
+
+.aero-section-header__copy {
+  max-width: 680px;
+}
+
+.aero-section-header__copy p {
+  margin-bottom: 0;
+  font-size: 1.05rem;
+  color: var(--aero-ink-muted);
+}
+
+.scheme-aero-chrome .aero-section-header__copy p {
+  color: #B4C8DC;
+}
+
+/* ==========================================================================
+   Glossy Aqua Gel Buttons (.btn-aero-*)
+   ========================================================================== */
+
+.btn-aero-gel,
+.btn-aero-sky,
+.btn-aero-chrome,
+.btn-aero-ghost {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  padding: 0.85rem 1.55rem;
+  border-radius: 999px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  font-size: 0.95rem;
+  line-height: 1.1;
+  cursor: pointer;
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.2s ease, filter 0.2s ease;
+  overflow: hidden;
+  text-align: center;
+}
+
+.btn-aero-gel::before,
+.btn-aero-sky::before,
+.btn-aero-chrome::before {
+  content: "";
+  position: absolute;
+  inset: 2px 4px 48% 4px;
+  border-radius: 999px 999px 44% 44%;
+  background: linear-gradient(180deg,
+      rgba(255, 255, 255, var(--gel-gloss-opacity, 0.8)) 0%,
+      rgba(255, 255, 255, 0.14) 100%);
+  pointer-events: none;
+}
+
+.btn-aero-gel {
+  color: #FFFFFF;
+  text-shadow: 0 1px 1px rgba(0, 62, 42, 0.45);
+  background: linear-gradient(180deg, #3BE3AA 0%, #00A878 52%, #00825C 100%);
+  box-shadow:
+    inset 0 -2px 4px rgba(0, 65, 45, 0.25),
+    0 10px 22px -6px rgba(0, 168, 120, 0.48);
+}
+
+.btn-aero-sky {
+  color: #FFFFFF;
+  text-shadow: 0 1px 1px rgba(0, 52, 92, 0.45);
+  background: linear-gradient(180deg, #53D4FF 0%, #0096D6 52%, #006EA6 100%);
+  box-shadow:
+    inset 0 -2px 4px rgba(0, 50, 90, 0.25),
+    0 10px 22px -6px rgba(0, 150, 214, 0.46);
+}
+
+.btn-aero-chrome {
+  color: #091726;
+  background: linear-gradient(180deg, #FFFFFF 0%, #D9E5F2 50%, #B4C6DA 100%);
+  border-color: rgba(255, 255, 255, 0.92);
+  box-shadow:
+    inset 0 -2px 3px rgba(60, 85, 110, 0.2),
+    0 10px 24px -8px rgba(0, 229, 255, 0.32);
+}
+
+.btn-aero-ghost {
+  color: var(--aero-ink);
+  background: rgba(255, 255, 255, 0.66);
+  backdrop-filter: blur(12px);
+  border: 1px solid rgba(10, 34, 57, 0.16);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.scheme-aero-chrome .btn-aero-ghost {
+  color: #EAF5FF;
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+}
+
+.btn-aero-gel:hover,
+.btn-aero-sky:hover,
+.btn-aero-chrome:hover,
+.btn-aero-ghost:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.05);
+}
+
+.btn-aero-gel:active,
+.btn-aero-sky:active,
+.btn-aero-chrome:active {
+  transform: translateY(0);
+}
+
+.btn-aero-gel[disabled],
+.btn-aero-sky[disabled] {
+  opacity: 0.52;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.btn-aero-gel--sm {
+  padding: 0.58rem 1.05rem;
+  font-size: 0.85rem;
+}
+
+.btn-aero-gel--xs {
+  padding: 0.42rem 0.85rem;
+  font-size: 0.78rem;
+}
+
+.btn-aero-gel--full {
+  width: 100%;
+}
+
+/* ==========================================================================
+   3D Translucent Acrylic Resin Orbs (.swatch-aero-resin)
+   ========================================================================== */
+
+.swatch-aero-resin {
+  --resin-color: #00D4FF;
+  position: relative;
+  display: inline-block;
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.18) 28%, transparent 55%),
+    radial-gradient(circle at 68% 72%, rgba(0, 0, 0, 0.22) 0%, transparent 55%),
+    var(--resin-color);
+  border: 1.5px solid rgba(255, 255, 255, 0.9);
+  box-shadow:
+    inset 0 2px 3px rgba(255, 255, 255, 0.7),
+    0 4px 10px rgba(10, 34, 57, 0.18);
+  flex-shrink: 0;
+}
+
+.swatch-aero-resin--xs {
+  width: 12px;
+  height: 12px;
+  border-width: 1px;
+}
+
+.swatch-aero-resin--mini {
+  width: 15px;
+  height: 15px;
+  border-width: 1px;
+}
+
+.swatch-aero-resin--lg {
+  width: 34px;
+  height: 34px;
+}
+
+.swatch-aero-resin--xl {
+  width: 56px;
+  height: 56px;
+}
+
+/* ==========================================================================
+   Announcement Bar & Floating Aero Taskbar Header
+   ========================================================================== */
+
+.aero-announcement {
+  position: relative;
+  z-index: 40;
+  background: linear-gradient(90deg, #0077C2 0%, #00A896 50%, #008FD6 100%);
+  color: #FFFFFF;
+  font-size: 0.84rem;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+}
+
+.aero-announcement__inner {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.75rem 1.75rem;
+  padding-block: 0.48rem;
+}
+
+.aero-announcement__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  color: #FFFFFF;
+}
+
+.aero-announcement__item:hover {
+  text-decoration: underline;
+}
+
+.aero-header-wrap {
+  position: sticky;
+  top: 0.65rem;
+  z-index: 45;
+  padding-inline: clamp(0.75rem, 2.5vw, 1.5rem);
+  margin-top: 0.65rem;
+}
+
+.aero-header {
+  max-width: 1320px;
+  margin-inline: auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.6rem 1.1rem;
+  border-radius: 999px;
+}
+
+.aero-header__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  font-family: var(--font-heading);
+  font-weight: 800;
+  font-size: 1.2rem;
+  color: var(--aero-ink);
+}
+
+.aero-header__logo-img {
+  max-height: 36px;
+  width: auto;
+}
+
+.aero-header__badge-mark {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 12px;
+  color: #fff;
+  background: linear-gradient(145deg, #3BE3AA 0%, #0096D6 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 4px 12px rgba(0, 150, 214, 0.35);
+}
+
+.aero-nav {
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.aero-nav__link {
+  padding: 0.48rem 0.9rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.92rem;
+  color: var(--aero-ink);
+  transition: background 0.18s ease, box-shadow 0.18s ease;
+}
+
+.aero-nav__link:hover,
+.aero-nav__link.is-active {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.95) 0%, rgba(206, 243, 255, 0.72) 100%);
+  box-shadow: inset 0 1px 0 #FFFFFF, 0 4px 10px rgba(0, 130, 195, 0.14);
+}
+
+.aero-header__actions {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+}
+
+.aero-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-width: 40px;
+  height: 40px;
+  padding-inline: 0.85rem;
+  border-radius: 999px;
+  border: 1px solid rgba(255, 255, 255, 0.88);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.92) 0%, rgba(220, 245, 255, 0.7) 100%);
+  color: var(--aero-ink);
+  font-weight: 700;
+  font-size: 0.88rem;
+  cursor: pointer;
+  box-shadow: 0 4px 12px rgba(0, 118, 178, 0.12);
+}
+
+.aero-cart-count {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 22px;
+  height: 22px;
+  padding-inline: 0.35rem;
+  border-radius: 999px;
+  background: linear-gradient(180deg, #3BE3AA 0%, #00A878 100%);
+  color: #FFFFFF;
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  font-weight: 700;
+}
+
+.aero-mobile-trigger {
+  display: none;
+}
+
+.aero-mobile-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  display: none;
+  background: rgba(8, 28, 48, 0.35);
+  backdrop-filter: blur(8px);
+}
+
+.aero-mobile-drawer.is-open {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.aero-mobile-drawer__panel {
+  width: min(320px, 86vw);
+  height: 100%;
+  padding: 1.4rem;
+  border-radius: 0 26px 26px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.aero-mobile-drawer__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 0.75rem;
+  border-bottom: 1px solid rgba(10, 34, 57, 0.1);
+}
+
+.aero-mobile-drawer__links {
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.aero-mobile-drawer__link {
+  padding: 0.75rem 1rem;
+  border-radius: 16px;
+  font-weight: 700;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1px solid rgba(255, 255, 255, 0.9);
+}
+
+@media (max-width: 960px) {
+  .aero-nav {
+    display: none;
+  }
+
+  .aero-mobile-trigger {
+    display: inline-flex;
+  }
+}
+
+/* ==========================================================================
+   Homepage Sections
+   ========================================================================== */
+
+/* 1. Split Ritual Hero */
+.aero-hero-grid {
+  display: grid;
+  grid-template-columns: 1.12fr 0.88fr;
+  gap: clamp(1.25rem, 3vw, 2.25rem);
+  align-items: stretch;
+}
+
+.aero-hero-panel {
+  display: flex;
+  flex-direction: column;
+}
+
+.aero-hero-panel__body {
+  padding: clamp(1.5rem, 3.5vw, 2.6rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+  flex: 1;
+}
+
+.aero-hero-panel__subtitle {
+  font-size: 1.12rem;
+  color: var(--aero-ink-muted);
+  max-width: 54ch;
+  margin-bottom: 0;
+}
+
+.aero-hero-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.55rem;
+}
+
+.aero-hero-ctas {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.85rem;
+  margin-top: 0.4rem;
+}
+
+.aero-hero-rating {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.88rem;
+  font-weight: 600;
+  color: var(--aero-ink-muted);
+  margin-top: auto;
+  padding-top: 0.5rem;
+}
+
+.aero-stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.15rem;
+  color: #FFB300;
+}
+
+.aero-hero-stage {
+  padding: 1.65rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1.25rem;
+  background:
+    radial-gradient(circle at 50% 35%, rgba(255, 255, 255, 0.92) 0%, rgba(169, 240, 255, 0.42) 55%, rgba(95, 227, 161, 0.25) 100%);
+}
+
+.aero-hero-stage__canvas {
+  position: relative;
+  min-height: 270px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 20px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.65) 0%, rgba(221, 247, 255, 0.45) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  overflow: hidden;
+  padding: 1.5rem;
+}
+
+.aero-hero-stage__img {
+  max-height: 260px;
+  object-fit: contain;
+  border-radius: 16px;
+}
+
+.aero-hero-orb-display {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+  text-align: center;
+}
+
+.aero-hero-orb-ring {
+  width: 144px;
+  height: 144px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9), rgba(200, 242, 255, 0.55));
+  border: 2px solid #FFFFFF;
+  box-shadow: 0 18px 40px -10px rgba(0, 130, 195, 0.3);
+}
+
+.aero-hero-color-bar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 0.55rem;
+}
+
+.aero-hero-color-btn {
+  padding: 0.22rem;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  background: transparent;
+  cursor: pointer;
+  transition: transform 0.16s ease, border-color 0.16s ease;
+}
+
+.aero-hero-color-btn.is-selected,
+.aero-hero-color-btn:hover {
+  transform: scale(1.14);
+  border-color: var(--aero-ink);
+}
+
+@media (max-width: 900px) {
+  .aero-hero-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* 2. 3-Column Feature Cards (Grinder Fit Anatomy) */
+.aero-grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.aero-grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 1.25rem;
+}
+
+.aero-grid-2 {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+@media (max-width: 1024px) {
+  .aero-grid-4 {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 820px) {
+
+  .aero-grid-3,
+  .aero-grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 580px) {
+  .aero-grid-4 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.aero-step-card {
+  padding: 1.6rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+}
+
+.aero-step-card__icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 16px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #FFFFFF;
+  background: linear-gradient(145deg, #43E8B5 0%, #0096D6 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.85), 0 8px 18px rgba(0, 150, 214, 0.25);
+}
+
+/* 3. Product Cards */
+.aero-product-card {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  transition: transform 0.22s ease, box-shadow 0.22s ease;
+}
+
+.aero-product-card:hover {
+  transform: translateY(-4px);
+}
+
+.aero-product-card--chrome {
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.12) 0%, rgba(155, 198, 240, 0.06) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 26px;
+  color: #FFFFFF;
+}
+
+.aero-product-card__media {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  overflow: hidden;
+  background: linear-gradient(180deg, rgba(235, 249, 255, 0.8) 0%, rgba(255, 255, 255, 0.4) 100%);
+}
+
+.aero-product-card--chrome .aero-product-card__media {
+  background: radial-gradient(circle at 50% 45%, rgba(0, 229, 255, 0.14), rgba(7, 17, 29, 0.85));
+}
+
+.aero-product-card__badge {
+  position: absolute;
+  top: 0.8rem;
+  left: 0.8rem;
+  z-index: 3;
+}
+
+.aero-product-card__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: opacity 0.28s ease, transform 0.35s ease;
+}
+
+.aero-product-card__img--secondary {
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+}
+
+.aero-product-card:hover .aero-product-card__img--secondary {
+  opacity: 1;
+}
+
+.aero-product-card__placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--aero-gel-sky);
+}
+
+.aero-product-card__body {
+  padding: 1.15rem 1.25rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.65rem;
+  flex: 1;
+}
+
+.aero-product-card__meta {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.aero-product-card__title {
+  font-size: 1.08rem;
+  margin: 0;
+}
+
+.aero-product-card--chrome .aero-product-card__title {
+  color: #FFFFFF;
+}
+
+.aero-product-card__swatches {
+  display: flex;
+  align-items: center;
+  gap: 0.28rem;
+  flex-wrap: wrap;
+}
+
+.aero-product-card__footer {
+  margin-top: auto;
+  padding-top: 0.6rem;
+  border-top: 1px solid rgba(10, 34, 57, 0.08);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+}
+
+.aero-product-card--chrome .aero-product-card__footer {
+  border-top-color: rgba(255, 255, 255, 0.14);
+}
+
+.aero-price-value {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 1rem;
+}
+
+.aero-price-from {
+  font-size: 0.78rem;
+  color: var(--aero-ink-muted);
+  margin-right: 0.25rem;
+}
+
+.aero-price-compare {
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+  opacity: 0.65;
+  margin-left: 0.35rem;
+}
+
+/* 4. Metal Vault Spec Table */
+.aero-spec-matrix {
+  margin-top: 2rem;
+  padding: 1.5rem;
+  overflow-x: auto;
+}
+
+.aero-spec-table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 640px;
+}
+
+.aero-spec-table th,
+.aero-spec-table td {
+  padding: 0.85rem 1rem;
+  text-align: left;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  font-size: 0.92rem;
+}
+
+.aero-spec-table th {
+  font-family: var(--font-mono);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--aero-chrome-accent);
+}
+
+/* 5. Founder Story & Reviews */
+.aero-story-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.75rem;
+  align-items: center;
+}
+
+@media (max-width: 900px) {
+  .aero-story-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.aero-timeline {
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.aero-timeline__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.2rem;
+  border-radius: 20px;
+}
+
+.aero-timeline__num {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.82rem;
+  padding: 0.35rem 0.6rem;
+  border-radius: 999px;
+  color: #fff;
+  background: linear-gradient(180deg, #43E8B5 0%, #0096D6 100%);
+  flex-shrink: 0;
+}
+
+.aero-review-card {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.aero-review-card__quote {
+  font-size: 0.98rem;
+  color: var(--aero-ink);
+  margin-bottom: 0;
+  flex: 1;
+}
+
+.aero-review-card__author {
+  font-family: var(--font-mono);
+  font-size: 0.76rem;
+  color: var(--aero-ink-muted);
+}
+
+/* ==========================================================================
+   PDP Layout, Pack Tier Switcher & Interactive "You Pick" Builder
+   ========================================================================== */
+
+.aero-pdp-grid {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(1.5rem, 3.5vw, 3rem);
+  align-items: start;
+}
+
+@media (max-width: 920px) {
+  .aero-pdp-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.aero-gallery__main {
+  border-radius: 26px;
+  overflow: hidden;
+  padding: 0.75rem;
+}
+
+.aero-gallery__main img {
+  width: 100%;
+  border-radius: 20px;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+}
+
+.aero-gallery__thumbs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.65rem;
+  margin-top: 0.85rem;
+}
+
+.aero-gallery__thumb {
+  width: 72px;
+  height: 72px;
+  padding: 0.25rem;
+  border-radius: 16px;
+  border: 2px solid rgba(255, 255, 255, 0.85);
+  background: rgba(255, 255, 255, 0.6);
+  cursor: pointer;
+  overflow: hidden;
+}
+
+.aero-gallery__thumb.is-active {
+  border-color: var(--aero-gel-sky);
+  box-shadow: 0 0 0 3px rgba(0, 150, 214, 0.22);
+}
+
+.aero-gallery__thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 11px;
+}
+
+.aero-pdp-info {
+  padding: clamp(1.35rem, 3vw, 2.2rem);
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+}
+
+.aero-pdp-price-row {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.aero-pdp-price {
+  font-family: var(--font-mono);
+  font-size: 1.65rem;
+  font-weight: 700;
+}
+
+/* Pack Tier Switcher */
+.aero-pack-switcher__label {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.55rem;
+}
+
+.aero-pack-switcher__hint {
+  font-size: 0.82rem;
+  color: var(--aero-ink-muted);
+}
+
+.aero-pack-switcher__grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 0.6rem;
+}
+
+.aero-pack-tier {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.2rem;
+  padding: 0.75rem 0.5rem;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.65);
+  border: 1.5px solid rgba(10, 34, 57, 0.12);
+  text-align: center;
+  transition: all 0.18s ease;
+}
+
+.aero-pack-tier:hover {
+  background: rgba(255, 255, 255, 0.92);
+  transform: translateY(-2px);
+}
+
+.aero-pack-tier.is-active {
+  background: linear-gradient(180deg, #E2FAFF 0%, #C5F7EA 100%);
+  border-color: var(--aero-gel-green);
+  box-shadow: 0 8px 18px rgba(0, 168, 120, 0.2);
+}
+
+.aero-pack-tier__badge {
+  font-family: var(--font-mono);
+  font-size: 0.65rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  background: rgba(0, 150, 214, 0.12);
+  color: var(--aero-gel-sky);
+}
+
+.aero-pack-tier__badge--best {
+  background: rgba(0, 168, 120, 0.16);
+  color: #03694A;
+}
+
+.aero-pack-tier__name {
+  font-size: 0.96rem;
+}
+
+.aero-pack-tier__price {
+  font-family: var(--font-mono);
+  font-weight: 700;
+  font-size: 0.92rem;
+}
+
+.aero-pack-tier__unit {
+  font-size: 0.74rem;
+  color: var(--aero-ink-muted);
+}
+
+/* Variant Option Pills */
+.aero-option-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.aero-option-group__title {
+  font-family: var(--font-mono);
+  font-size: 0.78rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.aero-option-pills {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.48rem;
+}
+
+.aero-option-pill input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.aero-option-pill span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.42rem;
+  padding: 0.48rem 0.9rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1.5px solid rgba(10, 34, 57, 0.15);
+  font-size: 0.86rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.16s ease;
+}
+
+.scheme-aero-chrome .aero-option-pill span {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+}
+
+.aero-option-pill input:checked+span {
+  background: linear-gradient(180deg, #FFFFFF 0%, #D5F5FF 100%);
+  border-color: var(--aero-gel-sky);
+  color: var(--aero-ink);
+  box-shadow: 0 4px 12px rgba(0, 150, 214, 0.22);
+}
+
+/* Interactive "You Pick" Capsule Builder */
+.aero-pack-builder {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.15rem;
+  margin-bottom: 1.1rem;
+  border-radius: 22px;
+  background: linear-gradient(145deg, rgba(255, 255, 255, 0.9) 0%, rgba(217, 248, 255, 0.78) 100%);
+}
+
+.aero-pack-builder.is-hidden {
+  display: none;
+}
+
+.aero-pack-builder.is-shake {
+  animation: terpShake 0.35s ease;
+}
+
+@keyframes terpShake {
+
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+
+  25% {
+    transform: translateX(-6px);
+  }
+
+  75% {
+    transform: translateX(6px);
+  }
+}
+
+.aero-pack-builder__header {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.65rem;
+}
+
+.aero-pack-builder__heading {
+  margin: 0.2rem 0 0;
+  font-size: 0.98rem;
+}
+
+.aero-pack-builder__actions {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.aero-capsule-tray {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(72px, 1fr));
+  gap: 0.55rem;
+}
+
+.aero-capsule-slot {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.35rem;
+  padding: 0.6rem 0.4rem;
+  border-radius: 16px;
+  border: 1.5px dashed rgba(0, 150, 214, 0.38);
+  background: rgba(255, 255, 255, 0.58);
+  cursor: pointer;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s ease;
+}
+
+.aero-capsule-slot.is-filled {
+  border-style: solid;
+  border-color: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.88);
+  box-shadow: 0 6px 14px rgba(0, 118, 178, 0.14);
+}
+
+.aero-capsule-slot.is-popping {
+  animation: terpPop 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+@keyframes terpPop {
+  0% {
+    transform: scale(0.86);
+  }
+
+  60% {
+    transform: scale(1.08);
+  }
+
+  100% {
+    transform: scale(1);
+  }
+}
+
+.aero-capsule-slot__orb {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 1.5px dashed rgba(10, 34, 57, 0.22);
+  background: rgba(255, 255, 255, 0.5);
+}
+
+.aero-capsule-slot.is-filled .aero-capsule-slot__orb {
+  border: 1.5px solid rgba(255, 255, 255, 0.95);
+  background:
+    radial-gradient(circle at 30% 28%, rgba(255, 255, 255, 0.92) 0%, rgba(255, 255, 255, 0.18) 30%, transparent 55%),
+    var(--resin-color, #00D4FF);
+  box-shadow: 0 4px 10px rgba(10, 34, 57, 0.18);
+}
+
+.aero-capsule-slot__label {
+  font-family: var(--font-mono);
+  font-size: 0.68rem;
+  font-weight: 700;
+  color: var(--aero-ink-muted);
+}
+
+.aero-resin-palette__caption {
+  display: block;
+  font-size: 0.8rem;
+  color: var(--aero-ink-muted);
+  margin-bottom: 0.5rem;
+}
+
+.aero-resin-palette__grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 0.5rem;
+}
+
+.aero-resin-choice {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.3rem;
+  padding: 0.5rem 0.35rem;
+  border-radius: 14px;
+  border: 1px solid rgba(255, 255, 255, 0.9);
+  background: rgba(255, 255, 255, 0.66);
+  cursor: pointer;
+  transition: transform 0.15s ease, background 0.15s ease;
+}
+
+.aero-resin-choice:hover {
+  transform: translateY(-2px);
+  background: #FFFFFF;
+}
+
+.aero-resin-choice__name {
+  font-size: 0.74rem;
+  font-weight: 600;
+}
+
+.aero-pack-builder__status {
+  padding: 0.55rem 0.85rem;
+  border-radius: 12px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  background: rgba(0, 150, 214, 0.08);
+  color: var(--aero-ink);
+}
+
+.aero-pack-builder__status.is-complete {
+  background: rgba(0, 168, 120, 0.14);
+  color: #03543A;
+}
+
+.aero-pack-builder__status.is-error {
+  background: rgba(255, 42, 75, 0.12);
+  color: #9C0E24;
+}
+
+/* PDP Accordions & Metal Restock Box */
+.aero-accordion {
+  border-top: 1px solid rgba(10, 34, 57, 0.1);
+}
+
+.scheme-aero-chrome .aero-accordion {
+  border-top-color: rgba(255, 255, 255, 0.15);
+}
+
+.aero-accordion summary {
+  list-style: none;
+  padding-block: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.aero-accordion__content {
+  padding-bottom: 1rem;
+  font-size: 0.92rem;
+  color: var(--aero-ink-muted);
+}
+
+.scheme-aero-chrome .aero-accordion__content {
+  color: #B4C8DC;
+}
+
+.aero-restock-box {
+  padding: 1.15rem;
+  border-radius: 20px;
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  background: rgba(0, 229, 255, 0.08);
+  margin-top: 0.85rem;
+}
+
+/* ==========================================================================
+   Wholesale Calculator & Forms
+   ========================================================================== */
+
+.aero-input,
+.aero-textarea,
+.aero-select {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  border: 1px solid rgba(10, 34, 57, 0.18);
+  background: rgba(255, 255, 255, 0.88);
+  color: var(--aero-ink);
+  font-family: var(--font-body);
+  font-size: 0.95rem;
+}
+
+.scheme-aero-chrome .aero-input {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #FFFFFF;
+}
+
+.aero-field {
+  margin-bottom: 0.85rem;
+}
+
+.aero-field label {
+  display: block;
+  font-size: 0.84rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.aero-calc-metrics {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.8rem;
+  margin-top: 1rem;
+}
+
+.aero-calc-stat {
+  padding: 0.9rem;
+  border-radius: 16px;
+  background: rgba(255, 255, 255, 0.72);
+  border: 1px solid #FFFFFF;
+}
+
+.aero-calc-stat__label {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  color: var(--aero-ink-muted);
+}
+
+.aero-calc-stat__val {
+  font-family: var(--font-mono);
+  font-size: 1.35rem;
+  font-weight: 700;
+  color: var(--aero-ink);
+}
+
+/* ==========================================================================
+   Native Aero Age Gate Dialog & Slide-Out Cart Drawer
+   ========================================================================== */
+
+.aero-age-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9990;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 1.25rem;
+  background: rgba(7, 25, 44, 0.62);
+  backdrop-filter: blur(18px);
+  -webkit-backdrop-filter: blur(18px);
+  transition: opacity 0.22s ease;
+}
+
+.aero-age-overlay[hidden] {
+  display: none;
+}
+
+.aero-age-overlay.is-closing {
+  opacity: 0;
+}
+
+.aero-age-dialog {
+  width: min(500px, 100%);
+  text-align: center;
+}
+
+.aero-age-dialog__body {
+  padding: 2rem 1.75rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.aero-age-dialog__actions {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 0.65rem;
+  margin-top: 0.35rem;
+}
+
+/* Slide-out Cart Drawer */
+.aero-drawer {
+  position: fixed;
+  inset: 0;
+  z-index: 95;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.22s ease;
+}
+
+.aero-drawer.is-open {
+  pointer-events: auto;
+  opacity: 1;
+}
+
+.aero-drawer__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(8, 28, 48, 0.38);
+  backdrop-filter: blur(8px);
+}
+
+.aero-drawer__panel {
+  position: absolute;
+  top: 0.75rem;
+  right: 0.75rem;
+  bottom: 0.75rem;
+  width: min(440px, calc(100vw - 1.5rem));
+  display: flex;
+  flex-direction: column;
+  transform: translateX(108%);
+  transition: transform 0.28s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
+}
+
+.aero-drawer.is-open .aero-drawer__panel {
+  transform: translateX(0);
+}
+
+.aero-drawer__header {
+  padding: 1rem 1.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid rgba(10, 34, 57, 0.08);
+}
+
+.aero-shipping-meter {
+  padding: 0.75rem 1.25rem;
+  background: rgba(255, 255, 255, 0.45);
+  border-bottom: 1px solid rgba(10, 34, 57, 0.06);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.aero-shipping-track {
+  height: 8px;
+  margin-top: 0.45rem;
+  border-radius: 999px;
+  background: rgba(10, 34, 57, 0.1);
+  overflow: hidden;
+}
+
+.aero-shipping-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #0096D6, #00C896);
+  transition: width 0.3s ease;
+}
+
+.aero-drawer__body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+.aero-cart-item {
+  display: grid;
+  grid-template-columns: 72px 1fr;
+  gap: 0.9rem;
+  padding: 0.8rem;
+  border-radius: 18px;
+}
+
+.aero-cart-item__img {
+  width: 72px;
+  height: 72px;
+  object-fit: cover;
+  border-radius: 12px;
+}
+
+.aero-cart-item__img--placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255, 255, 255, 0.7);
+  font-size: 1.5rem;
+}
+
+.aero-cart-item__title {
+  font-weight: 700;
+  font-size: 0.94rem;
+  display: block;
+}
+
+.aero-cart-item__variant {
+  font-size: 0.8rem;
+  color: var(--aero-ink-muted);
+}
+
+.aero-cart-item__props {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.3rem;
+  margin-top: 0.35rem;
+}
+
+.aero-cart-prop {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  padding: 0.15rem 0.45rem;
+  border-radius: 999px;
+  font-size: 0.72rem;
+  background: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(10, 34, 57, 0.1);
+}
+
+.aero-cart-item__controls {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 0.55rem;
+}
+
+.aero-qty-pill {
+  display: inline-flex;
+  align-items: center;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.85);
+  border: 1px solid rgba(10, 34, 57, 0.12);
+}
+
+.aero-qty-pill__btn {
+  width: 28px;
+  height: 28px;
+  border: none;
+  background: transparent;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.aero-qty-pill__val {
+  min-width: 24px;
+  text-align: center;
+  font-family: var(--font-mono);
+  font-size: 0.82rem;
+}
+
+.aero-drawer__footer {
+  padding: 1rem 1.25rem 1.25rem;
+  border-top: 1px solid rgba(10, 34, 57, 0.08);
+  background: rgba(255, 255, 255, 0.65);
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.aero-drawer__subtotal {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  font-size: 1.05rem;
+  font-weight: 700;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
+
+.aero-footer {
+  position: relative;
+  z-index: 2;
+  padding-block: 3rem 2rem;
+  margin-top: 2rem;
+}
+
+.aero-footer__panel {
+  padding: clamp(1.75rem, 3.5vw, 2.75rem);
+}
+
+.aero-footer__grid {
+  display: grid;
+  grid-template-columns: 1.3fr repeat(3, minmax(0, 1fr));
+  gap: 2rem;
+}
+
+@media (max-width: 880px) {
+  .aero-footer__grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 560px) {
+  .aero-footer__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.aero-footer__links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.aero-footer__links a {
+  color: var(--aero-ink-muted);
+  font-size: 0.92rem;
+}
+
+.aero-footer__links a:hover {
+  color: var(--aero-gel-sky);
+}
+
+.aero-footer__bottom {
+  margin-top: 2rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid rgba(10, 34, 57, 0.08);
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.84rem;
+  color: var(--aero-ink-muted);
+}
+
+.aero-badge-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.aero-form-alert {
+  padding: 0.8rem 1rem;
+  border-radius: 14px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+}
+
+.aero-form-alert--success {
+  background: rgba(0, 168, 120, 0.16);
+  border: 1px solid rgba(0, 168, 120, 0.35);
+  color: #03543A;
+}
+
+.aero-form-alert--error {
+  background: rgba(255, 42, 75, 0.14);
+  border: 1px solid rgba(255, 42, 75, 0.32);
+  color: #8F0D21;
+}

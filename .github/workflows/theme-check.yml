@@ -1,0 +1,25 @@
+name: Shopify Theme Check
+
+on:
+  push:
+    branches:
+      - main
+      - staging
+  pull_request:
+    branches:
+      - main
+      - staging
+
+jobs:
+  theme-check:
+    name: Run Shopify Theme Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Run Theme Check
+        uses: shopify/theme-check-action@v2
+        with:
+          fail_on_error: true
+

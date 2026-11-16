@@ -1,0 +1,321 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "TerpAero",
+    "theme_version": "1.0.0",
+    "theme_author": "Terpmetrix / Terpscoops",
+    "theme_documentation_url": "https://terpscoops.com",
+    "theme_support_email": "help@terpscoops.com"
+  },
+  {
+    "name": "Colors & Aero Atmosphere",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Frutiger Aero Day & Horizon Surfaces"
+      },
+      {
+        "type": "color",
+        "id": "color_sky_top",
+        "label": "Sky Horizon Top",
+        "default": "#DFF3FF"
+      },
+      {
+        "type": "color",
+        "id": "color_mint_mid",
+        "label": "Botanical Mint Midtone",
+        "default": "#EEFCF6"
+      },
+      {
+        "type": "color",
+        "id": "color_ink_primary",
+        "label": "Primary Ink (Aero Navy)",
+        "default": "#0A2239"
+      },
+      {
+        "type": "color",
+        "id": "color_ink_secondary",
+        "label": "Secondary Ink (Slate Teal)",
+        "default": "#3A5A78"
+      },
+      {
+        "type": "color",
+        "id": "color_gel_primary",
+        "label": "Primary Aqua Gel Green",
+        "default": "#00A878"
+      },
+      {
+        "type": "color",
+        "id": "color_gel_sky",
+        "label": "Secondary Aero Sky Cyan",
+        "default": "#0096D6"
+      },
+      {
+        "type": "color",
+        "id": "color_aurora_lime",
+        "label": "Aurora Botanical Lime",
+        "default": "#5FE3A1"
+      },
+      {
+        "type": "header",
+        "content": "Liquid Chrome Vault (Metal Series)"
+      },
+      {
+        "type": "color",
+        "id": "color_chrome_bg",
+        "label": "Chrome Vault Background",
+        "default": "#081421"
+      },
+      {
+        "type": "color",
+        "id": "color_chrome_accent",
+        "label": "Chrome Edge Glow",
+        "default": "#00E5FF"
+      },
+      {
+        "type": "header",
+        "content": "Acrylic Resin Swatch Palette"
+      },
+      {
+        "type": "color",
+        "id": "swatch_pink",
+        "label": "Pink Resin",
+        "default": "#FF4FA3"
+      },
+      {
+        "type": "color",
+        "id": "swatch_red",
+        "label": "Red Resin",
+        "default": "#FF2A4B"
+      },
+      {
+        "type": "color",
+        "id": "swatch_orange",
+        "label": "Orange Resin",
+        "default": "#FF7B00"
+      },
+      {
+        "type": "color",
+        "id": "swatch_yellow",
+        "label": "Yellow Resin",
+        "default": "#FFD000"
+      },
+      {
+        "type": "color",
+        "id": "swatch_green",
+        "label": "Green Resin",
+        "default": "#00C853"
+      },
+      {
+        "type": "color",
+        "id": "swatch_cyan",
+        "label": "Cyan Resin",
+        "default": "#00D4FF"
+      },
+      {
+        "type": "color",
+        "id": "swatch_blue",
+        "label": "Blue Resin",
+        "default": "#0066FF"
+      },
+      {
+        "type": "color",
+        "id": "swatch_purple",
+        "label": "Purple Resin",
+        "default": "#9D4EDD"
+      },
+      {
+        "type": "color",
+        "id": "swatch_clear",
+        "label": "Clear Frosted Resin",
+        "default": "#DDF4FF"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "select",
+        "id": "display_font",
+        "label": "Display / Heading Font",
+        "options": [
+          {
+            "value": "plus_jakarta",
+            "label": "Plus Jakarta Sans (Clean Humanist Aero)"
+          },
+          {
+            "value": "poetsen_one",
+            "label": "Poetsen One (Playful Rounded Terpscoops Classic)"
+          }
+        ],
+        "default": "plus_jakarta"
+      },
+      {
+        "type": "range",
+        "id": "heading_font_scale",
+        "label": "Heading Font Scale",
+        "min": 85,
+        "max": 130,
+        "step": 5,
+        "unit": "%",
+        "default": 100
+      },
+      {
+        "type": "range",
+        "id": "body_font_scale",
+        "label": "Body Font Scale",
+        "min": 90,
+        "max": 120,
+        "step": 5,
+        "unit": "%",
+        "default": 100
+      }
+    ]
+  },
+  {
+    "name": "Aero Glass & Visual Effects",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_aero_bubbles",
+        "label": "Enable ambient floating Aero bubbles & bokeh",
+        "default": true
+      },
+      {
+        "type": "range",
+        "id": "glass_blur_px",
+        "label": "Frosted Glass Blur Intensity",
+        "min": 8,
+        "max": 32,
+        "step": 2,
+        "unit": "px",
+        "default": 20
+      },
+      {
+        "type": "range",
+        "id": "gel_gloss_intensity",
+        "label": "Aqua Gel Gloss Intensity",
+        "min": 30,
+        "max": 100,
+        "step": 10,
+        "unit": "%",
+        "default": 80
+      }
+    ]
+  },
+  {
+    "name": "Native Age Verification (21+)",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_age_gate",
+        "label": "Enable native Aero Glass 21+ age gate",
+        "info": "Replaces third-party AgeChecker Plus blocking scripts with a zero-dependency modal.",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "age_gate_min_age",
+        "label": "Minimum Legal Age",
+        "default": 21
+      },
+      {
+        "type": "text",
+        "id": "age_gate_heading",
+        "label": "Modal Heading",
+        "default": "Welcome to Terpscoops"
+      },
+      {
+        "type": "textarea",
+        "id": "age_gate_subtext",
+        "label": "Modal Description",
+        "default": "Precision grinder tools, heirloom metal editions, and botanical accessories crafted in Boulder, CO. Please confirm you are 21 years of age or older to enter."
+      },
+      {
+        "type": "text",
+        "id": "age_gate_button_label",
+        "label": "Confirm Button Label",
+        "default": "I am 21+ — Enter Store"
+      },
+      {
+        "type": "text",
+        "id": "age_gate_exit_label",
+        "label": "Exit Button Label",
+        "default": "Under 21 — Exit"
+      },
+      {
+        "type": "url",
+        "id": "age_gate_exit_url",
+        "label": "Exit Redirect URL"
+      },
+      {
+        "type": "range",
+        "id": "age_gate_ttl_days",
+        "label": "Remember Verification (Days)",
+        "min": 1,
+        "max": 90,
+        "step": 1,
+        "unit": "d",
+        "default": 30
+      }
+    ]
+  },
+  {
+    "name": "Cart Drawer & Pack Upsell",
+    "settings": [
+      {
+        "type": "checkbox",
+        "id": "enable_cart_drawer",
+        "label": "Enable Aero Glass slide-out cart drawer",
+        "default": true
+      },
+      {
+        "type": "number",
+        "id": "cart_free_shipping_threshold",
+        "label": "Free Shipping Goal ($ USD)",
+        "default": 35
+      },
+      {
+        "type": "product",
+        "id": "cart_upsell_product",
+        "label": "Cart Impulse Upsell Product (e.g., Terpscoop 2pk)"
+      }
+    ]
+  },
+  {
+    "name": "Social Media & Contact",
+    "settings": [
+      {
+        "type": "text",
+        "id": "social_instagram_handle",
+        "label": "Instagram Handle",
+        "default": "@terpscoops"
+      },
+      {
+        "type": "url",
+        "id": "social_instagram_link",
+        "label": "Instagram Profile URL"
+      },
+      {
+        "type": "text",
+        "id": "wholesale_email",
+        "label": "Wholesale Contact Email",
+        "default": "wholesale@terpscoops.com"
+      },
+      {
+        "type": "text",
+        "id": "support_email",
+        "label": "Customer Support Email",
+        "default": "help@terpscoops.com"
+      },
+      {
+        "type": "text",
+        "id": "origin_city",
+        "label": "Origin Location Badge",
+        "default": "Boulder, CO"
+      }
+    ]
+  }
+]
+

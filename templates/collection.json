@@ -1,0 +1,17 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-collection",
+      "settings": {}
+    },
+    "wholesale": {
+      "type": "wholesale-cta-banner",
+      "settings": {
+        "heading": "Buying for a Dispensary or Headshop?",
+        "subheading": "Grab our 25ct Display Jar ($1.60/scoop) or open a tax-exempt wholesale account."
+      }
+    }
+  },
+  "order": ["main", "wholesale"]
+}
+

@@ -1,0 +1,55 @@
+{%- if settings.enable_age_gate -%}
+  <div
+    id="TerpAgeGateDialog"
+    class="aero-age-overlay"
+    role="dialog"
+    aria-modal="true"
+    aria-labelledby="TerpAgeGateTitle"
+    data-ttl-days="{{ settings.age_gate_ttl_days | default: 30 }}"
+    hidden
+  >
+    <div class="aero-glass aero-window aero-age-dialog">
+      <div class="aero-window__bar">
+        <span class="aero-window__dots" aria-hidden="true">
+          <span class="aero-window__dot aero-window__dot--cyan"></span>
+          <span class="aero-window__dot aero-window__dot--green"></span>
+          <span class="aero-window__dot aero-window__dot--pink"></span>
+        </span>
+        <span class="aero-window__title">Age Verification · {{ settings.age_gate_min_age | default: 21 }}+</span>
+        <span class="aero-pill aero-pill--sky">{{ settings.origin_city | default: 'Boulder, CO' }}</span>
+      </div>
+
+      <div class="aero-age-dialog__body">
+        <span class="swatch-aero-resin swatch-aero-resin--xl" style="--resin-color: var(--swatch-cyan);" aria-hidden="true"></span>
+        <h2 id="TerpAgeGateTitle" style="margin-bottom:0.2rem;">
+          {{ settings.age_gate_heading | default: 'Welcome to Terpscoops' }}
+        </h2>
+        <p class="aero-muted" style="margin-bottom:0;max-width:40ch;">
+          {{ settings.age_gate_subtext }}
+        </p>
+
+        <div class="aero-age-dialog__actions">
+          <button type="button" class="btn-aero-gel btn-aero-gel--full" data-age-confirm>
+            {% render 'aero-icon', icon: 'check' %}
+            <span>{{ settings.age_gate_button_label | default: 'I am 21+ — Enter Store' }}</span>
+          </button>
+
+          <a
+            href="{{ settings.age_gate_exit_url | default: 'https://www.google.com' }}"
+            class="btn-aero-ghost btn-aero-gel--full"
+          >
+            {{ settings.age_gate_exit_label | default: 'Under 21 — Exit' }}
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+{%- endif -%}
+
+{% schema %}
+{
+  "name": "Native 21+ Age Gate",
+  "settings": []
+}
+{% endschema %}
+

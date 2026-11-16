@@ -1,0 +1,58 @@
+<section class="aero-section aero-section--tight">
+  <div class="page-width">
+    <div class="aero-glass aero-window" style="padding:1.5rem 1.75rem;margin-bottom:1.75rem;">
+      <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
+        <div>
+          <span class="aero-mono-tag">COLLECTION CATALOG · {{ collection.products_count }} ITEMS</span>
+          <h1 style="margin:0.25rem 0 0;font-size:clamp(1.75rem, 3.2vw, 2.5rem);">{{ collection.title }}</h1>
+          {%- if collection.description != blank -%}
+            <div class="aero-muted" style="margin-top:0.4rem;">{{ collection.description }}</div>
+          {%- endif -%}
+        </div>
+
+        <div class="aero-hero-pills">
+          <a href="/collections/shop-terpscoops" class="aero-pill {% if collection.handle == 'shop-terpscoops' %}aero-pill--green{% else %}aero-pill--muted{% endif %}">All Scoops</a>
+          <a href="/collections/color-scoops" class="aero-pill {% if collection.handle == 'color-scoops' %}aero-pill--green{% else %}aero-pill--muted{% endif %}">Color Packs</a>
+          <a href="/collections/metal-scoops" class="aero-pill {% if collection.handle == 'metal-scoops' %}aero-pill--chrome{% else %}aero-pill--muted{% endif %}">Metal Vault</a>
+          <a href="/collections/merch" class="aero-pill {% if collection.handle == 'merch' %}aero-pill--sky{% else %}aero-pill--muted{% endif %}">Terp Merch</a>
+          <a href="/pages/wholesale" class="aero-pill aero-pill--sky">Wholesale</a>
+        </div>
+      </div>
+    </div>
+
+    {% paginate collection.products by 24 %}
+      {%- if collection.products.size > 0 -%}
+        <div class="aero-grid-4">
+          {%- for product in collection.products -%}
+            {% render 'product-card-aero', product: product, show_swatches: true %}
+          {%- endfor -%}
+        </div>
+
+        {%- if paginate.pages > 1 -%}
+          <nav style="display:flex;justify-content:center;gap:0.65rem;margin-top:2rem;" aria-label="Pagination">
+            {%- if paginate.previous -%}
+              <a href="{{ paginate.previous.url }}" class="btn-aero-ghost btn-aero-gel--sm">Previous</a>
+            {%- endif -%}
+            <span class="aero-pill aero-pill--sky">Page {{ paginate.current_page }} of {{ paginate.pages }}</span>
+            {%- if paginate.next -%}
+              <a href="{{ paginate.next.url }}" class="btn-aero-sky btn-aero-gel--sm">Next</a>
+            {%- endif -%}
+          </nav>
+        {%- endif -%}
+      {%- else -%}
+        <div class="aero-glass" style="padding:3rem;text-align:center;">
+          <h3>No products found in this collection yet.</h3>
+          <a href="/collections/all" class="btn-aero-gel btn-aero-gel--sm">Browse All Products</a>
+        </div>
+      {%- endif -%}
+    {% endpaginate %}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Aero Collection Grid",
+  "settings": []
+}
+{% endschema %}
+

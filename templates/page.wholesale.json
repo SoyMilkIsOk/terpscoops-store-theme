@@ -1,0 +1,47 @@
+{
+  "sections": {
+    "wholesale-portal": {
+      "type": "wholesale-portal",
+      "settings": {
+        "heading": "Stock Terpscoops at Your Dispensary or Headshop.",
+        "subheading": "Each Display Jar holds 25 acrylic Terpscoops ($1.60/unit), features an educational comic strip on the jar, giveaway QR callouts, and extra customer stickers."
+      }
+    },
+    "reviews": {
+      "type": "judgeme-editorial-reviews",
+      "blocks": {
+        "rev-1": {
+          "type": "review",
+          "settings": {
+            "product_tag": "Display Jar (25ct)",
+            "quote": "Customers spot the comic label right at the counter and grab a $4.20 pack on their way out. Zero effort upsell.",
+            "author": "Colorado Dispensary Partner"
+          }
+        },
+        "rev-2": {
+          "type": "review",
+          "settings": {
+            "product_tag": "Terpscoop 2pk",
+            "quote": "The terp scoop is the greatest thing ever invented. Perfect size for my bowls and don't need to worry about stinky fingers.",
+            "author": "Verified Customer"
+          }
+        },
+        "rev-3": {
+          "type": "review",
+          "settings": {
+            "product_tag": "Terpscoop 8pk",
+            "quote": "Got these for me and my friends, and I got us different colors like the power rangers.",
+            "author": "Verified Customer"
+          }
+        }
+      },
+      "block_order": ["rev-1", "rev-2", "rev-3"],
+      "settings": {
+        "heading": "Proven Countertop Demand",
+        "subheading": "5.0 ★ rating across 47+ verified customer reviews."
+      }
+    }
+  },
+  "order": ["wholesale-portal", "reviews"]
+}
+

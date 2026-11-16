@@ -1,0 +1,137 @@
+{
+  "sections": {
+    "ritual-hero": {
+      "type": "ritual-hero",
+      "settings": {
+        "window_title": "TerpAero OS · Boulder, CO",
+        "eyebrow": "World's Best Grinder Scoop",
+        "heading": "Stop pinching your herb. Start scooping.",
+        "subheading": "Ergonomic pocket grinder tools engineered to stay inside your grinder—keeping trichomes on your flower and sticky resin off your fingertips.",
+        "primary_cta_label": "Build a Color Pack ($4.20)",
+        "primary_cta_link": "/products/terpscoop-2pk",
+        "secondary_cta_label": "Explore Metal Vault",
+        "secondary_cta_link": "/collections/metal-scoops"
+      }
+    },
+    "grinder-fit-anatomy": {
+      "type": "grinder-fit-anatomy",
+      "blocks": {
+        "step-1": {
+          "type": "step",
+          "settings": {
+            "icon": "grinder",
+            "title": "Lives Inside Your Grinder",
+            "description": "Precision-sized to sit directly inside standard grinders so it's always right where your flower is."
+          }
+        },
+        "step-2": {
+          "type": "step",
+          "settings": {
+            "icon": "scoop",
+            "title": "Zero Sticky Fingers or Waste",
+            "description": "Injection-molded bowl geometry lifts the perfect rounded scoop cleanly into bowls, cones, or vaporizers."
+          }
+        },
+        "step-3": {
+          "type": "step",
+          "settings": {
+            "icon": "mountain",
+            "title": "Bagged in Boulder, CO",
+            "description": "Hand-packed in a classic dime bag with love, backed by 47+ verified 5.0-star customer reviews."
+          }
+        }
+      },
+      "block_order": ["step-1", "step-2", "step-3"],
+      "settings": {
+        "heading": "Always in your grinder & ready to use.",
+        "subheading": "Three obsessive details that turn a messy pinch into a clean, satisfying pack."
+      }
+    },
+    "featured-pack-builder": {
+      "type": "featured-pack-builder",
+      "settings": {
+        "heading": "8 Vibrant Colors. Pick Your Custom Mix.",
+        "subheading": "Choose a single signature hue or use our interactive Tray Builder on any 2pk ($4.20), 4pk ($8), or 8pk ($15) to hand-pick every scoop in your bag.",
+        "collection": "color-scoops"
+      }
+    },
+    "metal-vault-showcase": {
+      "type": "metal-vault-showcase",
+      "settings": {
+        "heading": "Achieve Peak Headiness. Metal Terpscoops.",
+        "subheading": "Elevated from our classic grinder geometry into 304 Stainless Steel, stonewashed Aerospace Titanium, and hand-cast 15g Sterling Silver.",
+        "collection": "metal-scoops",
+        "show_spec_matrix": true
+      }
+    },
+    "founder-story-banner": {
+      "type": "founder-story-banner",
+      "settings": {
+        "heading": "What started as one broken 3D print turned into the cleanest way to handle herb.",
+        "story_copy": "Welcome to Terpscoops, part of the Terpmetrix family. We believe enjoying cannabis should feel effortless and refined—no sticky fingers, no bits under your nails, just intentional design.",
+        "cta_label": "Read Sam's Full Story",
+        "cta_link": "/pages/about-us"
+      }
+    },
+    "judgeme-editorial-reviews": {
+      "type": "judgeme-editorial-reviews",
+      "blocks": {
+        "rev-1": {
+          "type": "review",
+          "settings": {
+            "product_tag": "Terpscoop 2pk",
+            "quote": "The terp scoop is the greatest thing ever invented. Perfect size for my bowls and don't need to worry about stinky fingers or bits getting stuck under my nails. Terp scoops are a stoner girl's best friend.",
+            "author": "Verified Review"
+          }
+        },
+        "rev-2": {
+          "type": "review",
+          "settings": {
+            "product_tag": "Terpscoop 8pk",
+            "quote": "Got these for me and my friends, and I got us different colors like the power rangers. They love it when the scoops assemble. Try it sometime 🌈.",
+            "author": "Verified Review"
+          }
+        },
+        "rev-3": {
+          "type": "review",
+          "settings": {
+            "product_tag": "Terpscoop 4pk",
+            "quote": "Honestly my favorite way to pack a bowl now and you can make the perfect rounded scoop :) very pleased. Really changing the game.",
+            "author": "Verified Review"
+          }
+        }
+      },
+      "block_order": ["rev-1", "rev-2", "rev-3"],
+      "settings": {
+        "heading": "Let customers speak for us.",
+        "subheading": "Real community reviews from daily Terpscoops owners across the country."
+      }
+    },
+    "merch-editorial-grid": {
+      "type": "merch-editorial-grid",
+      "settings": {
+        "heading": "Terp Merch. 6.1 oz Garment-Dyed & Embroidered.",
+        "subheading": "Made-to-order heavyweight 100% ring-spun cotton tees and low-profile embroidered chino twill hats to reduce overproduction.",
+        "collection": "merch"
+      }
+    },
+    "wholesale-cta-banner": {
+      "type": "wholesale-cta-banner",
+      "settings": {
+        "heading": "Stock the 25ct Terpscoop Display Jar at your register.",
+        "subheading": "Custom display jar packed with 25 vibrant scoops, a comic strip explaining how it fits inside any grinder, giveaway QR callouts, and extra stickers for your customers."
+      }
+    }
+  },
+  "order": [
+    "ritual-hero",
+    "grinder-fit-anatomy",
+    "featured-pack-builder",
+    "metal-vault-showcase",
+    "founder-story-banner",
+    "judgeme-editorial-reviews",
+    "merch-editorial-grid",
+    "wholesale-cta-banner"
+  ]
+}
+

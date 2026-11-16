@@ -1,0 +1,14 @@
+{
+  "name": "Footer Group",
+  "type": "footer",
+  "sections": {
+    "footer": {
+      "type": "footer",
+      "settings": {
+        "brand_blurb": "Precision pocket grinder tools engineered from one broken 3D print in Boulder, CO. Part of the Terpmetrix family."
+      }
+    }
+  },
+  "order": ["footer"]
+}
+

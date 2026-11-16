@@ -1,0 +1,191 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign handle_lower = product.handle | downcase
+  assign pack_size = product.metafields.custom.pack_count.value | default: 0 | plus: 0
+
+  if pack_size == 0
+    if handle_lower contains '2pk'
+      assign pack_size = 2
+    elsif handle_lower contains '4pk'
+      assign pack_size = 4
+    elsif handle_lower contains '8pk'
+      assign pack_size = 8
+    elsif handle_lower contains 'jar'
+      assign pack_size = 25
+    endif
+  endif
+
+  assign is_multi_pack = false
+  if pack_size == 2 or pack_size == 4 or pack_size == 8
+    assign is_multi_pack = true
+  endif
+
+  assign has_you_pick = false
+  for v in product.variants
+    assign v_lower = v.title | downcase
+    if v_lower contains 'you pick' or v_lower contains 'assorted'
+      assign has_you_pick = true
+      break
+    endif
+  endfor
+
+  assign current_v_lower = current_variant.title | downcase
+  assign is_you_pick_active = false
+  if has_you_pick and is_multi_pack
+    if current_v_lower contains 'you pick' or current_v_lower contains 'assorted'
+      assign is_you_pick_active = true
+    endif
+  endif
+
+  assign product_form_id = 'ProductForm-' | append: section.id
+-%}
+
+<section class="aero-section aero-section--tight" data-product-section>
+  <div class="page-width">
+    <div class="aero-pdp-grid">
+      {% render 'pdp-gallery', product: product, chrome_mode: false %}
+
+      <div class="aero-glass aero-window">
+        <div class="aero-window__bar">
+          <span class="aero-window__dots" aria-hidden="true">
+            <span class="aero-window__dot aero-window__dot--cyan"></span>
+            <span class="aero-window__dot aero-window__dot--green"></span>
+            <span class="aero-window__dot aero-window__dot--pink"></span>
+          </span>
+          <span class="aero-window__title">
+            {%- if pack_size == 25 -%}
+              Dispensary &amp; Headshop Counter Jar
+            {%- else -%}
+              Acrylic Resin · Bagged in {{ settings.origin_city | default: 'Boulder, CO' }}
+            {%- endif -%}
+          </span>
+          <span class="aero-pill aero-pill--green">5.0 ★ Verified</span>
+        </div>
+
+        <div class="aero-pdp-info">
+          <div>
+            <span class="aero-mono-tag">{{ product.vendor | default: 'TERPMETRIX' | upcase }} · {{ product.type | default: 'UTILITY' | upcase }}</span>
+            <h1 style="font-size:clamp(1.75rem, 3vw, 2.35rem);margin:0.25rem 0 0.45rem;">{{ product.title }}</h1>
+
+            <div class="aero-pdp-price-row">
+              <span class="aero-pdp-price" data-product-price>{{ current_variant.price | money }}</span>
+              <s class="aero-price-compare" data-product-compare-price {% unless current_variant.compare_at_price > current_variant.price %}hidden{% endunless %}>
+                {{ current_variant.compare_at_price | money }}
+              </s>
+              {%- if pack_size > 1 -%}
+                {%- assign unit_cents = current_variant.price | divided_by: pack_size -%}
+                <span class="aero-pill aero-pill--sky">{{ unit_cents | money }} / scoop</span>
+              {%- endif -%}
+            </div>
+
+            <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}" style="margin-top:0.5rem;">
+              {{ product.metafields.judgeme.badge }}
+            </div>
+          </div>
+
+          {%- if is_multi_pack -%}
+            {% render 'pack-tier-switcher', current_handle: product.handle %}
+          {%- endif -%}
+
+          {%- if pack_size == 25 -%}
+            <div class="aero-glass" style="padding:1rem;border-radius:18px;background:rgba(220,250,242,0.65);">
+              <span class="aero-mono-tag">RETAIL DISPLAY JAR · $1.60/SCOOP</span>
+              <p class="aero-muted" style="margin:0.35rem 0 0.65rem;font-size:0.9rem;">
+                Packed with 25 assorted Terpscoops, comic instruction label, @terpscoops giveaway callout, and bonus handout stickers. Ordering tax-exempt bulk?
+              </p>
+              <a href="/pages/wholesale" class="btn-aero-sky btn-aero-gel--xs">Open Wholesale Margin Calculator</a>
+            </div>
+          {%- endif -%}
+
+          {% form 'product', product, id: product_form_id, data-ajax-cart-form: 'true' %}
+            <input type="hidden" name="id" value="{{ current_variant.id }}">
+
+            {%- unless product.has_only_default_variant -%}
+              <terp-variant-picker>
+                <script type="application/json" data-product-variants>
+                  {{ product.variants | json }}
+                </script>
+                {%- for option in product.options_with_values -%}
+                  <div class="aero-option-group">
+                    <div class="aero-option-group__title">{{ option.name }}</div>
+                    <div class="aero-option-pills">
+                      {%- for value in option.values -%}
+                        {%- assign val_slug = value | downcase -%}
+                        <label class="aero-option-pill">
+                          <input
+                            type="radio"
+                            name="options[{{ option.name | escape }}]"
+                            value="{{ value | escape }}"
+                            data-option-position="{{ option.position }}"
+                            {% if option.selected_value == value %}checked{% endif %}
+                          >
+                          <span>
+                            {%- if val_slug == 'pink' or val_slug == 'red' or val_slug == 'orange' or val_slug == 'yellow' or val_slug == 'green' or val_slug == 'cyan' or val_slug == 'blue' or val_slug == 'purple' or val_slug == 'clear' -%}
+                              <i class="swatch-aero-resin swatch-aero-resin--mini" style="--resin-color: var(--swatch-{{ val_slug }});"></i>
+                            {%- endif -%}
+                            {{ value }}
+                          </span>
+                        </label>
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                {%- endfor -%}
+              </terp-variant-picker>
+            {%- endunless -%}
+
+            {%- if has_you_pick and is_multi_pack -%}
+              {% render 'pack-color-builder',
+                pack_size: pack_size,
+                product_form_id: product_form_id,
+                is_you_pick_active: is_you_pick_active
+              %}
+            {%- endif -%}
+
+            <button
+              type="submit"
+              name="add"
+              class="btn-aero-gel btn-aero-gel--full"
+              data-add-text="{{ 'products.add_to_cart' | t }}"
+              data-sold-out-text="{{ 'products.sold_out' | t }}"
+              {% unless current_variant.available %}disabled{% endunless %}
+            >
+              {% render 'aero-icon', icon: 'cart' %}
+              <span data-submit-label>
+                {%- if current_variant.available -%}
+                  {{ 'products.add_to_cart' | t }}
+                {%- else -%}
+                  {{ 'products.sold_out' | t }}
+                {%- endif -%}
+              </span>
+            </button>
+          {% endform %}
+
+          <div class="aero-muted" style="font-size:0.95rem;">
+            {{ product.description }}
+          </div>
+
+          <details class="aero-accordion" open>
+            <summary>
+              <span>Fits Inside Standard Grinders</span>
+              <span>+</span>
+            </summary>
+            <div class="aero-accordion__content">
+              Every Terpscoop is precision-sized to stay inside your grinder chamber so it's always ready when you grind—no digging through drawers or pinching resinous herb with your fingers.
+            </div>
+          </details>
+
+          <details class="aero-accordion">
+            <summary>
+              <span>Boulder Dime-Bag Packaging &amp; Shipping</span>
+              <span>+</span>
+            </summary>
+            <div class="aero-accordion__content">
+              Hand-packed in a classic dime bag with love in Boulder, CO. Orders over ${{ settings.cart_free_shipping_threshold | default: 35 }} qualify for free US shipping.
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

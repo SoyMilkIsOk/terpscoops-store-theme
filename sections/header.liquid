@@ -1,0 +1,129 @@
+<header class="aero-header-wrap" role="banner">
+  <div class="aero-header aero-glass">
+    <div style="display:flex;align-items:center;gap:0.65rem;">
+      <button
+        type="button"
+        class="aero-icon-btn aero-mobile-trigger"
+        aria-label="{{ 'accessibility.menu' | t }}"
+        aria-expanded="false"
+        aria-controls="TerpMobileMenu"
+        data-mobile-menu-toggle
+      >
+        {% render 'aero-icon', icon: 'menu' %}
+      </button>
+
+      <a href="{{ routes.root_url }}" class="aero-header__brand">
+        {%- if section.settings.logo != blank -%}
+          <img
+            src="{{ section.settings.logo | image_url: width: 280 }}"
+            alt="{{ shop.name | escape }}"
+            class="aero-header__logo-img"
+            width="{{ section.settings.logo.width }}"
+            height="{{ section.settings.logo.height }}"
+          >
+        {%- else -%}
+          <span class="aero-header__badge-mark">
+            {% render 'aero-icon', icon: 'scoop' %}
+          </span>
+          <span>{{ shop.name }}</span>
+        {%- endif -%}
+      </a>
+    </div>
+
+    <nav class="aero-nav" aria-label="Main navigation">
+      {%- assign main_menu = linklists[section.settings.menu] -%}
+      {%- if main_menu != blank and main_menu.links.size > 0 -%}
+        {%- for link in main_menu.links -%}
+          <a
+            href="{{ link.url }}"
+            class="aero-nav__link{% if link.active %} is-active{% endif %}"
+          >
+            {{ link.title | escape }}
+          </a>
+        {%- endfor -%}
+      {%- else -%}
+        <a href="/collections/shop-terpscoops" class="aero-nav__link">Shop Scoops</a>
+        <a href="/collections/metal-scoops" class="aero-nav__link">Metal Vault</a>
+        <a href="/collections/merch" class="aero-nav__link">Merch</a>
+        <a href="/pages/wholesale" class="aero-nav__link">Wholesale</a>
+        <a href="/pages/about-us" class="aero-nav__link">Our Story</a>
+      {%- endif -%}
+    </nav>
+
+    <div class="aero-header__actions">
+      {%- if section.settings.show_search -%}
+        <a href="{{ routes.search_url }}" class="aero-icon-btn" aria-label="{{ 'general.search' | t }}">
+          {% render 'aero-icon', icon: 'search' %}
+        </a>
+      {%- endif -%}
+
+      <a
+        href="{{ routes.cart_url }}"
+        class="aero-icon-btn"
+        data-open-cart-drawer
+        aria-label="{{ 'accessibility.open_cart' | t }}"
+      >
+        {% render 'aero-icon', icon: 'cart' %}
+        <span class="aero-cart-count{% if cart.item_count == 0 %} is-empty{% endif %}" data-cart-count>
+          {{ cart.item_count }}
+        </span>
+      </a>
+    </div>
+  </div>
+</header>
+
+<div id="TerpMobileMenu" class="aero-mobile-drawer" aria-hidden="true">
+  <div class="aero-mobile-drawer__panel aero-glass">
+    <div class="aero-mobile-drawer__header">
+      <strong>{{ shop.name }}</strong>
+      <button type="button" class="aero-icon-btn" data-mobile-menu-close aria-label="{{ 'accessibility.close_drawer' | t }}">
+        {% render 'aero-icon', icon: 'close' %}
+      </button>
+    </div>
+    <nav class="aero-mobile-drawer__links" aria-label="Mobile navigation">
+      {%- assign main_menu = linklists[section.settings.menu] -%}
+      {%- if main_menu != blank and main_menu.links.size > 0 -%}
+        {%- for link in main_menu.links -%}
+          <a href="{{ link.url }}" class="aero-mobile-drawer__link">{{ link.title | escape }}</a>
+        {%- endfor -%}
+      {%- else -%}
+        <a href="/collections/shop-terpscoops" class="aero-mobile-drawer__link">Shop Scoops</a>
+        <a href="/collections/metal-scoops" class="aero-mobile-drawer__link">Metal Vault</a>
+        <a href="/collections/merch" class="aero-mobile-drawer__link">Terp Merch</a>
+        <a href="/pages/wholesale" class="aero-mobile-drawer__link">Wholesale (25ct Jars)</a>
+        <a href="/pages/about-us" class="aero-mobile-drawer__link">Our Story</a>
+        <a href="/pages/contact" class="aero-mobile-drawer__link">Get In Touch</a>
+      {%- endif -%}
+    </nav>
+  </div>
+  <div style="flex:1;" data-mobile-menu-close></div>
+</div>
+
+{% schema %}
+{
+  "name": "Aero Glass Header",
+  "enabled_on": {
+    "groups": ["header"]
+  },
+  "settings": [
+    {
+      "type": "image_picker",
+      "id": "logo",
+      "label": "Logo image"
+    },
+    {
+      "type": "link_list",
+      "id": "menu",
+      "label": "Main menu",
+      "default": "main-menu"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_search",
+      "label": "Show search icon",
+      "default": true
+    }
+  ]
+}
+{% endschema %}
+

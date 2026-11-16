@@ -1,0 +1,124 @@
+<section class="aero-section scheme-aero-chrome" id="metal-vault">
+  <div class="page-width">
+    <div class="aero-section-header">
+      <div class="aero-section-header__copy">
+        <span class="aero-mono-tag">LIQUID CHROME COLLECTOR VAULT</span>
+        <h2>{{ section.settings.heading | escape }}</h2>
+        <p>{{ section.settings.subheading | escape }}</p>
+      </div>
+      <a href="/collections/metal-scoops" class="btn-aero-chrome btn-aero-gel--sm">
+        <span>Enter Metal Vault</span>
+        {% render 'aero-icon', icon: 'arrow-right' %}
+      </a>
+    </div>
+
+    {%- assign metal_collection = collections[section.settings.collection] -%}
+    <div class="aero-grid-3">
+      {%- if metal_collection != blank and metal_collection.products_count > 0 -%}
+        {%- for product in metal_collection.products limit: 3 -%}
+          {% render 'product-card-aero', product: product, theme_variant: 'chrome', show_swatches: false %}
+        {%- endfor -%}
+      {%- else -%}
+        {%- assign fallback_metals = 'stainless-steel-terpscoop,titanium-terpscoop,solid-silver-terpscoop' | split: ',' -%}
+        {%- for handle in fallback_metals -%}
+          {%- assign prod = all_products[handle] -%}
+          {%- if prod != blank and prod.id != blank -%}
+            {% render 'product-card-aero', product: prod, theme_variant: 'chrome', show_swatches: false %}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+    </div>
+
+    {%- if section.settings.show_spec_matrix -%}
+      <div class="aero-chrome-glass aero-spec-matrix">
+        <div style="display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:0.75rem;margin-bottom:1rem;">
+          <div>
+            <span class="aero-mono-tag">MATERIAL COMPARISON MATRIX</span>
+            <h3 style="margin:0.2rem 0 0;">From Daily Driver Resin to Heirloom Sterling Silver</h3>
+          </div>
+          <span class="aero-pill aero-pill--chrome">Metal Editions Include Limited Sticker</span>
+        </div>
+
+        <table class="aero-spec-table">
+          <thead>
+            <tr>
+              <th>Edition</th>
+              <th>Material</th>
+              <th>Process</th>
+              <th>Finish &amp; Feel</th>
+              <th>Price</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Color Terpscoops</strong></td>
+              <td>Durable Acrylic Resin</td>
+              <td>Injection Molded</td>
+              <td>8 Glossy Translucent Colors</td>
+              <td>$4.20 (2pk)</td>
+            </tr>
+            <tr>
+              <td><strong>Stainless Steel</strong></td>
+              <td>304 Food-Grade Steel</td>
+              <td>3D Printed Metal</td>
+              <td>Weighted, Tool-Grade Brushed</td>
+              <td>$20.00</td>
+            </tr>
+            <tr>
+              <td><strong>Aerospace Titanium</strong></td>
+              <td>Aerospace-Grade Titanium</td>
+              <td>3D Printed Metal</td>
+              <td>Stonewashed Scratch-Resistant</td>
+              <td>$40.00</td>
+            </tr>
+            <tr>
+              <td><strong>Solid Silver Edition</strong></td>
+              <td>15g .925 Sterling Silver</td>
+              <td>Hand-Cast by @kevianjewelers</td>
+              <td>Mirror-Polished Jewelry Heirloom</td>
+              <td>$120.00</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    {%- endif -%}
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Metal Vault Showcase",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Achieve Peak Headiness. Metal Terpscoops."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Elevated from our classic grinder geometry into 304 Stainless Steel, stonewashed Aerospace Titanium, and hand-cast 15g Sterling Silver."
+    },
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Metal Collection",
+      "default": "metal-scoops"
+    },
+    {
+      "type": "checkbox",
+      "id": "show_spec_matrix",
+      "label": "Show material comparison matrix",
+      "default": true
+    }
+  ],
+  "presets": [
+    {
+      "name": "Metal Vault Showcase"
+    }
+  ]
+}
+{% endschema %}
+

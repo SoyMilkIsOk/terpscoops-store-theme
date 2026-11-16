@@ -1,0 +1,24 @@
+{% render 'pdp-merch', product: product %}
+
+{%- for block in section.blocks -%}
+  {%- if block.type == '@app' -%}
+    <div class="page-width aero-section--tight" {{ block.shopify_attributes }}>
+      <div class="aero-glass" style="padding:1.5rem;">
+        {% render block %}
+      </div>
+    </div>
+  {%- endif -%}
+{%- endfor -%}
+
+{% schema %}
+{
+  "name": "Terp Merch Product",
+  "blocks": [
+    {
+      "type": "@app"
+    }
+  ],
+  "settings": []
+}
+{% endschema %}
+

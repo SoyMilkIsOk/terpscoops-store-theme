@@ -1,0 +1,120 @@
+<section class="aero-section aero-section--tight">
+  <div class="page-width">
+    <div class="aero-section-header">
+      <div class="aero-section-header__copy">
+        <span class="aero-mono-tag">DESIGNED FOR YOUR DAILY RITUAL</span>
+        <h2>{{ section.settings.heading | escape }}</h2>
+        <p>{{ section.settings.subheading | escape }}</p>
+      </div>
+    </div>
+
+    <div class="aero-grid-3">
+      {%- for block in section.blocks -%}
+        <div class="aero-glass aero-window" {{ block.shopify_attributes }}>
+          <div class="aero-window__bar">
+            <span class="aero-window__dots" aria-hidden="true">
+              <span class="aero-window__dot aero-window__dot--cyan"></span>
+              <span class="aero-window__dot aero-window__dot--green"></span>
+            </span>
+            <span class="aero-window__title">Step 0{{ forloop.index }}</span>
+          </div>
+          <div class="aero-step-card">
+            <div class="aero-step-card__icon">
+              {% render 'aero-icon', icon: block.settings.icon %}
+            </div>
+            <h3 style="margin-bottom:0.2rem;">{{ block.settings.title | escape }}</h3>
+            <p class="aero-muted" style="margin-bottom:0;font-size:0.95rem;">
+              {{ block.settings.description | escape }}
+            </p>
+          </div>
+        </div>
+      {%- endfor -%}
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Grinder Fit Anatomy",
+  "max_blocks": 3,
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Heading",
+      "default": "Always in your grinder & ready to use."
+    },
+    {
+      "type": "text",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Three obsessive details that turn a messy pinch into a clean, satisfying pack."
+    }
+  ],
+  "blocks": [
+    {
+      "type": "step",
+      "name": "Feature step",
+      "settings": [
+        {
+          "type": "select",
+          "id": "icon",
+          "label": "Icon",
+          "options": [
+            { "value": "grinder", "label": "Grinder" },
+            { "value": "scoop", "label": "Scoop" },
+            { "value": "mountain", "label": "Mountain (Boulder)" },
+            { "value": "droplet", "label": "Droplet" },
+            { "value": "sparkles", "label": "Sparkles" }
+          ],
+          "default": "grinder"
+        },
+        {
+          "type": "text",
+          "id": "title",
+          "label": "Title",
+          "default": "Lives Inside Your Grinder"
+        },
+        {
+          "type": "textarea",
+          "id": "description",
+          "label": "Description",
+          "default": "Compact, curved ergonomics drop right into standard herb chambers so you never lose it."
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Grinder Fit Anatomy",
+      "blocks": [
+        {
+          "type": "step",
+          "settings": {
+            "icon": "grinder",
+            "title": "Lives Inside Your Grinder",
+            "description": "Precision-sized to sit directly inside standard grinders so it's always right where your flower is."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "icon": "scoop",
+            "title": "Zero Sticky Fingers or Waste",
+            "description": "Injection-molded bowl geometry lifts the perfect rounded scoop cleanly into bowls, cones, or vaporizers."
+          }
+        },
+        {
+          "type": "step",
+          "settings": {
+            "icon": "mountain",
+            "title": "Bagged in Boulder, CO",
+            "description": "Hand-packed in a classic dime bag with love, backed by 47+ verified 5.0-star customer reviews."
+          }
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}
+

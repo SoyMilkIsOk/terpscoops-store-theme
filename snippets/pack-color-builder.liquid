@@ -1,0 +1,83 @@
+{%- comment -%}
+  Interactive "You Pick" Aero Capsule Pack Builder
+  Params:
+    - pack_size: integer (2, 4, or 8)
+    - product_form_id: string
+    - is_you_pick_active: boolean
+{%- endcomment -%}
+
+{%- liquid
+  assign count = pack_size | default: 2 | plus: 0
+  assign active_builder = is_you_pick_active | default: false
+  assign resin_colors = 'Pink,Red,Orange,Yellow,Green,Cyan,Blue,Purple' | split: ','
+-%}
+
+<terp-pack-builder
+  class="aero-pack-builder aero-glass{% unless active_builder %} is-hidden{% endunless %}"
+  data-pack-size="{{ count }}"
+  data-form-id="{{ product_form_id }}"
+>
+  <div class="aero-pack-builder__header">
+    <div>
+      <span class="aero-mono-tag">CUSTOM DIME-BAG TRAY</span>
+      <h4 class="aero-pack-builder__heading">
+        {{ 'products.you_pick_prompt' | t: count: count }}
+      </h4>
+    </div>
+    <div class="aero-pack-builder__actions">
+      <button type="button" class="btn-aero-sky btn-aero-gel--xs" data-rainbow-autofill>
+        🌈 {{ 'products.rainbow_autofill' | t }}
+      </button>
+      <button type="button" class="btn-aero-ghost btn-aero-gel--xs" data-clear-slots>
+        {{ 'products.clear_slots' | t }}
+      </button>
+    </div>
+  </div>
+
+  <div class="aero-capsule-tray" role="list" aria-label="Selected scoop slots">
+    {%- for i in (1..count) -%}
+      <button
+        type="button"
+        class="aero-capsule-slot"
+        data-slot-index="{{ i }}"
+        aria-label="Scoop {{ i }}: empty"
+      >
+        <span class="aero-capsule-slot__orb" data-slot-orb></span>
+        <span class="aero-capsule-slot__label" data-slot-label>Slot {{ i }}</span>
+      </button>
+      <input
+        type="hidden"
+        name="properties[Scoop {{ i }}]"
+        value=""
+        data-slot-input="{{ i }}"
+        {% unless active_builder %}disabled{% endunless %}
+      >
+    {%- endfor -%}
+  </div>
+
+  <div class="aero-resin-palette">
+    <span class="aero-resin-palette__caption">Tap an acrylic resin sphere to fill the next slot:</span>
+    <div class="aero-resin-palette__grid">
+      {%- for color_name in resin_colors -%}
+        {%- assign color_slug = color_name | downcase -%}
+        <button
+          type="button"
+          class="aero-resin-choice"
+          data-color-choice="{{ color_name }}"
+          aria-label="Add {{ color_name }} scoop"
+        >
+          <span
+            class="swatch-aero-resin swatch-aero-resin--lg"
+            style="--resin-color: var(--swatch-{{ color_slug }});"
+          ></span>
+          <span class="aero-resin-choice__name">{{ color_name }}</span>
+        </button>
+      {%- endfor -%}
+    </div>
+  </div>
+
+  <div class="aero-pack-builder__status" data-builder-status aria-live="polite">
+    <span data-status-text>{{ 'products.you_pick_incomplete' | t: remaining: count }}</span>
+  </div>
+</terp-pack-builder>
+

@@ -1,0 +1,50 @@
+<section class="aero-section aero-section--tight">
+  <div class="page-width">
+    <div class="aero-glass aero-window" style="max-width:960px;margin-inline:auto;">
+      <div class="aero-window__bar">
+        <span class="aero-window__dots" aria-hidden="true">
+          <span class="aero-window__dot aero-window__dot--cyan"></span>
+          <span class="aero-window__dot aero-window__dot--green"></span>
+          <span class="aero-window__dot aero-window__dot--pink"></span>
+        </span>
+        <span class="aero-window__title">About Terpscoops · Terpmetrix</span>
+        <span class="aero-pill aero-pill--green">{{ settings.origin_city | default: 'Boulder, CO' }}</span>
+      </div>
+
+      <div style="padding:clamp(1.6rem, 4vw, 3rem);">
+        <span class="aero-mono-tag">OUR ORIGIN STORY</span>
+        <h1 style="margin-top:0.35rem;">{{ section.settings.heading | default: page.title | escape }}</h1>
+
+        <div style="font-size:1.06rem;line-height:1.7;color:var(--aero-ink-muted);">
+          {%- if page.content != blank -%}
+            {{ page.content }}
+          {%- else -%}
+            <p>Welcome to Terpscoops, part of the Terpmetrix family, where precision meets style in every scoop. What started as a happy accident—one broken 3D print—turned into the perfect solution for those who love cannabis but hate the mess.</p>
+            <p>I'm Sam, the creator of Terpscoops, and like you, I wanted a cleaner, smarter way to handle my weed. Terpscoops offer an alternative—a sleek, ergonomic tool designed to sit right inside your grinder so it's always handy.</p>
+            <p>No sticky fingers, no bits under your nails, just an intentional design hand-packed in a classic dime bag with love in Boulder, CO.</p>
+          {%- endif -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Origin Story Page",
+  "settings": [
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Override Page Heading",
+      "default": "From One Broken 3D Print in Boulder to Your Daily Ritual."
+    }
+  ],
+  "presets": [
+    {
+      "name": "Origin Story Page"
+    }
+  ]
+}
+{% endschema %}
+

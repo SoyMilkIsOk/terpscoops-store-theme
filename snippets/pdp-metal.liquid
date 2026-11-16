@@ -1,0 +1,163 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign handle_lower = product.handle | downcase
+  assign product_form_id = 'MetalProductForm-' | append: section.id
+
+  assign spec_material = product.metafields.custom.material_spec.value
+  assign spec_process = product.metafields.custom.process_badge.value
+  assign spec_weight = 'Tool-Grade Balanced'
+
+  if spec_material == blank
+    if handle_lower contains 'titanium'
+      assign spec_material = 'Aerospace-Grade Titanium'
+      assign spec_process = '3D Printed Metal'
+      assign spec_weight = 'Ultralight Stonewashed'
+    elsif handle_lower contains 'stainless'
+      assign spec_material = '304 Food-Grade Stainless Steel'
+      assign spec_process = '3D Printed Solid Steel'
+      assign spec_weight = 'Heavy Tool-Grade Balance'
+    elsif handle_lower contains 'silver'
+      assign spec_material = '.925 Solid Sterling Silver'
+      assign spec_process = 'Hand-Cast by @kevianjewelers'
+      assign spec_weight = '15g Mirror-Polished Heirloom'
+    endif
+  endif
+-%}
+
+<section class="aero-section aero-section--tight scheme-aero-chrome" data-product-section>
+  <div class="page-width">
+    <div class="aero-pdp-grid">
+      {% render 'pdp-gallery', product: product, chrome_mode: true %}
+
+      <div class="aero-chrome-glass aero-window">
+        <div class="aero-window__bar" style="background:rgba(255,255,255,0.08);border-bottom-color:rgba(255,255,255,0.16);">
+          <span class="aero-window__dots" aria-hidden="true">
+            <span class="aero-window__dot aero-window__dot--cyan"></span>
+            <span class="aero-window__dot aero-window__dot--green"></span>
+            <span class="aero-window__dot aero-window__dot--pink"></span>
+          </span>
+          <span class="aero-window__title" style="color:#CFE6F9;">Liquid Chrome Metal Vault</span>
+          <span class="aero-pill aero-pill--chrome">Metal Sticker Included</span>
+        </div>
+
+        <div class="aero-pdp-info">
+          <div>
+            <span class="aero-mono-tag">HEIRLOOM METAL SERIES</span>
+            <h1 style="font-size:clamp(1.75rem, 3vw, 2.35rem);margin:0.25rem 0 0.45rem;">{{ product.title }}</h1>
+
+            <div class="aero-pdp-price-row">
+              <span class="aero-pdp-price" data-product-price>{{ current_variant.price | money }}</span>
+              {%- if current_variant.available == false -%}
+                <span class="aero-pill aero-pill--muted">Sold Out</span>
+              {%- elsif product.tags contains 'LimitedDrop' or handle_lower contains 'silver' -%}
+                <span class="aero-pill aero-pill--chrome">Limited Collector Drop</span>
+              {%- endif -%}
+            </div>
+          </div>
+
+          <div class="aero-calc-metrics" style="margin-top:0;">
+            <div class="aero-chrome-glass" style="padding:0.8rem;border-radius:16px;">
+              <span class="aero-mono-tag">Material</span>
+              <div style="font-weight:700;font-size:0.9rem;margin-top:0.2rem;">{{ spec_material }}</div>
+            </div>
+            <div class="aero-chrome-glass" style="padding:0.8rem;border-radius:16px;">
+              <span class="aero-mono-tag">Manufacturing</span>
+              <div style="font-weight:700;font-size:0.9rem;margin-top:0.2rem;">{{ spec_process }}</div>
+            </div>
+            <div class="aero-chrome-glass" style="padding:0.8rem;border-radius:16px;">
+              <span class="aero-mono-tag">Finish / Mass</span>
+              <div style="font-weight:700;font-size:0.9rem;margin-top:0.2rem;">{{ spec_weight }}</div>
+            </div>
+            <div class="aero-chrome-glass" style="padding:0.8rem;border-radius:16px;">
+              <span class="aero-mono-tag">Included Bonus</span>
+              <div style="font-weight:700;font-size:0.9rem;margin-top:0.2rem;">Metal Edition Sticker</div>
+            </div>
+          </div>
+
+          {% form 'product', product, id: product_form_id, data-ajax-cart-form: 'true' %}
+            <input type="hidden" name="id" value="{{ current_variant.id }}">
+
+            {%- unless product.has_only_default_variant -%}
+              <terp-variant-picker>
+                <script type="application/json" data-product-variants>
+                  {{ product.variants | json }}
+                </script>
+                {%- for option in product.options_with_values -%}
+                  <div class="aero-option-group">
+                    <div class="aero-option-group__title" style="color:#CBE7FF;">{{ option.name }}</div>
+                    <div class="aero-option-pills">
+                      {%- for value in option.values -%}
+                        <label class="aero-option-pill">
+                          <input
+                            type="radio"
+                            name="options[{{ option.name | escape }}]"
+                            value="{{ value | escape }}"
+                            data-option-position="{{ option.position }}"
+                            {% if option.selected_value == value %}checked{% endif %}
+                          >
+                          <span>{{ value }}</span>
+                        </label>
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                {%- endfor -%}
+              </terp-variant-picker>
+            {%- endunless -%}
+
+            <button
+              type="submit"
+              name="add"
+              class="btn-aero-chrome btn-aero-gel--full"
+              data-add-text="{{ 'products.add_to_cart' | t }}"
+              data-sold-out-text="{{ 'products.sold_out' | t }}"
+              {% unless current_variant.available %}disabled{% endunless %}
+            >
+              {% render 'aero-icon', icon: 'cart' %}
+              <span data-submit-label>
+                {%- if current_variant.available -%}
+                  {{ 'products.add_to_cart' | t }}
+                {%- else -%}
+                  {{ 'products.sold_out' | t }}
+                {%- endif -%}
+              </span>
+            </button>
+          {% endform %}
+
+          <div class="aero-restock-box" data-restock-drawer {% if current_variant.available %}hidden{% endif %}>
+            <span class="aero-mono-tag">METAL DROP RESTOCK ALERT</span>
+            <p style="font-size:0.9rem;margin:0.3rem 0 0.75rem;">
+              This edition is currently sold out. Enter your email to get notified the instant our next Boulder batch drops.
+            </p>
+            {% form 'customer', id: 'MetalRestockForm' %}
+              <input type="hidden" name="contact[tags]" value="notify:{{ product.handle }}">
+              <input type="hidden" name="contact[note]" value="{{ current_variant.title | escape }}" data-restock-variant-label>
+              {%- if form.posted_successfully? -%}
+                <div class="aero-form-alert aero-form-alert--success">
+                  {{ 'products.notify_success' | t }}
+                </div>
+              {%- endif -%}
+              <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                <input
+                  type="email"
+                  name="contact[email]"
+                  class="aero-input"
+                  placeholder="you@domain.com"
+                  required
+                  style="flex:1;min-width:180px;"
+                >
+                <button type="submit" class="btn-aero-sky btn-aero-gel--sm">
+                  {{ 'products.notify_me' | t }}
+                </button>
+              </div>
+            {% endform %}
+          </div>
+
+          <div style="font-size:0.95rem;color:#C8D9EA;">
+            {{ product.description }}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

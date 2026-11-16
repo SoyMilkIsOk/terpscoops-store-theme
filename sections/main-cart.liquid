@@ -1,0 +1,102 @@
+<section class="aero-section aero-section--tight">
+  <div class="page-width">
+    <div class="aero-glass aero-window" style="max-width:980px;margin-inline:auto;">
+      <div class="aero-window__bar">
+        <span class="aero-window__dots" aria-hidden="true">
+          <span class="aero-window__dot aero-window__dot--cyan"></span>
+          <span class="aero-window__dot aero-window__dot--green"></span>
+        </span>
+        <span class="aero-window__title">{{ 'cart.title' | t }}</span>
+        <span class="aero-pill aero-pill--sky">{{ cart.item_count }} Item(s)</span>
+      </div>
+
+      <div style="padding:clamp(1.35rem, 3vw, 2.25rem);">
+        {%- if cart.item_count > 0 -%}
+          <form action="{{ routes.cart_url }}" method="post" id="MainCartForm">
+            <div style="display:flex;flex-direction:column;gap:0.9rem;">
+              {%- for item in cart.items -%}
+                <div class="aero-glass aero-cart-item" style="grid-template-columns:88px 1fr;">
+                  {%- if item.image -%}
+                    <img src="{{ item.image | image_url: width: 200 }}" alt="{{ item.title | escape }}" class="aero-cart-item__img" style="width:88px;height:88px;">
+                  {%- else -%}
+                    <div class="aero-cart-item__img aero-cart-item__img--placeholder" style="width:88px;height:88px;">🥄</div>
+                  {%- endif -%}
+
+                  <div style="display:flex;flex-wrap:wrap;justify-content:space-between;gap:1rem;align-items:center;">
+                    <div>
+                      <a href="{{ item.url }}" class="aero-cart-item__title" style="font-size:1.05rem;">{{ item.product.title }}</a>
+                      {%- unless item.product.has_only_default_variant -%}
+                        <div class="aero-cart-item__variant">{{ item.variant.title }}</div>
+                      {%- endunless -%}
+                      {%- if item.properties.size > 0 -%}
+                        <div class="aero-cart-item__props">
+                          {%- for property in item.properties -%}
+                            {%- assign property_first_char = property.first | slice: 0 -%}
+                            {%- if property.last != blank and property_first_char != '_' -%}
+                              {%- assign val_slug = property.last | downcase -%}
+                              <span class="aero-cart-prop">
+                                {%- if val_slug == 'pink' or val_slug == 'red' or val_slug == 'orange' or val_slug == 'yellow' or val_slug == 'green' or val_slug == 'cyan' or val_slug == 'blue' or val_slug == 'purple' -%}
+                                  <i class="swatch-aero-resin swatch-aero-resin--xs" style="--resin-color:var(--swatch-{{ val_slug }});"></i>
+                                {%- endif -%}
+                                {{ property.first }}: {{ property.last }}
+                              </span>
+                            {%- endif -%}
+                          {%- endfor -%}
+                        </div>
+                      {%- endif -%}
+                    </div>
+
+                    <div style="display:flex;align-items:center;gap:1rem;">
+                      <input
+                        type="number"
+                        name="updates[]"
+                        value="{{ item.quantity }}"
+                        min="0"
+                        class="aero-input"
+                        style="width:76px;text-align:center;"
+                        aria-label="{{ 'accessibility.quantity' | t }}"
+                      >
+                      <strong class="aero-mono-tag" style="font-size:1rem;color:var(--aero-ink);">{{ item.final_line_price | money }}</strong>
+                    </div>
+                  </div>
+                </div>
+              {%- endfor -%}
+            </div>
+
+            <div class="aero-grid-2" style="margin-top:1.75rem;align-items:end;">
+              <div class="aero-field" style="margin-bottom:0;">
+                <label for="CartPageNote">{{ 'cart.note_label' | t }}</label>
+                <textarea id="CartPageNote" name="note" rows="3" class="aero-textarea" placeholder="{{ 'cart.note_placeholder' | t }}">{{ cart.note }}</textarea>
+              </div>
+
+              <div class="aero-glass" style="padding:1.25rem;border-radius:20px;">
+                <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:0.85rem;">
+                  <strong>{{ 'cart.subtotal' | t }}</strong>
+                  <strong style="font-family:var(--font-mono);font-size:1.35rem;">{{ cart.total_price | money }}</strong>
+                </div>
+                <div style="display:flex;gap:0.65rem;">
+                  <button type="submit" name="update" class="btn-aero-ghost btn-aero-gel--sm">Update</button>
+                  <button type="submit" name="checkout" class="btn-aero-gel btn-aero-gel--full">{{ 'cart.checkout' | t }}</button>
+                </div>
+              </div>
+            </div>
+          </form>
+        {%- else -%}
+          <div style="text-align:center;padding:3rem 1rem;">
+            <span class="swatch-aero-resin swatch-aero-resin--xl" style="--resin-color:var(--swatch-cyan);margin-inline:auto;margin-bottom:1rem;"></span>
+            <h2>{{ 'cart.empty' | t }}</h2>
+            <a href="/products/terpscoop-2pk" class="btn-aero-gel">{{ 'cart.empty_cta' | t }}</a>
+          </div>
+        {%- endif -%}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Aero Full Cart Page",
+  "settings": []
+}
+{% endschema %}
+

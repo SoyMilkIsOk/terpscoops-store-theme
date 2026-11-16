@@ -1,0 +1,44 @@
+{
+  "sections": {
+    "main": {
+      "type": "main-product",
+      "settings": {}
+    },
+    "reviews": {
+      "type": "judgeme-editorial-reviews",
+      "blocks": {
+        "rev-1": {
+          "type": "review",
+          "settings": {
+            "product_tag": "Terpscoop 2pk",
+            "quote": "The terp scoop is the greatest thing ever invented. Perfect size for my bowls and don't need to worry about stinky fingers or bits getting stuck under my nails.",
+            "author": "Verified Review"
+          }
+        },
+        "rev-2": {
+          "type": "review",
+          "settings": {
+            "product_tag": "Terpscoop 8pk",
+            "quote": "Got these for me and my friends, and I got us different colors like the power rangers. They love it when the scoops assemble.",
+            "author": "Verified Review"
+          }
+        },
+        "rev-3": {
+          "type": "review",
+          "settings": {
+            "product_tag": "Terpscoop 4pk",
+            "quote": "Honestly my favorite way to pack a bowl now and you can make the perfect rounded scoop :) very pleased.",
+            "author": "Verified Review"
+          }
+        }
+      },
+      "block_order": ["rev-1", "rev-2", "rev-3"],
+      "settings": {
+        "heading": "5.0 ★ Community Reviews",
+        "subheading": "47+ verified reviews across our acrylic and metal editions."
+      }
+    }
+  },
+  "order": ["main", "reviews"]
+}
+

@@ -1,0 +1,128 @@
+<!doctype html>
+<html class="no-js" lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="{{ settings.color_sky_top | default: '#DFF3FF' }}">
+    <link rel="canonical" href="{{ canonical_url }}">
+
+    {%- if settings.favicon != blank -%}
+      <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- endif -%}
+
+    <title>
+      {{ page_title }}
+      {%- if current_tags %} &ndash; tagged "{{ current_tags | join: ', ' }}"{% endif -%}
+      {%- if current_page != 1 %} &ndash; Page {{ current_page }}{% endif -%}
+      {%- unless page_title contains shop.name %} &ndash; {{ shop.name }}{% endunless -%}
+    </title>
+
+    {% if page_description %}
+      <meta name="description" content="{{ page_description | escape }}">
+    {% endif %}
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Poetsen+One&display=swap" rel="stylesheet">
+
+    {{ content_for_header }}
+
+    {% style %}
+      :root {
+        --aero-sky-top: {{ settings.color_sky_top | default: '#DFF3FF' }};
+        --aero-mint-mid: {{ settings.color_mint_mid | default: '#EEFCF6' }};
+        --aero-ink: {{ settings.color_ink_primary | default: '#0A2239' }};
+        --aero-ink-muted: {{ settings.color_ink_secondary | default: '#3A5A78' }};
+        --aero-gel-green: {{ settings.color_gel_primary | default: '#00A878' }};
+        --aero-gel-sky: {{ settings.color_gel_sky | default: '#0096D6' }};
+        --aero-aurora-lime: {{ settings.color_aurora_lime | default: '#5FE3A1' }};
+        --aero-chrome-bg: {{ settings.color_chrome_bg | default: '#081421' }};
+        --aero-chrome-accent: {{ settings.color_chrome_accent | default: '#00E5FF' }};
+
+        --swatch-pink: {{ settings.swatch_pink | default: '#FF4FA3' }};
+        --swatch-red: {{ settings.swatch_red | default: '#FF2A4B' }};
+        --swatch-orange: {{ settings.swatch_orange | default: '#FF7B00' }};
+        --swatch-yellow: {{ settings.swatch_yellow | default: '#FFD000' }};
+        --swatch-green: {{ settings.swatch_green | default: '#00C853' }};
+        --swatch-cyan: {{ settings.swatch_cyan | default: '#00D4FF' }};
+        --swatch-blue: {{ settings.swatch_blue | default: '#0066FF' }};
+        --swatch-purple: {{ settings.swatch_purple | default: '#9D4EDD' }};
+        --swatch-clear: {{ settings.swatch_clear | default: '#DDF4FF' }};
+
+        --glass-blur: {{ settings.glass_blur_px | default: 20 }}px;
+        --gel-gloss-opacity: {{ settings.gel_gloss_intensity | default: 80 | divided_by: 100.0 }};
+
+        {%- if settings.display_font == 'poetsen_one' -%}
+          --font-heading: 'Poetsen One', 'Plus Jakarta Sans', sans-serif;
+        {%- else -%}
+          --font-heading: 'Plus Jakarta Sans', 'Host Grotesk', -apple-system, BlinkMacSystemFont, sans-serif;
+        {%- endif -%}
+        --font-body: 'Host Grotesk', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+        --font-mono: 'JetBrains Mono', ui-monospace, SFMono-Regular, monospace;
+
+        --heading-scale: {{ settings.heading_font_scale | default: 100 | divided_by: 100.0 }};
+        --body-scale: {{ settings.body_font_scale | default: 100 | divided_by: 100.0 }};
+      }
+    {% endstyle %}
+
+    {{ 'base.css' | asset_url | stylesheet_tag }}
+
+    <script>
+      document.documentElement.className = document.documentElement.className.replace('no-js', 'js');
+      window.TerpAeroConfig = {
+        routes: {
+          cart_url: {{ routes.cart_url | json }},
+          cart_add_url: {{ routes.cart_add_url | json }},
+          cart_change_url: {{ routes.cart_change_url | json }},
+          cart_update_url: {{ routes.cart_update_url | json }},
+          search_url: {{ routes.search_url | json }}
+        },
+        moneyFormat: {{ shop.money_format | json }},
+        freeShippingThresholdCents: {{ settings.cart_free_shipping_threshold | default: 35 | times: 100 }},
+        enableCartDrawer: {{ settings.enable_cart_drawer | default: true | json }},
+        swatches: {
+          'Pink': {{ settings.swatch_pink | default: '#FF4FA3' | json }},
+          'Red': {{ settings.swatch_red | default: '#FF2A4B' | json }},
+          'Orange': {{ settings.swatch_orange | default: '#FF7B00' | json }},
+          'Yellow': {{ settings.swatch_yellow | default: '#FFD000' | json }},
+          'Green': {{ settings.swatch_green | default: '#00C853' | json }},
+          'Cyan': {{ settings.swatch_cyan | default: '#00D4FF' | json }},
+          'Blue': {{ settings.swatch_blue | default: '#0066FF' | json }},
+          'Purple': {{ settings.swatch_purple | default: '#9D4EDD' | json }},
+          'Clear': {{ settings.swatch_clear | default: '#DDF4FF' | json }}
+        }
+      };
+    </script>
+
+    <script src="{{ 'theme.js' | asset_url }}" defer="defer"></script>
+    <script src="{{ 'pack-builder.js' | asset_url }}" defer="defer"></script>
+  </head>
+
+  <body class="terp-aero-body template-{{ template.name | handle }}{% if template.suffix %} template-{{ template.name | handle }}-{{ template.suffix | handle }}{% endif %}">
+    <a class="skip-to-content-link" href="#MainContent">
+      {{ 'general.skip_to_content' | t }}
+    </a>
+
+    {%- if settings.enable_aero_bubbles -%}
+      {% render 'aero-ambient-bg' %}
+    {%- endif -%}
+
+    {%- if settings.enable_age_gate -%}
+      {% section 'native-age-gate' %}
+    {%- endif -%}
+
+    {% sections 'header-group' %}
+
+    <main id="MainContent" class="content-for-layout focus-none" role="main" tabindex="-1">
+      {{ content_for_layout }}
+    </main>
+
+    {% sections 'footer-group' %}
+
+    {%- if settings.enable_cart_drawer -%}
+      {% section 'cart-drawer' %}
+    {%- endif -%}
+  </body>
+</html>
+

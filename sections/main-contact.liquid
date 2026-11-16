@@ -1,0 +1,63 @@
+<section class="aero-section aero-section--tight">
+  <div class="page-width">
+    <div class="aero-glass aero-window" style="max-width:740px;margin-inline:auto;">
+      <div class="aero-window__bar">
+        <span class="aero-window__dots" aria-hidden="true">
+          <span class="aero-window__dot aero-window__dot--cyan"></span>
+          <span class="aero-window__dot aero-window__dot--green"></span>
+        </span>
+        <span class="aero-window__title">Support · {{ settings.support_email | default: 'help@terpscoops.com' }}</span>
+      </div>
+
+      <div style="padding:clamp(1.5rem, 3.5vw, 2.5rem);">
+        <span class="aero-mono-tag">GET IN TOUCH</span>
+        <h1 style="margin-top:0.25rem;">{{ page.title | default: 'Contact Us' }}</h1>
+        <p class="aero-muted">
+          Email <strong>{{ settings.support_email | default: 'help@terpscoops.com' }}</strong> for order questions, or <strong>{{ settings.wholesale_email | default: 'wholesale@terpscoops.com' }}</strong> for dispensary jars!
+        </p>
+
+        {% form 'contact', id: 'AeroContactForm' %}
+          {%- if form.posted_successfully? -%}
+            <div class="aero-form-alert aero-form-alert--success">
+              {{ 'contact.submit_success' | t }}
+            </div>
+          {%- elsif form.errors -%}
+            <div class="aero-form-alert aero-form-alert--error">
+              {{ form.errors | default_errors }}
+            </div>
+          {%- endif -%}
+
+          <div class="aero-field">
+            <label for="ContactFormName">Name</label>
+            <input id="ContactFormName" type="text" name="contact[name]" class="aero-input" value="{{ form.name }}">
+          </div>
+
+          <div class="aero-field">
+            <label for="ContactFormEmail">Email *</label>
+            <input id="ContactFormEmail" type="email" name="contact[email]" class="aero-input" value="{{ form.email }}" required>
+          </div>
+
+          <div class="aero-field">
+            <label for="ContactFormPhone">Phone Number</label>
+            <input id="ContactFormPhone" type="tel" name="contact[phone]" class="aero-input" value="{{ form.phone }}">
+          </div>
+
+          <div class="aero-field">
+            <label for="ContactFormMessage">Message *</label>
+            <textarea id="ContactFormMessage" name="contact[body]" rows="5" class="aero-textarea" required>{{ form.body }}</textarea>
+          </div>
+
+          <button type="submit" class="btn-aero-gel btn-aero-gel--full">Send Message</button>
+        {% endform %}
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Aero Contact Page",
+  "settings": []
+}
+{% endschema %}
+

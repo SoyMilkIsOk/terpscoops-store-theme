@@ -1,0 +1,102 @@
+{%- liquid
+  assign current_variant = product.selected_or_first_available_variant
+  assign product_form_id = 'MerchProductForm-' | append: section.id
+-%}
+
+<section class="aero-section aero-section--tight" data-product-section>
+  <div class="page-width">
+    <div class="aero-pdp-grid">
+      {% render 'pdp-gallery', product: product, chrome_mode: false %}
+
+      <div class="aero-glass aero-window">
+        <div class="aero-window__bar">
+          <span class="aero-window__dots" aria-hidden="true">
+            <span class="aero-window__dot aero-window__dot--cyan"></span>
+            <span class="aero-window__dot aero-window__dot--green"></span>
+            <span class="aero-window__dot aero-window__dot--pink"></span>
+          </span>
+          <span class="aero-window__title">Terp Merch · Made-to-Order</span>
+          <span class="aero-pill aero-pill--sky">Zero Overproduction</span>
+        </div>
+
+        <div class="aero-pdp-info">
+          <div>
+            <span class="aero-mono-tag">TERPMETRIX APPAREL &amp; HEADWEAR</span>
+            <h1 style="font-size:clamp(1.75rem, 3vw, 2.35rem);margin:0.25rem 0 0.45rem;">{{ product.title }}</h1>
+
+            <div class="aero-pdp-price-row">
+              <span class="aero-pdp-price" data-product-price>{{ current_variant.price | money }}</span>
+              <s class="aero-price-compare" data-product-compare-price {% unless current_variant.compare_at_price > current_variant.price %}hidden{% endunless %}>
+                {{ current_variant.compare_at_price | money }}
+              </s>
+            </div>
+          </div>
+
+          {% form 'product', product, id: product_form_id, data-ajax-cart-form: 'true' %}
+            <input type="hidden" name="id" value="{{ current_variant.id }}">
+
+            {%- unless product.has_only_default_variant -%}
+              <terp-variant-picker>
+                <script type="application/json" data-product-variants>
+                  {{ product.variants | json }}
+                </script>
+                {%- for option in product.options_with_values -%}
+                  <div class="aero-option-group">
+                    <div class="aero-option-group__title">{{ option.name }}</div>
+                    <div class="aero-option-pills">
+                      {%- for value in option.values -%}
+                        <label class="aero-option-pill">
+                          <input
+                            type="radio"
+                            name="options[{{ option.name | escape }}]"
+                            value="{{ value | escape }}"
+                            data-option-position="{{ option.position }}"
+                            {% if option.selected_value == value %}checked{% endif %}
+                          >
+                          <span>{{ value }}</span>
+                        </label>
+                      {%- endfor -%}
+                    </div>
+                  </div>
+                {%- endfor -%}
+              </terp-variant-picker>
+            {%- endunless -%}
+
+            <button
+              type="submit"
+              name="add"
+              class="btn-aero-gel btn-aero-gel--full"
+              data-add-text="{{ 'products.add_to_cart' | t }}"
+              data-sold-out-text="{{ 'products.sold_out' | t }}"
+              {% unless current_variant.available %}disabled{% endunless %}
+            >
+              {% render 'aero-icon', icon: 'cart' %}
+              <span data-submit-label>
+                {%- if current_variant.available -%}
+                  {{ 'products.add_to_cart' | t }}
+                {%- else -%}
+                  {{ 'products.sold_out' | t }}
+                {%- endif -%}
+              </span>
+            </button>
+          {% endform %}
+
+          <div class="aero-muted" style="font-size:0.95rem;">
+            {{ product.description }}
+          </div>
+
+          <details class="aero-accordion" open>
+            <summary>
+              <span>On-Demand Crafting &amp; Delivery</span>
+              <span>+</span>
+            </summary>
+            <div class="aero-accordion__content">
+              Every Terp Merch piece is printed or embroidered on demand specifically for your order to minimize textile waste.
+            </div>
+          </details>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+

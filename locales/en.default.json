@@ -1,0 +1,51 @@
+{
+  "general": {
+    "continue_shopping": "Continue shopping",
+    "skip_to_content": "Skip to content",
+    "close": "Close",
+    "search": "Search",
+    "search_placeholder": "Search scoops, titanium, shirts..."
+  },
+  "accessibility": {
+    "menu": "Menu",
+    "cart": "Cart",
+    "close_drawer": "Close drawer",
+    "open_cart": "Open cart drawer",
+    "quantity": "Quantity",
+    "increase_quantity": "Increase quantity",
+    "decrease_quantity": "Decrease quantity",
+    "remove_item": "Remove item"
+  },
+  "products": {
+    "add_to_cart": "Add to Cart",
+    "sold_out": "Sold Out",
+    "unavailable": "Unavailable",
+    "build_your_pack": "Build Your Pack",
+    "you_pick_prompt": "Select {{ count }} colors for your custom dime bag",
+    "you_pick_incomplete": "Pick {{ remaining }} more color(s) to complete your pack",
+    "rainbow_autofill": "Rainbow Auto-Fill",
+    "clear_slots": "Reset Slots",
+    "notify_me": "Notify Me on Next Drop",
+    "notify_success": "You're on the drop list! We'll email you the moment this edition restocks."
+  },
+  "cart": {
+    "title": "Your Aero Bag",
+    "empty": "Your bag is currently empty.",
+    "empty_cta": "Start with a $4.20 2-Pack",
+    "subtotal": "Subtotal",
+    "checkout": "Check Out",
+    "view_cart": "View Full Cart",
+    "note_label": "Order / Custom Color Note",
+    "note_placeholder": "Any special instructions for Boulder fulfillment...",
+    "free_shipping_progress": "Add {{ amount }} more for Free US Shipping",
+    "free_shipping_unlocked": "Unlocked! Free Shipping from Boulder, CO"
+  },
+  "wholesale": {
+    "title": "Dispensary & Headshop Portal",
+    "submit_success": "Wholesale inquiry sent! Sam & team will follow up from wholesale@terpscoops.com."
+  },
+  "contact": {
+    "submit_success": "Thanks for reaching out! We'll reply shortly from help@terpscoops.com."
+  }
+}
+

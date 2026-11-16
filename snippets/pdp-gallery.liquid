@@ -1,0 +1,46 @@
+{%- comment -%}
+  Shared Aero Glass PDP Media Gallery
+  Params:
+    - product: Shopify product object
+    - chrome_mode: boolean (optional)
+{%- endcomment -%}
+
+<div class="aero-gallery" data-product-gallery>
+  <div class="{% if chrome_mode %}aero-chrome-glass{% else %}aero-glass{% endif %} aero-gallery__main">
+    {%- assign featured = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
+    {%- if featured != blank -%}
+      <img
+        src="{{ featured | image_url: width: 1200 }}"
+        alt="{{ featured.alt | default: product.title | escape }}"
+        width="{{ featured.width }}"
+        height="{{ featured.height }}"
+        data-gallery-main-img
+      >
+    {%- else -%}
+      <div class="aero-product-card__placeholder" style="aspect-ratio:1/1;">
+        {% render 'aero-icon', icon: 'scoop' %}
+      </div>
+    {%- endif -%}
+  </div>
+
+  {%- if product.media.size > 1 -%}
+    <div class="aero-gallery__thumbs" role="list" aria-label="Product gallery thumbnails">
+      {%- for media in product.media -%}
+        <button
+          type="button"
+          class="aero-gallery__thumb{% if media.id == featured.id %} is-active{% endif %}"
+          data-gallery-thumb
+          data-full-src="{{ media | image_url: width: 1200 }}"
+          aria-label="View image {{ forloop.index }}"
+        >
+          <img
+            src="{{ media | image_url: width: 200 }}"
+            alt="{{ media.alt | default: product.title | escape }}"
+            loading="lazy"
+          >
+        </button>
+      {%- endfor -%}
+    </div>
+  {%- endif -%}
+</div>
+

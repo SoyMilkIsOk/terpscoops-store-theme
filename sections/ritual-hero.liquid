@@ -1,0 +1,176 @@
+<section class="aero-section aero-section--tight" data-hero-showcase>
+  <div class="page-width">
+    <div class="aero-hero-grid">
+      <div class="aero-glass aero-window aero-hero-panel">
+        <div class="aero-window__bar">
+          <span class="aero-window__dots" aria-hidden="true">
+            <span class="aero-window__dot aero-window__dot--cyan"></span>
+            <span class="aero-window__dot aero-window__dot--green"></span>
+            <span class="aero-window__dot aero-window__dot--pink"></span>
+          </span>
+          <span class="aero-window__title">{{ section.settings.window_title | escape }}</span>
+          <span class="aero-pill aero-pill--green">From $4.20</span>
+        </div>
+
+        <div class="aero-hero-panel__body">
+          <span class="aero-mono-tag">
+            {% render 'aero-icon', icon: 'sparkles' %}
+            <span>{{ section.settings.eyebrow | escape }}</span>
+          </span>
+
+          <h1>{{ section.settings.heading | escape }}</h1>
+
+          <p class="aero-hero-panel__subtitle">
+            {{ section.settings.subheading | escape }}
+          </p>
+
+          <div class="aero-hero-pills">
+            <span class="aero-pill aero-pill--sky">{% render 'aero-icon', icon: 'grinder' %} Lives in Your Grinder</span>
+            <span class="aero-pill aero-pill--green">{% render 'aero-icon', icon: 'droplet' %} Zero Sticky Fingers</span>
+            <span class="aero-pill aero-pill--chrome">{% render 'aero-icon', icon: 'mountain' %} Bagged in Boulder, CO</span>
+          </div>
+
+          <div class="aero-hero-ctas">
+            <a href="{{ section.settings.primary_cta_link | default: '/products/terpscoop-2pk' }}" class="btn-aero-gel">
+              <span>{{ section.settings.primary_cta_label | escape }}</span>
+              {% render 'aero-icon', icon: 'arrow-right' %}
+            </a>
+            <a href="{{ section.settings.secondary_cta_link | default: '/collections/metal-scoops' }}" class="btn-aero-sky">
+              <span>{{ section.settings.secondary_cta_label | escape }}</span>
+            </a>
+          </div>
+
+          <div class="aero-hero-rating">
+            <span class="aero-stars" aria-label="5 out of 5 stars">
+              {%- for i in (1..5) -%}
+                {% render 'aero-icon', icon: 'star' %}
+              {%- endfor -%}
+            </span>
+            <span>5.0 / 5.0 from 47+ verified Terpscoop reviews</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="aero-glass aero-window aero-hero-stage">
+        <div class="aero-window__bar" style="margin:-1.65rem -1.65rem 0;">
+          <span class="aero-window__dots" aria-hidden="true">
+            <span class="aero-window__dot aero-window__dot--green"></span>
+            <span class="aero-window__dot aero-window__dot--cyan"></span>
+          </span>
+          <span class="aero-window__title">8 Vibrant Resin Colors</span>
+          <span class="aero-mono-tag" data-hero-active-color>Cyan</span>
+        </div>
+
+        <div class="aero-hero-stage__canvas">
+          {%- if section.settings.hero_image != blank -%}
+            <img
+              src="{{ section.settings.hero_image | image_url: width: 960 }}"
+              alt="{{ section.settings.hero_image.alt | default: section.settings.heading | escape }}"
+              class="aero-hero-stage__img"
+              width="{{ section.settings.hero_image.width }}"
+              height="{{ section.settings.hero_image.height }}"
+              loading="eager"
+            >
+          {%- else -%}
+            <div class="aero-hero-orb-display">
+              <div class="aero-hero-orb-ring">
+                <span
+                  class="swatch-aero-resin swatch-aero-resin--xl"
+                  style="--resin-color: var(--swatch-cyan); width:84px; height:84px;"
+                  data-hero-preview-orb
+                ></span>
+              </div>
+              <div>
+                <div style="font-weight:800;font-size:1.08rem;">Injection-Molded Acrylic Resin</div>
+                <div class="aero-muted" style="font-size:0.86rem;">Tap any sphere to preview the 8 vibrant dime-bag colors</div>
+              </div>
+            </div>
+          {%- endif -%}
+        </div>
+
+        <div class="aero-hero-color-bar" role="group" aria-label="Preview Terpscoop colors">
+          {%- assign colors = 'Pink:#FF4FA3,Red:#FF2A4B,Orange:#FF7B00,Yellow:#FFD000,Green:#00C853,Cyan:#00D4FF,Blue:#0066FF,Purple:#9D4EDD' | split: ',' -%}
+          {%- for entry in colors -%}
+            {%- assign parts = entry | split: ':' -%}
+            <button
+              type="button"
+              class="aero-hero-color-btn{% if parts[0] == 'Cyan' %} is-selected{% endif %}"
+              data-hero-color-btn
+              data-color-name="{{ parts[0] }}"
+              data-color-hex="{{ parts[1] }}"
+              aria-label="Preview {{ parts[0] }}"
+              title="{{ parts[0] }}"
+            >
+              <span class="swatch-aero-resin" style="--resin-color: {{ parts[1] }};"></span>
+            </button>
+          {%- endfor -%}
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+{% schema %}
+{
+  "name": "Aero Ritual Hero",
+  "settings": [
+    {
+      "type": "text",
+      "id": "window_title",
+      "label": "Aero Window Title",
+      "default": "TerpAero OS · Boulder, CO"
+    },
+    {
+      "type": "text",
+      "id": "eyebrow",
+      "label": "Eyebrow label",
+      "default": "World's Best Grinder Scoop"
+    },
+    {
+      "type": "text",
+      "id": "heading",
+      "label": "Main Heading",
+      "default": "Stop pinching your herb. Start scooping."
+    },
+    {
+      "type": "textarea",
+      "id": "subheading",
+      "label": "Subheading",
+      "default": "Ergonomic pocket grinder tools engineered to stay inside your grinder—keeping trichomes on your flower and sticky resin off your fingertips."
+    },
+    {
+      "type": "image_picker",
+      "id": "hero_image",
+      "label": "Hero feature photo"
+    },
+    {
+      "type": "text",
+      "id": "primary_cta_label",
+      "label": "Primary button label",
+      "default": "Build a Color Pack ($4.20)"
+    },
+    {
+      "type": "url",
+      "id": "primary_cta_link",
+      "label": "Primary button link"
+    },
+    {
+      "type": "text",
+      "id": "secondary_cta_label",
+      "label": "Secondary button label",
+      "default": "Explore Metal Vault"
+    },
+    {
+      "type": "url",
+      "id": "secondary_cta_link",
+      "label": "Secondary button link"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Aero Ritual Hero"
+    }
+  ]
+}
+{% endschema %}
+
