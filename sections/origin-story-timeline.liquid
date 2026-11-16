@@ -8,12 +8,10 @@
           <span class="aero-window__dot aero-window__dot--pink"></span>
         </span>
         <span class="aero-window__title">About Terpscoops · Terpmetrix</span>
-        <span class="aero-pill aero-pill--green">{{ settings.origin_city | default: 'Boulder, CO' }}</span>
       </div>
 
       <div style="padding:clamp(1.6rem, 4vw, 3rem);">
-        <span class="aero-mono-tag">OUR ORIGIN STORY</span>
-        <h1 style="margin-top:0.35rem;">{{ section.settings.heading | default: page.title | escape }}</h1>
+        <h1>{{ section.settings.heading | default: page.title | escape }}</h1>
 
         <div style="font-size:1.06rem;line-height:1.7;color:var(--aero-ink-muted);">
           {%- if page.content != blank -%}

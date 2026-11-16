@@ -2,7 +2,6 @@
   <div class="page-width">
     <div class="aero-section-header">
       <div class="aero-section-header__copy">
-        <span class="aero-mono-tag">DESIGNED FOR YOUR DAILY RITUAL</span>
         <h2>{{ section.settings.heading | escape }}</h2>
         <p>{{ section.settings.subheading | escape }}</p>
       </div>
@@ -10,14 +9,7 @@
 
     <div class="aero-grid-3">
       {%- for block in section.blocks -%}
-        <div class="aero-glass aero-window" {{ block.shopify_attributes }}>
-          <div class="aero-window__bar">
-            <span class="aero-window__dots" aria-hidden="true">
-              <span class="aero-window__dot aero-window__dot--cyan"></span>
-              <span class="aero-window__dot aero-window__dot--green"></span>
-            </span>
-            <span class="aero-window__title">Step 0{{ forloop.index }}</span>
-          </div>
+        <div class="aero-glass" {{ block.shopify_attributes }}>
           <div class="aero-step-card">
             <div class="aero-step-card__icon">
               {% render 'aero-icon', icon: block.settings.icon %}

@@ -2,13 +2,8 @@
   <div class="page-width">
     <div class="aero-section-header">
       <div class="aero-section-header__copy">
-        <span class="aero-mono-tag">VERIFIED SOCIAL PROOF · 5.0 / 5.0 STARS</span>
         <h2>{{ section.settings.heading | escape }}</h2>
         <p>{{ section.settings.subheading | escape }}</p>
-      </div>
-      <div class="aero-pill aero-pill--green">
-        <span class="aero-stars">{% for i in (1..5) %}{% render 'aero-icon', icon: 'star' %}{% endfor %}</span>
-        <span>47+ Verified Reviews</span>
       </div>
     </div>
 
@@ -21,14 +16,11 @@
             </div>
           {%- else -%}
             <article class="aero-glass aero-review-card" {{ block.shopify_attributes }}>
-              <div style="display:flex;align-items:center;justify-content:space-between;">
-                <span class="aero-stars" aria-label="5 stars">
-                  {%- for i in (1..5) -%}{% render 'aero-icon', icon: 'star' %}{%- endfor -%}
-                </span>
-                <span class="aero-pill aero-pill--sky">{{ block.settings.product_tag | escape }}</span>
-              </div>
+              <span class="aero-stars" aria-label="5 stars">
+                {%- for i in (1..5) -%}{% render 'aero-icon', icon: 'star' %}{%- endfor -%}
+              </span>
               <p class="aero-review-card__quote">"{{ block.settings.quote | escape }}"</p>
-              <span class="aero-review-card__author">— {{ block.settings.author | escape }} · Verified Buyer</span>
+              <span class="aero-review-card__author">— {{ block.settings.author | escape }}</span>
             </article>
           {%- endif -%}
         {%- endfor -%}

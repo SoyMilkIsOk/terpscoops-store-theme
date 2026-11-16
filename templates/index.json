@@ -6,9 +6,9 @@
         "window_title": "TerpAero OS · Boulder, CO",
         "eyebrow": "World's Best Grinder Scoop",
         "heading": "Stop pinching your herb. Start scooping.",
-        "subheading": "Ergonomic pocket grinder tools engineered to stay inside your grinder—keeping trichomes on your flower and sticky resin off your fingertips.",
-        "primary_cta_label": "Build a Color Pack ($4.20)",
-        "secondary_cta_label": "Explore Metal Vault"
+        "subheading": "Always in your grinder & ready to use. No sticky fingers, no mess.",
+        "primary_cta_label": "Shop All Products",
+        "secondary_cta_label": "Shop Terpscoops"
       }
     },
     "grinder-fit-anatomy": {
@@ -48,14 +48,14 @@
     "featured-pack-builder": {
       "type": "featured-pack-builder",
       "settings": {
-        "heading": "8 Vibrant Colors. Pick Your Custom Mix.",
-        "subheading": "Choose a single signature hue or use our interactive Tray Builder on any 2pk ($4.20), 4pk ($8), or 8pk ($15) to hand-pick every scoop in your bag."
+        "heading": "Color Scoops",
+        "subheading": "Available in 2-packs, 4-packs, 8-packs, and 25ct jars."
       }
     },
     "metal-vault-showcase": {
       "type": "metal-vault-showcase",
       "settings": {
-        "heading": "Achieve Peak Headiness. Metal Terpscoops.",
+        "heading": "Metal Terpscoops",
         "subheading": "Elevated from our classic grinder geometry into 304 Stainless Steel, stonewashed Aerospace Titanium, and hand-cast 15g Sterling Silver.",
         "show_spec_matrix": true
       }
@@ -105,8 +105,8 @@
     "merch-editorial-grid": {
       "type": "merch-editorial-grid",
       "settings": {
-        "heading": "Terp Merch. 6.1 oz Garment-Dyed & Embroidered.",
-        "subheading": "Made-to-order heavyweight 100% ring-spun cotton tees and low-profile embroidered chino twill hats to reduce overproduction."
+        "heading": "Terp Merch",
+        "subheading": "Made-to-order heavyweight 100% ring-spun cotton tees and low-profile embroidered chino twill hats."
       }
     },
     "wholesale-cta-banner": {

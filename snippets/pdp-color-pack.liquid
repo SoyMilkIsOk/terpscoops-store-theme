@@ -56,16 +56,14 @@
             {%- if pack_size == 25 -%}
               Dispensary &amp; Headshop Counter Jar
             {%- else -%}
-              Acrylic Resin · Bagged in {{ settings.origin_city | default: 'Boulder, CO' }}
+              Acrylic · Bagged in {{ settings.origin_city | default: 'Boulder, CO' }}
             {%- endif -%}
           </span>
-          <span class="aero-pill aero-pill--green">5.0 ★ Verified</span>
         </div>
 
         <div class="aero-pdp-info">
           <div>
-            <span class="aero-mono-tag">{{ product.vendor | default: 'TERPMETRIX' | upcase }} · {{ product.type | default: 'UTILITY' | upcase }}</span>
-            <h1 style="font-size:clamp(1.75rem, 3vw, 2.35rem);margin:0.25rem 0 0.45rem;">{{ product.title }}</h1>
+            <h1 style="font-size:clamp(1.75rem, 3vw, 2.35rem);margin:0 0 0.45rem;">{{ product.title }}</h1>
 
             <div class="aero-pdp-price-row">
               <span class="aero-pdp-price" data-product-price>{{ current_variant.price | money }}</span>
@@ -74,7 +72,7 @@
               </s>
               {%- if pack_size > 1 -%}
                 {%- assign unit_cents = current_variant.price | divided_by: pack_size -%}
-                <span class="aero-pill aero-pill--sky">{{ unit_cents | money }} / scoop</span>
+                <span class="aero-muted" style="font-family:var(--font-mono);font-size:0.84rem;">({{ unit_cents | money }} / scoop)</span>
               {%- endif -%}
             </div>
 
@@ -88,8 +86,8 @@
           {%- endif -%}
 
           {%- if pack_size == 25 -%}
-            <div class="aero-glass" style="padding:1rem;border-radius:18px;background:rgba(220,250,242,0.65);">
-              <span class="aero-mono-tag">RETAIL DISPLAY JAR · $1.60/SCOOP</span>
+            <div class="aero-glass" style="padding:1rem;border-radius:18px;background:rgba(220,250,242,0.5);">
+              <strong style="font-size:0.9rem;">Retail Display Jar · $1.60/scoop</strong>
               <p class="aero-muted" style="margin:0.35rem 0 0.65rem;font-size:0.9rem;">
                 Packed with 25 assorted Terpscoops, comic instruction label, @terpscoops giveaway callout, and bonus handout stickers. Ordering tax-exempt bulk?
               </p>

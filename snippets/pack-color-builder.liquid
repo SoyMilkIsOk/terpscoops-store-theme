@@ -19,7 +19,6 @@
 >
   <div class="aero-pack-builder__header">
     <div>
-      <span class="aero-mono-tag">CUSTOM DIME-BAG TRAY</span>
       <h4 class="aero-pack-builder__heading">
         {{ 'products.you_pick_prompt' | t: count: count }}
       </h4>
@@ -56,7 +55,7 @@
   </div>
 
   <div class="aero-resin-palette">
-    <span class="aero-resin-palette__caption">Tap an acrylic resin sphere to fill the next slot:</span>
+    <span class="aero-resin-palette__caption">Tap a color to fill the next slot:</span>
     <div class="aero-resin-palette__grid">
       {%- for color_name in resin_colors -%}
         {%- assign color_slug = color_name | downcase -%}

@@ -3,18 +3,18 @@
     <div class="aero-glass aero-window" style="padding:1.5rem 1.75rem;margin-bottom:1.75rem;">
       <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;">
         <div>
-          <span class="aero-mono-tag">COLLECTION CATALOG · {{ collection.products_count }} ITEMS</span>
-          <h1 style="margin:0.25rem 0 0;font-size:clamp(1.75rem, 3.2vw, 2.5rem);">{{ collection.title }}</h1>
+          <h1 style="margin:0;font-size:clamp(1.75rem, 3.2vw, 2.5rem);">{{ collection.title }}</h1>
           {%- if collection.description != blank -%}
             <div class="aero-muted" style="margin-top:0.4rem;">{{ collection.description }}</div>
           {%- endif -%}
         </div>
 
         <div class="aero-hero-pills">
-          <a href="{{ routes.collections_url }}/shop-terpscoops" class="aero-pill {% if collection.handle == 'shop-terpscoops' %}aero-pill--green{% else %}aero-pill--muted{% endif %}">All Scoops</a>
+          <a href="{{ routes.all_products_collection_url }}" class="aero-pill {% if collection.handle == 'all' %}aero-pill--green{% else %}aero-pill--muted{% endif %}">Shop All</a>
+          <a href="{{ routes.collections_url }}/shop-terpscoops" class="aero-pill {% if collection.handle == 'shop-terpscoops' %}aero-pill--green{% else %}aero-pill--muted{% endif %}">Terpscoops</a>
           <a href="{{ routes.collections_url }}/color-scoops" class="aero-pill {% if collection.handle == 'color-scoops' %}aero-pill--green{% else %}aero-pill--muted{% endif %}">Color Packs</a>
-          <a href="{{ routes.collections_url }}/metal-scoops" class="aero-pill {% if collection.handle == 'metal-scoops' %}aero-pill--chrome{% else %}aero-pill--muted{% endif %}">Metal Vault</a>
-          <a href="{{ routes.collections_url }}/merch" class="aero-pill {% if collection.handle == 'merch' %}aero-pill--sky{% else %}aero-pill--muted{% endif %}">Terp Merch</a>
+          <a href="{{ routes.collections_url }}/metal-scoops" class="aero-pill {% if collection.handle == 'metal-scoops' %}aero-pill--chrome{% else %}aero-pill--muted{% endif %}">Metal</a>
+          <a href="{{ routes.collections_url }}/merch" class="aero-pill {% if collection.handle == 'merch' %}aero-pill--sky{% else %}aero-pill--muted{% endif %}">Merch</a>
           <a href="/pages/wholesale" class="aero-pill aero-pill--sky">Wholesale</a>
         </div>
       </div>

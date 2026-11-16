@@ -2,12 +2,11 @@
   <div class="page-width">
     <div class="aero-section-header">
       <div class="aero-section-header__copy">
-        <span class="aero-mono-tag">INJECTION-MOLDED ACRYLIC RESIN</span>
         <h2>{{ section.settings.heading | escape }}</h2>
         <p>{{ section.settings.subheading | escape }}</p>
       </div>
       <a href="{{ routes.collections_url }}/color-scoops" class="btn-aero-sky btn-aero-gel--sm">
-        <span>Shop All Color Scoops</span>
+        <span>Shop Color Scoops</span>
         {% render 'aero-icon', icon: 'arrow-right' %}
       </a>
     </div>
@@ -42,13 +41,13 @@
       "type": "text",
       "id": "heading",
       "label": "Heading",
-      "default": "8 Vibrant Colors. Pick Your Custom Mix."
+      "default": "Color Scoops"
     },
     {
       "type": "textarea",
       "id": "subheading",
       "label": "Subheading",
-      "default": "Choose a single signature hue or use our interactive Tray Builder on any 2pk ($4.20), 4pk ($8), or 8pk ($15) to hand-pick every scoop in your bag."
+      "default": "Available in 2-packs, 4-packs, 8-packs, and 25ct jars."
     },
     {
       "type": "collection",

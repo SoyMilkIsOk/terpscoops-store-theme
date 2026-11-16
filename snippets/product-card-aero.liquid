@@ -10,9 +10,7 @@
   assign card_variant = theme_variant | default: 'day'
   assign display_swatches = show_swatches | default: true
   assign handle_lower = product.handle | downcase
-  assign is_metal = false
   if handle_lower contains 'stainless' or handle_lower contains 'titanium' or handle_lower contains 'silver'
-    assign is_metal = true
     assign card_variant = 'chrome'
   endif
 
@@ -22,22 +20,8 @@
   endif
 
   assign badge_label = ''
-  assign badge_class = 'aero-pill--sky'
   if product.available == false
     assign badge_label = 'Sold Out'
-    assign badge_class = 'aero-pill--muted'
-  elsif product.tags contains 'LimitedDrop' or handle_lower contains 'silver'
-    assign badge_label = 'Limited Drop'
-    assign badge_class = 'aero-pill--chrome'
-  elsif handle_lower contains '2pk'
-    assign badge_label = '$4.20 Icon'
-    assign badge_class = 'aero-pill--green'
-  elsif handle_lower contains 'jar-of-scoops'
-    assign badge_label = '25ct Wholesale'
-    assign badge_class = 'aero-pill--sky'
-  elsif is_metal
-    assign badge_label = 'Metal Edition'
-    assign badge_class = 'aero-pill--chrome'
   endif
 -%}
 
@@ -45,7 +29,7 @@
   <a href="{{ product.url }}" class="aero-product-card__media-link" aria-label="{{ product.title | escape }}">
     <div class="aero-product-card__media">
       {%- if badge_label != blank -%}
-        <span class="aero-pill {{ badge_class }} aero-product-card__badge">{{ badge_label }}</span>
+        <span class="aero-pill aero-pill--muted aero-product-card__badge">{{ badge_label }}</span>
       {%- endif -%}
 
       {%- if product.featured_media != blank -%}
@@ -82,27 +66,13 @@
   </a>
 
   <div class="aero-product-card__body">
-    <div class="aero-product-card__meta">
-      <span class="aero-mono-tag">
-        {%- if is_metal -%}
-          HEIRLOOM METAL
-        {%- elsif is_color_pack -%}
-          ACRYLIC RESIN
-        {%- elsif handle_lower contains 'jar' -%}
-          DISPENSARY B2B
-        {%- else -%}
-          {{ product.type | default: 'TERP MERCH' | upcase }}
-        {%- endif -%}
-      </span>
-
-      <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">
-        {{ product.metafields.judgeme.badge }}
-      </div>
-    </div>
-
     <h3 class="aero-product-card__title">
       <a href="{{ product.url }}">{{ product.title }}</a>
     </h3>
+
+    <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}">
+      {{ product.metafields.judgeme.badge }}
+    </div>
 
     {%- if display_swatches and is_color_pack -%}
       <div class="aero-product-card__swatches" aria-label="Available colors">
@@ -132,7 +102,7 @@
       {%- if product.available -%}
         {%- if is_color_pack -%}
           <a href="{{ product.url }}" class="btn-aero-gel btn-aero-gel--sm">
-            Build Pack
+            Shop
           </a>
         {%- elsif product.has_only_default_variant -%}
           {% form 'product', product, data-ajax-cart-form: 'true' %}
@@ -143,7 +113,7 @@
           {% endform %}
         {%- else -%}
           <a href="{{ product.url }}" class="btn-aero-sky btn-aero-gel--sm">
-            Select
+            Shop
           </a>
         {%- endif -%}
       {%- else -%}

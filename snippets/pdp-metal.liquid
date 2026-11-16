@@ -36,40 +36,36 @@
             <span class="aero-window__dot aero-window__dot--green"></span>
             <span class="aero-window__dot aero-window__dot--pink"></span>
           </span>
-          <span class="aero-window__title" style="color:#CFE6F9;">Liquid Chrome Metal Vault</span>
-          <span class="aero-pill aero-pill--chrome">Metal Sticker Included</span>
+          <span class="aero-window__title" style="color:#CFE6F9;">Metal Terpscoops</span>
         </div>
 
         <div class="aero-pdp-info">
           <div>
-            <span class="aero-mono-tag">HEIRLOOM METAL SERIES</span>
-            <h1 style="font-size:clamp(1.75rem, 3vw, 2.35rem);margin:0.25rem 0 0.45rem;">{{ product.title }}</h1>
+            <h1 style="font-size:clamp(1.75rem, 3vw, 2.35rem);margin:0 0 0.45rem;">{{ product.title }}</h1>
 
             <div class="aero-pdp-price-row">
               <span class="aero-pdp-price" data-product-price>{{ current_variant.price | money }}</span>
               {%- if current_variant.available == false -%}
                 <span class="aero-pill aero-pill--muted">Sold Out</span>
-              {%- elsif product.tags contains 'LimitedDrop' or handle_lower contains 'silver' -%}
-                <span class="aero-pill aero-pill--chrome">Limited Collector Drop</span>
               {%- endif -%}
             </div>
           </div>
 
           <div class="aero-calc-metrics" style="margin-top:0;">
             <div class="aero-chrome-glass" style="padding:0.8rem;border-radius:16px;">
-              <span class="aero-mono-tag">Material</span>
+              <span style="font-size:0.75rem;color:#8BBCE8;font-weight:700;">Material</span>
               <div style="font-weight:700;font-size:0.9rem;margin-top:0.2rem;">{{ spec_material }}</div>
             </div>
             <div class="aero-chrome-glass" style="padding:0.8rem;border-radius:16px;">
-              <span class="aero-mono-tag">Manufacturing</span>
+              <span style="font-size:0.75rem;color:#8BBCE8;font-weight:700;">Manufacturing</span>
               <div style="font-weight:700;font-size:0.9rem;margin-top:0.2rem;">{{ spec_process }}</div>
             </div>
             <div class="aero-chrome-glass" style="padding:0.8rem;border-radius:16px;">
-              <span class="aero-mono-tag">Finish / Mass</span>
+              <span style="font-size:0.75rem;color:#8BBCE8;font-weight:700;">Finish / Mass</span>
               <div style="font-weight:700;font-size:0.9rem;margin-top:0.2rem;">{{ spec_weight }}</div>
             </div>
             <div class="aero-chrome-glass" style="padding:0.8rem;border-radius:16px;">
-              <span class="aero-mono-tag">Included Bonus</span>
+              <span style="font-size:0.75rem;color:#8BBCE8;font-weight:700;">Included Bonus</span>
               <div style="font-weight:700;font-size:0.9rem;margin-top:0.2rem;">Metal Edition Sticker</div>
             </div>
           </div>
@@ -124,7 +120,7 @@
           {% endform %}
 
           <div class="aero-restock-box" data-restock-drawer {% if current_variant.available %}hidden{% endif %}>
-            <span class="aero-mono-tag">METAL DROP RESTOCK ALERT</span>
+            <strong style="font-size:0.92rem;">Restock Alert</strong>
             <p style="font-size:0.9rem;margin:0.3rem 0 0.75rem;">
               This edition is currently sold out. Enter your email to get notified the instant our next Boulder batch drops.
             </p>
