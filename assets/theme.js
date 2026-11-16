@@ -583,9 +583,18 @@
 
     function applyWholesaleFilter(active) {
       document.querySelectorAll('.aero-filter-tab').forEach((t) => t.classList.remove('is-active'));
+      const groups = Array.from(grid.querySelectorAll('[data-collection-group]'));
+
       if (active && wholesaleTab) {
         wholesaleTab.classList.add('is-active');
         if (headingEl) headingEl.textContent = 'Wholesale';
+        if (groups.length > 0) {
+          groups.forEach((group) => {
+            const isJarGroup = group.dataset.collectionGroup === 'jar';
+            group.hidden = !isJarGroup;
+            group.style.display = isJarGroup ? '' : 'none';
+          });
+        }
         grid.querySelectorAll('.aero-grid-item').forEach((item) => {
           const isJar = item.dataset.productCategory === 'jar';
           item.hidden = !isJar;
@@ -594,6 +603,12 @@
       } else {
         if (allTab) allTab.classList.add('is-active');
         if (headingEl) headingEl.textContent = initialHeading;
+        if (groups.length > 0) {
+          groups.forEach((group) => {
+            group.hidden = false;
+            group.style.display = '';
+          });
+        }
         grid.querySelectorAll('.aero-grid-item').forEach((item) => {
           const hideExtra = item.dataset.wholesaleExtra === 'true';
           item.hidden = hideExtra;
@@ -635,22 +650,77 @@
 
     sortSelect.addEventListener('change', () => {
       const mode = sortSelect.value;
-      const items = Array.from(grid.querySelectorAll('.aero-grid-item'));
+      const containers = Array.from(grid.querySelectorAll('[data-collection-subgrid]'));
+      const sortTargets = containers.length > 0 ? containers : [grid];
 
-      items.sort((a, b) => {
-        if (mode === 'price-asc') {
-          return Number(a.dataset.productPrice || 0) - Number(b.dataset.productPrice || 0);
-        }
-        if (mode === 'price-desc') {
-          return Number(b.dataset.productPrice || 0) - Number(a.dataset.productPrice || 0);
-        }
-        if (mode === 'title-asc') {
-          return (a.dataset.productTitle || '').localeCompare(b.dataset.productTitle || '');
-        }
-        return Number(a.dataset.featuredIndex || 0) - Number(b.dataset.featuredIndex || 0);
+      sortTargets.forEach((container) => {
+        const items = Array.from(container.querySelectorAll('.aero-grid-item'));
+
+        items.sort((a, b) => {
+          if (mode === 'price-asc') {
+            return Number(a.dataset.productPrice || 0) - Number(b.dataset.productPrice || 0);
+          }
+          if (mode === 'price-desc') {
+            return Number(b.dataset.productPrice || 0) - Number(a.dataset.productPrice || 0);
+          }
+          if (mode === 'title-asc') {
+            return (a.dataset.productTitle || '').localeCompare(b.dataset.productTitle || '');
+          }
+          return Number(a.dataset.featuredIndex || 0) - Number(b.dataset.featuredIndex || 0);
+        });
+
+        items.forEach((item) => container.appendChild(item));
       });
+    });
+  }
 
-      items.forEach((item) => grid.appendChild(item));
+  /* 7. Rotating Announcement Bar */
+  function initAnnouncementBar() {
+    document.querySelectorAll('[data-announcement-rotator]').forEach((rotator) => {
+      const slides = Array.from(rotator.querySelectorAll('[data-announcement-slide]'));
+      if (slides.length < 2) return;
+
+      let currentIndex = slides.findIndex((s) => s.classList.contains('is-active'));
+      if (currentIndex < 0) {
+        currentIndex = 0;
+        slides[0].classList.add('is-active');
+      }
+
+      let intervalId = null;
+
+      function advanceSlide() {
+        if (document.hidden) return;
+        const prevSlide = slides[currentIndex];
+        currentIndex = (currentIndex + 1) % slides.length;
+        const nextSlide = slides[currentIndex];
+
+        prevSlide.classList.remove('is-active');
+        prevSlide.classList.add('is-exiting');
+        window.setTimeout(() => {
+          prevSlide.classList.remove('is-exiting');
+        }, 300);
+
+        nextSlide.classList.remove('is-exiting');
+        nextSlide.classList.add('is-active');
+      }
+
+      function startTimer() {
+        if (intervalId !== null) return;
+        intervalId = window.setInterval(advanceSlide, 3400);
+      }
+
+      function stopTimer() {
+        if (intervalId === null) return;
+        window.clearInterval(intervalId);
+        intervalId = null;
+      }
+
+      rotator.addEventListener('pointerenter', stopTimer);
+      rotator.addEventListener('pointerleave', startTimer);
+      rotator.addEventListener('focusin', stopTimer);
+      rotator.addEventListener('focusout', startTimer);
+
+      startTimer();
     });
   }
 
@@ -660,6 +730,7 @@
     initWholesaleCalculator();
     initInteractiveUI();
     initCollectionSort();
+    initAnnouncementBar();
   });
 })();
 

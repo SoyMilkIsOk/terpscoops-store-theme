@@ -98,60 +98,116 @@
       {% paginate source_collection.products by 48 %}
         {%- if source_collection.products.size > 0 -%}
           {%- assign ordered_products = source_collection.products | sort: 'price' -%}
-          {%- assign category_passes = 'color,jar,metal,merch' | split: ',' -%}
+          {%- assign category_passes = 'color,metal,merch,jar' | split: ',' -%}
           {%- assign feat_idx = 0 -%}
-          {%- assign has_jar_in_grid = false -%}
 
-          <div class="aero-grid-4" data-collection-grid>
-            {%- for pass in category_passes -%}
-              {%- for product in ordered_products -%}
+          {%- if is_all_collection -%}
+            <div class="aero-collection-sections" data-collection-grid>
+              {%- for pass in category_passes -%}
                 {%- liquid
-                  assign h_lower = product.handle | downcase
-                  assign prod_cat = 'merch'
-                  if h_lower contains '2pk' or h_lower contains '4pk' or h_lower contains '8pk'
-                    assign prod_cat = 'color'
-                  elsif h_lower contains 'stainless' or h_lower contains 'titanium' or h_lower contains 'silver'
-                    assign prod_cat = 'metal'
-                  elsif h_lower contains 'jar'
-                    assign prod_cat = 'jar'
+                  assign group_title = 'Color Scoops'
+                  if pass == 'metal'
+                    assign group_title = 'Metal Scoops'
+                  elsif pass == 'merch'
+                    assign group_title = 'Merch'
+                  elsif pass == 'jar'
+                    assign group_title = 'Wholesale'
                   endif
                 -%}
-                {%- if prod_cat == pass -%}
-                  {%- if prod_cat == 'jar' -%}
-                    {%- assign has_jar_in_grid = true -%}
-                  {%- endif -%}
-                  {%- assign feat_idx = feat_idx | plus: 1 -%}
-                  <div
-                    class="aero-grid-item"
-                    data-featured-index="{{ feat_idx }}"
-                    data-product-price="{{ product.price }}"
-                    data-product-title="{{ product.title | escape }}"
-                    data-product-category="{{ prod_cat }}"
-                  >
-                    {% render 'product-card-aero', product: product, show_swatches: true %}
+                {%- capture group_cards -%}
+                  {%- for product in ordered_products -%}
+                    {%- liquid
+                      assign h_lower = product.handle | downcase
+                      assign prod_cat = 'merch'
+                      if h_lower contains '2pk' or h_lower contains '4pk' or h_lower contains '8pk'
+                        assign prod_cat = 'color'
+                      elsif h_lower contains 'stainless' or h_lower contains 'titanium' or h_lower contains 'silver'
+                        assign prod_cat = 'metal'
+                      elsif h_lower contains 'jar'
+                        assign prod_cat = 'jar'
+                      endif
+                    -%}
+                    {%- if prod_cat == pass -%}
+                      {%- assign feat_idx = feat_idx | plus: 1 -%}
+                      <div
+                        class="aero-grid-item"
+                        data-featured-index="{{ feat_idx }}"
+                        data-product-price="{{ product.price }}"
+                        data-product-title="{{ product.title | escape }}"
+                        data-product-category="{{ prod_cat }}"
+                      >
+                        {% render 'product-card-aero', product: product, show_swatches: true %}
+                      </div>
+                    {%- endif -%}
+                  {%- endfor -%}
+                {%- endcapture -%}
+                {%- assign group_cards_trimmed = group_cards | strip -%}
+                {%- if group_cards_trimmed != blank -%}
+                  <div class="aero-collection-group" data-collection-group="{{ pass }}">
+                    <div class="aero-collection-group__header">
+                      <h2 class="aero-collection-group__title">{{ group_title }}</h2>
+                      <span class="aero-collection-group__line" aria-hidden="true"></span>
+                    </div>
+                    <div class="aero-grid-4" data-collection-subgrid>
+                      {{ group_cards }}
+                    </div>
                   </div>
                 {%- endif -%}
               {%- endfor -%}
-            {%- endfor -%}
+            </div>
+          {%- else -%}
+            {%- assign has_jar_in_grid = false -%}
+            <div class="aero-grid-4" data-collection-grid data-collection-subgrid>
+              {%- for pass in category_passes -%}
+                {%- for product in ordered_products -%}
+                  {%- liquid
+                    assign h_lower = product.handle | downcase
+                    assign prod_cat = 'merch'
+                    if h_lower contains '2pk' or h_lower contains '4pk' or h_lower contains '8pk'
+                      assign prod_cat = 'color'
+                    elsif h_lower contains 'stainless' or h_lower contains 'titanium' or h_lower contains 'silver'
+                      assign prod_cat = 'metal'
+                    elsif h_lower contains 'jar'
+                      assign prod_cat = 'jar'
+                    endif
+                  -%}
+                  {%- if prod_cat == pass -%}
+                    {%- if prod_cat == 'jar' -%}
+                      {%- assign has_jar_in_grid = true -%}
+                    {%- endif -%}
+                    {%- assign feat_idx = feat_idx | plus: 1 -%}
+                    <div
+                      class="aero-grid-item"
+                      data-featured-index="{{ feat_idx }}"
+                      data-product-price="{{ product.price }}"
+                      data-product-title="{{ product.title | escape }}"
+                      data-product-category="{{ prod_cat }}"
+                    >
+                      {% render 'product-card-aero', product: product, show_swatches: true %}
+                    </div>
+                  {%- endif -%}
+                {%- endfor -%}
+              {%- endfor -%}
 
-            {%- unless has_jar_in_grid -%}
-              {%- assign jar_prod = all_products['jar-of-scoops'] -%}
-              {%- if jar_prod != blank and jar_prod.id != blank -%}
-                <div
-                  class="aero-grid-item"
-                  data-featured-index="999"
-                  data-product-price="{{ jar_prod.price }}"
-                  data-product-title="{{ jar_prod.title | escape }}"
-                  data-product-category="jar"
-                  data-wholesale-extra="true"
-                  hidden
-                  style="display:none;"
-                >
-                  {% render 'product-card-aero', product: jar_prod, show_swatches: true %}
-                </div>
-              {%- endif -%}
-            {%- endunless -%}
-          </div>
+              {%- unless has_jar_in_grid -%}
+                {%- assign jar_prod = all_products['jar-of-scoops'] -%}
+                {%- if jar_prod != blank and jar_prod.id != blank -%}
+                  <div
+                    class="aero-grid-item"
+                    data-featured-index="999"
+                    data-product-price="{{ jar_prod.price }}"
+                    data-product-title="{{ jar_prod.title | escape }}"
+                    data-product-category="jar"
+                    data-wholesale-extra="true"
+                    hidden
+                    style="display:none;"
+                  >
+                    {% render 'product-card-aero', product: jar_prod, show_swatches: true %}
+                  </div>
+                {%- endif -%}
+              {%- endunless -%}
+            </div>
+          {%- endif -%}
 
           {%- if paginate.pages > 1 -%}
             <nav style="display:flex;justify-content:center;gap:0.65rem;margin-top:2rem;" aria-label="Pagination">

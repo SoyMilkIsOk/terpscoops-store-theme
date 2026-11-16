@@ -557,15 +557,58 @@ p {
   font-size: 0.84rem;
   font-weight: 600;
   border-bottom: 1px solid rgba(255, 255, 255, 0.45);
+  overflow: hidden;
 }
 
 .aero-announcement__inner {
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-wrap: wrap;
-  gap: 0.75rem 1.75rem;
   padding-block: 0.48rem;
+}
+
+.aero-announcement__viewport {
+  display: grid;
+  place-items: center;
+  width: 100%;
+  min-height: 1.35rem;
+}
+
+.aero-announcement__slide {
+  grid-area: 1 / 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(78%) scale(0.92);
+  filter: blur(4px);
+  transition: none;
+  will-change: transform, opacity, filter;
+}
+
+.aero-announcement__slide.is-active {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateY(0) scale(1);
+  filter: blur(0);
+  text-shadow: 0 1px 8px rgba(255, 255, 255, 0.32);
+  transition:
+    transform 0.44s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.26s ease,
+    filter 0.28s ease;
+}
+
+.aero-announcement__slide.is-exiting {
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-78%) scale(0.92);
+  filter: blur(4px);
+  transition:
+    transform 0.26s cubic-bezier(0.4, 0, 0.2, 1),
+    opacity 0.22s ease,
+    filter 0.22s ease;
 }
 
 .aero-announcement__item {
@@ -2366,3 +2409,39 @@ p {
   border: 1px solid rgba(10, 34, 57, 0.12);
   text-align: left;
 }
+
+/* ==========================================================================
+   Shop All Sectioned Collection Groups
+   ========================================================================== */
+
+.aero-collection-sections {
+  display: flex;
+  flex-direction: column;
+  gap: 2.6rem;
+}
+
+.aero-collection-group {
+  display: flex;
+  flex-direction: column;
+  gap: 1.1rem;
+}
+
+.aero-collection-group__header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.aero-collection-group__title {
+  margin: 0;
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+  white-space: nowrap;
+}
+
+.aero-collection-group__line {
+  flex: 1;
+  height: 2px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, rgba(255, 255, 255, 0.9) 0%, rgba(0, 150, 214, 0.28) 55%, transparent 100%);
+}
+
