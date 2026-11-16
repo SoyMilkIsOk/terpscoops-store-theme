@@ -11,10 +11,10 @@
         </div>
 
         <div class="aero-hero-pills">
-          <a href="/collections/shop-terpscoops" class="aero-pill {% if collection.handle == 'shop-terpscoops' %}aero-pill--green{% else %}aero-pill--muted{% endif %}">All Scoops</a>
-          <a href="/collections/color-scoops" class="aero-pill {% if collection.handle == 'color-scoops' %}aero-pill--green{% else %}aero-pill--muted{% endif %}">Color Packs</a>
-          <a href="/collections/metal-scoops" class="aero-pill {% if collection.handle == 'metal-scoops' %}aero-pill--chrome{% else %}aero-pill--muted{% endif %}">Metal Vault</a>
-          <a href="/collections/merch" class="aero-pill {% if collection.handle == 'merch' %}aero-pill--sky{% else %}aero-pill--muted{% endif %}">Terp Merch</a>
+          <a href="{{ routes.collections_url }}/shop-terpscoops" class="aero-pill {% if collection.handle == 'shop-terpscoops' %}aero-pill--green{% else %}aero-pill--muted{% endif %}">All Scoops</a>
+          <a href="{{ routes.collections_url }}/color-scoops" class="aero-pill {% if collection.handle == 'color-scoops' %}aero-pill--green{% else %}aero-pill--muted{% endif %}">Color Packs</a>
+          <a href="{{ routes.collections_url }}/metal-scoops" class="aero-pill {% if collection.handle == 'metal-scoops' %}aero-pill--chrome{% else %}aero-pill--muted{% endif %}">Metal Vault</a>
+          <a href="{{ routes.collections_url }}/merch" class="aero-pill {% if collection.handle == 'merch' %}aero-pill--sky{% else %}aero-pill--muted{% endif %}">Terp Merch</a>
           <a href="/pages/wholesale" class="aero-pill aero-pill--sky">Wholesale</a>
         </div>
       </div>
@@ -42,7 +42,7 @@
       {%- else -%}
         <div class="aero-glass" style="padding:3rem;text-align:center;">
           <h3>No products found in this collection yet.</h3>
-          <a href="/collections/all" class="btn-aero-gel btn-aero-gel--sm">Browse All Products</a>
+          <a href="{{ routes.all_products_collection_url }}" class="btn-aero-gel btn-aero-gel--sm">Browse All Products</a>
         </div>
       {%- endif -%}
     {% endpaginate %}

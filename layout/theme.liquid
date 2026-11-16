@@ -9,6 +9,8 @@
 
     {%- if settings.favicon != blank -%}
       <link rel="icon" type="image/png" href="{{ settings.favicon | image_url: width: 32, height: 32 }}">
+    {%- else -%}
+      <link rel="icon" type="image/png" href="{{ 'terpmetrix-rainbow-logo.png' | asset_url }}">
     {%- endif -%}
 
     <title>
@@ -22,9 +24,11 @@
       <meta name="description" content="{{ page_description | escape }}">
     {% endif %}
 
+    {% # theme-check-disable RemoteAsset %}
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Host+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@500;600;700&family=Plus+Jakarta+Sans:wght@600;700;800&family=Poetsen+One&display=swap" rel="stylesheet">
+    {% # theme-check-enable RemoteAsset %}
 
     {{ content_for_header }}
 

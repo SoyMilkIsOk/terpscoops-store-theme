@@ -22,9 +22,13 @@
             height="{{ section.settings.logo.height }}"
           >
         {%- else -%}
-          <span class="aero-header__badge-mark">
-            {% render 'aero-icon', icon: 'scoop' %}
-          </span>
+          <img
+            src="{{ 'terpmetrix-rainbow-logo.png' | asset_url }}"
+            alt="{{ shop.name | escape }}"
+            width="38"
+            height="38"
+            class="aero-header__logo-mark"
+          >
           <span>{{ shop.name }}</span>
         {%- endif -%}
       </a>
@@ -42,9 +46,9 @@
           </a>
         {%- endfor -%}
       {%- else -%}
-        <a href="/collections/shop-terpscoops" class="aero-nav__link">Shop Scoops</a>
-        <a href="/collections/metal-scoops" class="aero-nav__link">Metal Vault</a>
-        <a href="/collections/merch" class="aero-nav__link">Merch</a>
+        <a href="{{ routes.collections_url }}/shop-terpscoops" class="aero-nav__link">Shop Scoops</a>
+        <a href="{{ routes.collections_url }}/metal-scoops" class="aero-nav__link">Metal Vault</a>
+        <a href="{{ routes.collections_url }}/merch" class="aero-nav__link">Merch</a>
         <a href="/pages/wholesale" class="aero-nav__link">Wholesale</a>
         <a href="/pages/about-us" class="aero-nav__link">Our Story</a>
       {%- endif -%}
@@ -75,7 +79,16 @@
 <div id="TerpMobileMenu" class="aero-mobile-drawer" aria-hidden="true">
   <div class="aero-mobile-drawer__panel aero-glass">
     <div class="aero-mobile-drawer__header">
-      <strong>{{ shop.name }}</strong>
+      <div style="display:flex;align-items:center;gap:0.55rem;">
+        <img
+          src="{{ 'terpmetrix-rainbow-logo.png' | asset_url }}"
+          alt="{{ shop.name | escape }}"
+          width="32"
+          height="32"
+          class="aero-header__logo-mark"
+        >
+        <strong>{{ shop.name }}</strong>
+      </div>
       <button type="button" class="aero-icon-btn" data-mobile-menu-close aria-label="{{ 'accessibility.close_drawer' | t }}">
         {% render 'aero-icon', icon: 'close' %}
       </button>
@@ -87,9 +100,9 @@
           <a href="{{ link.url }}" class="aero-mobile-drawer__link">{{ link.title | escape }}</a>
         {%- endfor -%}
       {%- else -%}
-        <a href="/collections/shop-terpscoops" class="aero-mobile-drawer__link">Shop Scoops</a>
-        <a href="/collections/metal-scoops" class="aero-mobile-drawer__link">Metal Vault</a>
-        <a href="/collections/merch" class="aero-mobile-drawer__link">Terp Merch</a>
+        <a href="{{ routes.collections_url }}/shop-terpscoops" class="aero-mobile-drawer__link">Shop Scoops</a>
+        <a href="{{ routes.collections_url }}/metal-scoops" class="aero-mobile-drawer__link">Metal Vault</a>
+        <a href="{{ routes.collections_url }}/merch" class="aero-mobile-drawer__link">Terp Merch</a>
         <a href="/pages/wholesale" class="aero-mobile-drawer__link">Wholesale (25ct Jars)</a>
         <a href="/pages/about-us" class="aero-mobile-drawer__link">Our Story</a>
         <a href="/pages/contact" class="aero-mobile-drawer__link">Get In Touch</a>

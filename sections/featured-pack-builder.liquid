@@ -6,13 +6,16 @@
         <h2>{{ section.settings.heading | escape }}</h2>
         <p>{{ section.settings.subheading | escape }}</p>
       </div>
-      <a href="/collections/color-scoops" class="btn-aero-sky btn-aero-gel--sm">
+      <a href="{{ routes.collections_url }}/color-scoops" class="btn-aero-sky btn-aero-gel--sm">
         <span>Shop All Color Scoops</span>
         {% render 'aero-icon', icon: 'arrow-right' %}
       </a>
     </div>
 
-    {%- assign target_collection = collections[section.settings.collection] -%}
+    {%- assign target_collection = section.settings.collection -%}
+    {%- if target_collection == blank -%}
+      {%- assign target_collection = collections['color-scoops'] -%}
+    {%- endif -%}
     <div class="aero-grid-4">
       {%- if target_collection != blank and target_collection.products_count > 0 -%}
         {%- for product in target_collection.products limit: 4 -%}
@@ -50,8 +53,7 @@
     {
       "type": "collection",
       "id": "collection",
-      "label": "Collection",
-      "default": "color-scoops"
+      "label": "Collection"
     }
   ],
   "presets": [

@@ -23,6 +23,8 @@
             <img
               src="{{ section.settings.story_image | image_url: width: 900 }}"
               alt="{{ section.settings.heading | escape }}"
+              width="{{ section.settings.story_image.width }}"
+              height="{{ section.settings.story_image.height }}"
               style="border-radius:20px;border:1px solid rgba(255,255,255,0.85);margin-bottom:1.25rem;"
               loading="lazy"
             >

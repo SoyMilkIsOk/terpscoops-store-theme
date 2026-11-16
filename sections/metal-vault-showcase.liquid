@@ -6,13 +6,16 @@
         <h2>{{ section.settings.heading | escape }}</h2>
         <p>{{ section.settings.subheading | escape }}</p>
       </div>
-      <a href="/collections/metal-scoops" class="btn-aero-chrome btn-aero-gel--sm">
+      <a href="{{ routes.collections_url }}/metal-scoops" class="btn-aero-chrome btn-aero-gel--sm">
         <span>Enter Metal Vault</span>
         {% render 'aero-icon', icon: 'arrow-right' %}
       </a>
     </div>
 
-    {%- assign metal_collection = collections[section.settings.collection] -%}
+    {%- assign metal_collection = section.settings.collection -%}
+    {%- if metal_collection == blank -%}
+      {%- assign metal_collection = collections['metal-scoops'] -%}
+    {%- endif -%}
     <div class="aero-grid-3">
       {%- if metal_collection != blank and metal_collection.products_count > 0 -%}
         {%- for product in metal_collection.products limit: 3 -%}
@@ -104,8 +107,7 @@
     {
       "type": "collection",
       "id": "collection",
-      "label": "Metal Collection",
-      "default": "metal-scoops"
+      "label": "Metal Collection"
     },
     {
       "type": "checkbox",

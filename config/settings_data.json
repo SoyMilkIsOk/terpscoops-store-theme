@@ -33,7 +33,6 @@
     "age_gate_ttl_days": 30,
     "enable_cart_drawer": true,
     "cart_free_shipping_threshold": 35,
-    "cart_upsell_product": "terpscoop-2pk",
     "social_instagram_handle": "@terpscoops",
     "social_instagram_link": "https://instagram.com/terpscoops",
     "wholesale_email": "wholesale@terpscoops.com",

@@ -35,7 +35,8 @@
               <span>{{ section.settings.primary_cta_label | escape }}</span>
               {% render 'aero-icon', icon: 'arrow-right' %}
             </a>
-            <a href="{{ section.settings.secondary_cta_link | default: '/collections/metal-scoops' }}" class="btn-aero-sky">
+            {%- assign fallback_metal_url = routes.collections_url | append: '/metal-scoops' -%}
+            <a href="{{ section.settings.secondary_cta_link | default: fallback_metal_url }}" class="btn-aero-sky">
               <span>{{ section.settings.secondary_cta_label | escape }}</span>
             </a>
           </div>
@@ -73,12 +74,22 @@
             >
           {%- else -%}
             <div class="aero-hero-orb-display">
-              <div class="aero-hero-orb-ring">
-                <span
-                  class="swatch-aero-resin swatch-aero-resin--xl"
-                  style="--resin-color: var(--swatch-cyan); width:84px; height:84px;"
-                  data-hero-preview-orb
-                ></span>
+              <div style="display:flex;align-items:center;justify-content:center;gap:1.1rem;flex-wrap:wrap;">
+                <img
+                  src="{{ 'terpscoops-wheel-logo.png' | asset_url }}"
+                  alt="8 Vibrant Resin Terpscoops Wheel"
+                  width="220"
+                  height="220"
+                  loading="eager"
+                  style="width:190px;height:190px;object-fit:contain;filter:drop-shadow(0 12px 24px rgba(0,118,178,0.22));"
+                >
+                <div class="aero-hero-orb-ring" style="width:104px;height:104px;">
+                  <span
+                    class="swatch-aero-resin swatch-aero-resin--xl"
+                    style="--resin-color: var(--swatch-cyan); width:62px; height:62px;"
+                    data-hero-preview-orb
+                  ></span>
+                </div>
               </div>
               <div>
                 <div style="font-weight:800;font-size:1.08rem;">Injection-Molded Acrylic Resin</div>

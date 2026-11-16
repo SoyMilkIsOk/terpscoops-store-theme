@@ -8,9 +8,7 @@
         "heading": "Stop pinching your herb. Start scooping.",
         "subheading": "Ergonomic pocket grinder tools engineered to stay inside your grinder—keeping trichomes on your flower and sticky resin off your fingertips.",
         "primary_cta_label": "Build a Color Pack ($4.20)",
-        "primary_cta_link": "/products/terpscoop-2pk",
-        "secondary_cta_label": "Explore Metal Vault",
-        "secondary_cta_link": "/collections/metal-scoops"
+        "secondary_cta_label": "Explore Metal Vault"
       }
     },
     "grinder-fit-anatomy": {
@@ -51,8 +49,7 @@
       "type": "featured-pack-builder",
       "settings": {
         "heading": "8 Vibrant Colors. Pick Your Custom Mix.",
-        "subheading": "Choose a single signature hue or use our interactive Tray Builder on any 2pk ($4.20), 4pk ($8), or 8pk ($15) to hand-pick every scoop in your bag.",
-        "collection": "color-scoops"
+        "subheading": "Choose a single signature hue or use our interactive Tray Builder on any 2pk ($4.20), 4pk ($8), or 8pk ($15) to hand-pick every scoop in your bag."
       }
     },
     "metal-vault-showcase": {
@@ -60,7 +57,6 @@
       "settings": {
         "heading": "Achieve Peak Headiness. Metal Terpscoops.",
         "subheading": "Elevated from our classic grinder geometry into 304 Stainless Steel, stonewashed Aerospace Titanium, and hand-cast 15g Sterling Silver.",
-        "collection": "metal-scoops",
         "show_spec_matrix": true
       }
     },
@@ -69,8 +65,7 @@
       "settings": {
         "heading": "What started as one broken 3D print turned into the cleanest way to handle herb.",
         "story_copy": "Welcome to Terpscoops, part of the Terpmetrix family. We believe enjoying cannabis should feel effortless and refined—no sticky fingers, no bits under your nails, just intentional design.",
-        "cta_label": "Read Sam's Full Story",
-        "cta_link": "/pages/about-us"
+        "cta_label": "Read Sam's Full Story"
       }
     },
     "judgeme-editorial-reviews": {
@@ -111,8 +106,7 @@
       "type": "merch-editorial-grid",
       "settings": {
         "heading": "Terp Merch. 6.1 oz Garment-Dyed & Embroidered.",
-        "subheading": "Made-to-order heavyweight 100% ring-spun cotton tees and low-profile embroidered chino twill hats to reduce overproduction.",
-        "collection": "merch"
+        "subheading": "Made-to-order heavyweight 100% ring-spun cotton tees and low-profile embroidered chino twill hats to reduce overproduction."
       }
     },
     "wholesale-cta-banner": {

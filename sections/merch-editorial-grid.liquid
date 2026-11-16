@@ -6,13 +6,16 @@
         <h2>{{ section.settings.heading | escape }}</h2>
         <p>{{ section.settings.subheading | escape }}</p>
       </div>
-      <a href="/collections/merch" class="btn-aero-ghost btn-aero-gel--sm">
+      <a href="{{ routes.collections_url }}/merch" class="btn-aero-ghost btn-aero-gel--sm">
         <span>Shop All Merch</span>
         {% render 'aero-icon', icon: 'arrow-right' %}
       </a>
     </div>
 
-    {%- assign merch_collection = collections[section.settings.collection] -%}
+    {%- assign merch_collection = section.settings.collection -%}
+    {%- if merch_collection == blank -%}
+      {%- assign merch_collection = collections['merch'] -%}
+    {%- endif -%}
     <div class="aero-grid-4">
       {%- if merch_collection != blank and merch_collection.products_count > 0 -%}
         {%- for product in merch_collection.products limit: 4 -%}
@@ -50,8 +53,7 @@
     {
       "type": "collection",
       "id": "collection",
-      "label": "Merch Collection",
-      "default": "merch"
+      "label": "Merch Collection"
     }
   ],
   "presets": [

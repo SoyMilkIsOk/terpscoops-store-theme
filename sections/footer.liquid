@@ -4,9 +4,13 @@
       <div class="aero-footer__grid">
         <div>
           <div class="aero-header__brand" style="margin-bottom:0.85rem;">
-            <span class="aero-header__badge-mark">
-              {% render 'aero-icon', icon: 'scoop' %}
-            </span>
+            <img
+              src="{{ 'terpmetrix-rainbow-logo.png' | asset_url }}"
+              alt="{{ shop.name | escape }}"
+              width="38"
+              height="38"
+              class="aero-header__logo-mark"
+            >
             <span>{{ shop.name }}</span>
           </div>
           <p class="aero-muted" style="font-size:0.92rem;max-width:34ch;">
@@ -35,8 +39,8 @@
             <li><a href="/products/terpscoop-2pk">Terpscoop (2pk) — $4.20</a></li>
             <li><a href="/products/terpscoop-4pk">Terpscoop (4pk) — $8.00</a></li>
             <li><a href="/products/terpscoop-8pk">Terpscoop (8pk) — $15.00</a></li>
-            <li><a href="/collections/metal-scoops">Metal Editions (Steel / Ti / Silver)</a></li>
-            <li><a href="/collections/merch">Terp Merch &amp; Hats</a></li>
+            <li><a href="{{ routes.collections_url }}/metal-scoops">Metal Editions (Steel / Ti / Silver)</a></li>
+            <li><a href="{{ routes.collections_url }}/merch">Terp Merch &amp; Hats</a></li>
           </ul>
         </div>
 

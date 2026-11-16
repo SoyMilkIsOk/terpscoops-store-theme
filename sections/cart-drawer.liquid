@@ -32,7 +32,7 @@
         </a>
       </div>
 
-      {%- assign upsell_product = settings.cart_upsell_product -%}
+      {%- assign upsell_product = settings.cart_upsell_product | default: all_products['terpscoop-2pk'] -%}
       {%- if upsell_product != blank and upsell_product.available -%}
         <div class="aero-glass" style="padding:0.85rem;border-radius:18px;margin-top:auto;">
           <div style="display:flex;align-items:center;justify-content:space-between;gap:0.75rem;">

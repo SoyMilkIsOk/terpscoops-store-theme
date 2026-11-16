@@ -35,7 +35,7 @@
         {%- else -%}
           <div class="aero-glass" style="padding:2.5rem;text-align:center;">
             <h3>No results found for "{{ search.terms | escape }}"</h3>
-            <a href="/collections/shop-terpscoops" class="btn-aero-sky btn-aero-gel--sm">Browse All Terpscoops</a>
+            <a href="{{ routes.collections_url }}/shop-terpscoops" class="btn-aero-sky btn-aero-gel--sm">Browse All Terpscoops</a>
           </div>
         {%- endif -%}
       {% endpaginate %}

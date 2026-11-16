@@ -20,7 +20,14 @@
       </div>
 
       <div class="aero-age-dialog__body">
-        <span class="swatch-aero-resin swatch-aero-resin--xl" style="--resin-color: var(--swatch-cyan);" aria-hidden="true"></span>
+        <img
+          src="{{ 'terpmetrix-rainbow-logo.png' | asset_url }}"
+          alt="{{ shop.name | escape }}"
+          width="64"
+          height="64"
+          class="aero-header__logo-mark"
+          style="width:64px;height:64px;"
+        >
         <h2 id="TerpAgeGateTitle" style="margin-bottom:0.2rem;">
           {{ settings.age_gate_heading | default: 'Welcome to Terpscoops' }}
         </h2>

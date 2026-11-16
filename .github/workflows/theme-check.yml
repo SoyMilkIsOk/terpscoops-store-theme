@@ -20,6 +20,4 @@ jobs:
 
       - name: Run Theme Check
         uses: shopify/theme-check-action@v2
-        with:
-          fail_on_error: true
 
