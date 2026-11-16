@@ -1,3 +1,12 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
 {
   "name": "Header Group",
   "type": "header",
@@ -8,23 +17,30 @@
         "msg-1": {
           "type": "announcement",
           "settings": {
-            "text": "🥄 Get a 2-Pack for $4.20!"
+            "text": "Get a 2-Pack for $4.20!",
+            "link": "shopify://products/terpscoop-2pk"
           }
         },
         "msg-2": {
           "type": "announcement",
           "settings": {
-            "text": "🏔️ Hand-packed in Boulder, CO"
+            "text": "Hand-packed in Boulder, CO",
+            "link": "shopify://pages/about-us"
           }
         },
         "msg-3": {
           "type": "announcement",
           "settings": {
-            "text": "🏪 Buy a 25ct Display Jar for your shop →"
+            "text": "Buy a 25ct Display Jar for your shop →",
+            "link": "shopify://products/jar-of-scoops"
           }
         }
       },
-      "block_order": ["msg-1", "msg-2", "msg-3"],
+      "block_order": [
+        "msg-1",
+        "msg-2",
+        "msg-3"
+      ],
       "settings": {}
     },
     "header": {
@@ -35,6 +51,8 @@
       }
     }
   },
-  "order": ["announcement-bar", "header"]
+  "order": [
+    "announcement-bar",
+    "header"
+  ]
 }
-
