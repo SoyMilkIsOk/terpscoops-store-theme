@@ -444,6 +444,73 @@
       );
     }
 
+    const wheelStage = document.querySelector('[data-hero-wheel-stage]');
+    const wheelWrap = document.querySelector('[data-hero-wheel-wrap]');
+    const wheelEl = document.querySelector('[data-hero-wheel]');
+    let angle = 0;
+    let spinVelocity = 0;
+    let isDragging = false;
+    let lastPointerAngle = 0;
+
+    if (wheelStage && wheelWrap && wheelEl) {
+      const getPointerAngle = (e) => {
+        const rect = wheelWrap.getBoundingClientRect();
+        const cx = rect.left + rect.width / 2;
+        const cy = rect.top + rect.height / 2;
+        return Math.atan2(e.clientY - cy, e.clientX - cx) * (180 / Math.PI);
+      };
+
+      wheelStage.addEventListener('pointermove', (e) => {
+        const rect = wheelStage.getBoundingClientRect();
+        const nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
+        const ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
+        wheelWrap.style.transform = `perspective(700px) rotateX(${(-ny * 10).toFixed(2)}deg) rotateY(${(nx * 10).toFixed(2)}deg)`;
+
+        if (isDragging) {
+          const nextAngle = getPointerAngle(e);
+          let delta = nextAngle - lastPointerAngle;
+          if (delta > 180) delta -= 360;
+          if (delta < -180) delta += 360;
+          angle += delta;
+          spinVelocity = delta * 0.45;
+          lastPointerAngle = nextAngle;
+        } else {
+          spinVelocity += nx * 0.04;
+        }
+      });
+
+      wheelStage.addEventListener('pointerleave', () => {
+        wheelWrap.style.transform = '';
+        isDragging = false;
+      });
+
+      wheelWrap.addEventListener('pointerdown', (e) => {
+        isDragging = true;
+        lastPointerAngle = getPointerAngle(e);
+        if (wheelWrap.setPointerCapture) {
+          try {
+            wheelWrap.setPointerCapture(e.pointerId);
+          } catch (_) {}
+        }
+      });
+
+      const endDrag = () => {
+        isDragging = false;
+      };
+      wheelWrap.addEventListener('pointerup', endDrag);
+      wheelWrap.addEventListener('pointercancel', endDrag);
+
+      const tick = () => {
+        if (!isDragging) {
+          angle = (angle + 0.22 + spinVelocity) % 360;
+          spinVelocity *= 0.94;
+        }
+        wheelEl.style.transform = `rotate(${angle.toFixed(2)}deg)`;
+        window.requestAnimationFrame(tick);
+      };
+      window.requestAnimationFrame(tick);
+    }
+
     document.querySelectorAll('[data-hero-color-btn]').forEach((btn) => {
       btn.addEventListener('click', () => {
         const root = btn.closest('[data-hero-showcase]');
@@ -454,8 +521,9 @@
         const orb = root.querySelector('[data-hero-preview-orb]');
         if (label) label.textContent = btn.dataset.colorName || 'Cyan';
         if (orb) {
-          orb.style.setProperty('--resin-color', btn.dataset.colorHex || '#00D4FF');
+          orb.style.setProperty('--resin-color', btn.dataset.colorHex || '#60AEDB');
         }
+        spinVelocity += 4.5;
       });
     });
 

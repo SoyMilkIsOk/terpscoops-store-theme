@@ -8,7 +8,6 @@
             <span class="aero-window__dot aero-window__dot--green"></span>
             <span class="aero-window__dot aero-window__dot--pink"></span>
           </span>
-          <span class="aero-window__title">{{ section.settings.window_title | escape }}</span>
         </div>
 
         <div class="aero-hero-panel__body">
@@ -46,10 +45,9 @@
             <span class="aero-window__dot aero-window__dot--green"></span>
             <span class="aero-window__dot aero-window__dot--cyan"></span>
           </span>
-          <span class="aero-window__title" data-hero-active-color>Cyan</span>
         </div>
 
-        <div class="aero-hero-stage__canvas">
+        <div class="aero-hero-stage__canvas" data-hero-wheel-stage>
           {%- if section.settings.hero_image != blank -%}
             <img
               src="{{ section.settings.hero_image | image_url: width: 960 }}"
@@ -61,30 +59,27 @@
             >
           {%- else -%}
             <div class="aero-hero-orb-display">
-              <div style="display:flex;align-items:center;justify-content:center;gap:1.1rem;flex-wrap:wrap;">
+              <div class="aero-hero-wheel-wrap" data-hero-wheel-wrap>
+                <span class="aero-hero-wheel-glow" data-hero-preview-orb style="--resin-color: #60AEDB;"></span>
                 <img
                   src="{{ 'terpscoops-wheel-logo.png' | asset_url }}"
                   alt="8 Vibrant Terpscoops Wheel"
-                  width="220"
-                  height="220"
+                  width="280"
+                  height="280"
                   loading="eager"
-                  style="width:190px;height:190px;object-fit:contain;filter:drop-shadow(0 12px 24px rgba(0,118,178,0.22));"
+                  class="aero-hero-wheel-img"
+                  data-hero-wheel
                 >
-                <div class="aero-hero-orb-ring" style="width:104px;height:104px;">
-                  <span
-                    class="swatch-aero-resin swatch-aero-resin--xl"
-                    style="--resin-color: var(--swatch-cyan); width:62px; height:62px;"
-                    data-hero-preview-orb
-                  ></span>
-                </div>
               </div>
-              <div class="aero-muted" style="font-size:0.86rem;">Tap any translucent color to preview</div>
+              <div class="aero-muted" style="font-size:0.86rem;">
+                Hover or drag to spin · <strong data-hero-active-color>Cyan</strong>
+              </div>
             </div>
           {%- endif -%}
         </div>
 
         <div class="aero-hero-color-bar" role="group" aria-label="Preview Terpscoop colors">
-          {%- assign colors = 'Pink:#FF4FA3,Red:#FF2A4B,Orange:#FF7B00,Yellow:#FFD000,Green:#00C853,Cyan:#00D4FF,Blue:#0066FF,Purple:#9D4EDD' | split: ',' -%}
+          {%- assign colors = 'Pink:#F406B0,Red:#F61F1F,Orange:#FF8A00,Yellow:#FFE500,Green:#05AA3D,Cyan:#60AEDB,Blue:#005BD3,Purple:#A54DCF' | split: ',' -%}
           {%- for entry in colors -%}
             {%- assign parts = entry | split: ':' -%}
             <button
@@ -109,12 +104,6 @@
 {
   "name": "Aero Ritual Hero",
   "settings": [
-    {
-      "type": "text",
-      "id": "window_title",
-      "label": "Aero Window Title",
-      "default": "TerpAero OS · Boulder, CO"
-    },
     {
       "type": "text",
       "id": "eyebrow",

@@ -52,18 +52,16 @@
             <span class="aero-window__dot aero-window__dot--green"></span>
             <span class="aero-window__dot aero-window__dot--pink"></span>
           </span>
-          <span class="aero-window__title">
-            {%- if pack_size == 25 -%}
-              Dispensary &amp; Headshop Counter Jar
-            {%- else -%}
-              Acrylic · Bagged in {{ settings.origin_city | default: 'Boulder, CO' }}
-            {%- endif -%}
-          </span>
         </div>
 
         <div class="aero-pdp-info">
           <div>
             <h1 style="font-size:clamp(1.75rem, 3vw, 2.35rem);margin:0 0 0.45rem;">{{ product.title }}</h1>
+            {%- unless pack_size == 25 -%}
+              <div class="aero-muted" style="font-size:0.86rem;margin-bottom:0.45rem;">
+                Injection-molded acrylic · Bagged in {{ settings.origin_city | default: 'Boulder, CO' }}
+              </div>
+            {%- endunless -%}
 
             <div class="aero-pdp-price-row">
               <span class="aero-pdp-price" data-product-price>{{ current_variant.price | money }}</span>
@@ -72,7 +70,7 @@
               </s>
               {%- if pack_size > 1 -%}
                 {%- assign unit_cents = current_variant.price | divided_by: pack_size -%}
-                <span class="aero-muted" style="font-family:var(--font-mono);font-size:0.84rem;">({{ unit_cents | money }} / scoop)</span>
+                <span class="aero-muted" style="font-family:var(--font-mono);font-size:0.84rem;">{{ unit_cents | money }} / scoop</span>
               {%- endif -%}
             </div>
 

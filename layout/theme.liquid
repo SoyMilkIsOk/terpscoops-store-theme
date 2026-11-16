@@ -44,14 +44,14 @@
         --aero-chrome-bg: {{ settings.color_chrome_bg | default: '#081421' }};
         --aero-chrome-accent: {{ settings.color_chrome_accent | default: '#00E5FF' }};
 
-        --swatch-pink: {{ settings.swatch_pink | default: '#FF4FA3' }};
-        --swatch-red: {{ settings.swatch_red | default: '#FF2A4B' }};
-        --swatch-orange: {{ settings.swatch_orange | default: '#FF7B00' }};
-        --swatch-yellow: {{ settings.swatch_yellow | default: '#FFD000' }};
-        --swatch-green: {{ settings.swatch_green | default: '#00C853' }};
-        --swatch-cyan: {{ settings.swatch_cyan | default: '#00D4FF' }};
-        --swatch-blue: {{ settings.swatch_blue | default: '#0066FF' }};
-        --swatch-purple: {{ settings.swatch_purple | default: '#9D4EDD' }};
+        --swatch-pink: {{ settings.swatch_pink | default: '#F406B0' }};
+        --swatch-red: {{ settings.swatch_red | default: '#F61F1F' }};
+        --swatch-orange: {{ settings.swatch_orange | default: '#FF8A00' }};
+        --swatch-yellow: {{ settings.swatch_yellow | default: '#FFE500' }};
+        --swatch-green: {{ settings.swatch_green | default: '#05AA3D' }};
+        --swatch-cyan: {{ settings.swatch_cyan | default: '#60AEDB' }};
+        --swatch-blue: {{ settings.swatch_blue | default: '#005BD3' }};
+        --swatch-purple: {{ settings.swatch_purple | default: '#A54DCF' }};
         --swatch-clear: {{ settings.swatch_clear | default: '#DDF4FF' }};
 
         --glass-blur: {{ settings.glass_blur_px | default: 20 }}px;
@@ -86,14 +86,14 @@
         freeShippingThresholdCents: {{ settings.cart_free_shipping_threshold | default: 35 | times: 100 }},
         enableCartDrawer: {{ settings.enable_cart_drawer | default: true | json }},
         swatches: {
-          'Pink': {{ settings.swatch_pink | default: '#FF4FA3' | json }},
-          'Red': {{ settings.swatch_red | default: '#FF2A4B' | json }},
-          'Orange': {{ settings.swatch_orange | default: '#FF7B00' | json }},
-          'Yellow': {{ settings.swatch_yellow | default: '#FFD000' | json }},
-          'Green': {{ settings.swatch_green | default: '#00C853' | json }},
-          'Cyan': {{ settings.swatch_cyan | default: '#00D4FF' | json }},
-          'Blue': {{ settings.swatch_blue | default: '#0066FF' | json }},
-          'Purple': {{ settings.swatch_purple | default: '#9D4EDD' | json }},
+          'Pink': {{ settings.swatch_pink | default: '#F406B0' | json }},
+          'Red': {{ settings.swatch_red | default: '#F61F1F' | json }},
+          'Orange': {{ settings.swatch_orange | default: '#FF8A00' | json }},
+          'Yellow': {{ settings.swatch_yellow | default: '#FFE500' | json }},
+          'Green': {{ settings.swatch_green | default: '#05AA3D' | json }},
+          'Cyan': {{ settings.swatch_cyan | default: '#60AEDB' | json }},
+          'Blue': {{ settings.swatch_blue | default: '#005BD3' | json }},
+          'Purple': {{ settings.swatch_purple | default: '#A54DCF' | json }},
           'Clear': {{ settings.swatch_clear | default: '#DDF4FF' | json }}
         }
       };

@@ -16,13 +16,12 @@
             <span class="aero-window__dot aero-window__dot--cyan"></span>
             <span class="aero-window__dot aero-window__dot--green"></span>
           </span>
-          <span class="aero-window__title">25ct Display Jar Margin Calculator</span>
         </div>
 
         <div style="padding:1.6rem;">
           <div class="aero-field">
             <label for="WholesaleJarCount">
-              Display Jars (25 scoops each): <strong data-out-jars>2 Jars</strong>
+              Display Jars: <strong data-out-jars>2 Jars</strong>
             </label>
             <input
               id="WholesaleJarCount"
@@ -39,9 +38,9 @@
           <div class="aero-field">
             <label for="WholesaleMsrp">Suggested Retail Price per Scoop</label>
             <select id="WholesaleMsrp" class="aero-select" data-retail-msrp>
-              <option value="3.50">$3.50 / scoop (High-Volume Impulse)</option>
-              <option value="4.20" selected>$4.20 / scoop (Classic Terpscoop Price)</option>
-              <option value="5.00">$5.00 / scoop (Dispensary Premium)</option>
+              <option value="3.50">$3.50 / scoop</option>
+              <option value="4.20" selected>$4.20 / scoop</option>
+              <option value="5.00">$5.00 / scoop</option>
             </select>
           </div>
 
@@ -51,7 +50,7 @@
               <span class="aero-calc-stat__val" data-out-scoops>50 Scoops</span>
             </div>
             <div class="aero-calc-stat">
-              <span class="aero-calc-stat__label">Your Cost ($1.60/ea)</span>
+              <span class="aero-calc-stat__label">Wholesale Cost</span>
               <span class="aero-calc-stat__val" data-out-cost>$80.00</span>
             </div>
             <div class="aero-calc-stat">
@@ -78,7 +77,7 @@
           {%- else -%}
             <div style="margin-top:1.25rem;">
               <a href="/products/jar-of-scoops" class="btn-aero-gel btn-aero-gel--full">
-                View 25ct Display Jar ($40)
+                View Display Jar
               </a>
             </div>
           {%- endif -%}
@@ -91,7 +90,6 @@
             <span class="aero-window__dot aero-window__dot--green"></span>
             <span class="aero-window__dot aero-window__dot--pink"></span>
           </span>
-          <span class="aero-window__title">Tax-Exempt Wholesale Account</span>
         </div>
 
         <div style="padding:1.6rem;">
@@ -157,7 +155,7 @@
       "type": "textarea",
       "id": "subheading",
       "label": "Subheading",
-      "default": "Each Display Jar holds 25 Terpscoops ($1.60/unit), features an educational comic strip on the jar, giveaway QR callouts, and extra customer stickers."
+      "default": "Each Display Jar holds 25 Terpscoops, features an educational comic strip on the jar, giveaway QR callouts, and extra customer stickers."
     }
   ],
   "presets": [

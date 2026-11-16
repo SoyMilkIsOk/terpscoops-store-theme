@@ -80,49 +80,49 @@
         "type": "color",
         "id": "swatch_pink",
         "label": "Pink Resin",
-        "default": "#FF4FA3"
+        "default": "#F406B0"
       },
       {
         "type": "color",
         "id": "swatch_red",
         "label": "Red Resin",
-        "default": "#FF2A4B"
+        "default": "#F61F1F"
       },
       {
         "type": "color",
         "id": "swatch_orange",
         "label": "Orange Resin",
-        "default": "#FF7B00"
+        "default": "#FF8A00"
       },
       {
         "type": "color",
         "id": "swatch_yellow",
         "label": "Yellow Resin",
-        "default": "#FFD000"
+        "default": "#FFE500"
       },
       {
         "type": "color",
         "id": "swatch_green",
         "label": "Green Resin",
-        "default": "#00C853"
+        "default": "#05AA3D"
       },
       {
         "type": "color",
         "id": "swatch_cyan",
         "label": "Cyan Resin",
-        "default": "#00D4FF"
+        "default": "#60AEDB"
       },
       {
         "type": "color",
         "id": "swatch_blue",
         "label": "Blue Resin",
-        "default": "#0066FF"
+        "default": "#005BD3"
       },
       {
         "type": "color",
         "id": "swatch_purple",
         "label": "Purple Resin",
-        "default": "#9D4EDD"
+        "default": "#A54DCF"
       },
       {
         "type": "color",

@@ -471,21 +471,21 @@ p {
    ========================================================================== */
 
 .swatch-aero-resin {
-  --resin-color: #00D4FF;
+  --resin-color: #60AEDB;
   position: relative;
   display: inline-block;
   width: 24px;
   height: 24px;
   border-radius: 50%;
   background:
-  radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.32) 24%, transparent 50%),
-  radial-gradient(circle at 70% 76%, rgba(255, 255, 255, 0.72) 0%, color-mix(in srgb, var(--resin-color) 35%, transparent) 42%, transparent 68%),
-  color-mix(in srgb, var(--resin-color) 42%, rgba(255, 255, 255, 0.14));
+    radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.32) 24%, transparent 50%),
+    radial-gradient(circle at 70% 76%, rgba(255, 255, 255, 0.72) 0%, color-mix(in srgb, var(--resin-color) 48%, transparent) 42%, transparent 68%),
+    color-mix(in srgb, var(--resin-color) 62%, rgba(255, 255, 255, 0.14));
   border: 1.5px solid rgba(255, 255, 255, 0.85);
   box-shadow:
-  inset 0 2px 4px rgba(255, 255, 255, 0.85),
-  inset 0 -4px 8px color-mix(in srgb, var(--resin-color) 58%, transparent),
-  0 4px 12px color-mix(in srgb, var(--resin-color) 32%, transparent);
+    inset 0 2px 4px rgba(255, 255, 255, 0.85),
+    inset 0 -4px 8px color-mix(in srgb, var(--resin-color) 62%, transparent),
+    0 4px 12px color-mix(in srgb, var(--resin-color) 35%, transparent);
   backdrop-filter: blur(6px) saturate(160%);
   -webkit-backdrop-filter: blur(6px) saturate(160%);
   flex-shrink: 0;
@@ -824,6 +824,52 @@ p {
   align-items: center;
   gap: 1rem;
   text-align: center;
+}
+
+.aero-hero-wheel-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 270px;
+  height: 270px;
+  cursor: grab;
+  user-select: none;
+  touch-action: none;
+  transform-style: preserve-3d;
+  transition: transform 0.16s ease-out;
+}
+
+.aero-hero-wheel-wrap:active {
+  cursor: grabbing;
+}
+
+.aero-hero-wheel-glow {
+  --resin-color: #60AEDB;
+  position: absolute;
+  width: 210px;
+  height: 210px;
+  border-radius: 50%;
+  background: radial-gradient(
+    circle,
+    color-mix(in srgb, var(--resin-color) 46%, rgba(255, 255, 255, 0.35)) 0%,
+    color-mix(in srgb, var(--resin-color) 16%, transparent) 55%,
+    transparent 74%
+  );
+  filter: blur(18px);
+  pointer-events: none;
+  transition: background 0.3s ease;
+}
+
+.aero-hero-wheel-img {
+  position: relative;
+  z-index: 1;
+  width: 250px;
+  height: 250px;
+  object-fit: contain;
+  pointer-events: none;
+  filter: drop-shadow(0 14px 26px rgba(10, 34, 57, 0.18));
+  will-change: transform;
 }
 
 .aero-hero-orb-ring {
@@ -1484,13 +1530,13 @@ p {
 .aero-capsule-slot.is-filled .aero-capsule-slot__orb {
   border: 1.5px solid rgba(255, 255, 255, 0.85);
   background:
-  radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.32) 24%, transparent 50%),
-  radial-gradient(circle at 70% 76%, rgba(255, 255, 255, 0.72) 0%, color-mix(in srgb, var(--resin-color, #00D4FF) 35%, transparent) 42%, transparent 68%),
-  color-mix(in srgb, var(--resin-color, #00D4FF) 42%, rgba(255, 255, 255, 0.14));
+    radial-gradient(circle at 28% 24%, rgba(255, 255, 255, 0.95) 0%, rgba(255, 255, 255, 0.32) 24%, transparent 50%),
+    radial-gradient(circle at 70% 76%, rgba(255, 255, 255, 0.72) 0%, color-mix(in srgb, var(--resin-color, #60AEDB) 48%, transparent) 42%, transparent 68%),
+    color-mix(in srgb, var(--resin-color, #60AEDB) 62%, rgba(255, 255, 255, 0.14));
   box-shadow:
     inset 0 2px 4px rgba(255, 255, 255, 0.85),
-    inset 0 -4px 8px color-mix(in srgb, var(--resin-color, #00D4FF) 58%, transparent),
-    0 4px 12px color-mix(in srgb, var(--resin-color, #00D4FF) 32%, transparent);
+    inset 0 -4px 8px color-mix(in srgb, var(--resin-color, #60AEDB) 62%, transparent),
+    0 4px 12px color-mix(in srgb, var(--resin-color, #60AEDB) 35%, transparent);
 }
 
 .aero-capsule-slot__label {
