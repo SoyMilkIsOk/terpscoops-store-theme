@@ -38,9 +38,22 @@
       {%- assign main_menu = linklists[section.settings.menu] -%}
       {%- if main_menu != blank and main_menu.links.size > 0 -%}
         {%- for link in main_menu.links -%}
+          {%- liquid
+            assign link_title_lower = link.title | strip | downcase
+            assign link_href = link.url
+            assign is_link_active = link.active
+            if link_title_lower == 'shop' or link_title_lower == 'shop all' or link_title_lower == 'all products'
+              assign link_href = routes.all_products_collection_url
+            endif
+            if link_title_lower == 'shop'
+              if collection.handle == 'all' or collection.handle == 'all-products'
+                assign is_link_active = true
+              endif
+            endif
+          -%}
           <a
-            href="{{ link.url }}"
-            class="aero-nav__link{% if link.active %} is-active{% endif %}"
+            href="{{ link_href }}"
+            class="aero-nav__link{% if is_link_active %} is-active{% endif %}"
           >
             {{ link.title | escape }}
           </a>
@@ -100,7 +113,12 @@
       {%- assign main_menu = linklists[section.settings.menu] -%}
       {%- if main_menu != blank and main_menu.links.size > 0 -%}
         {%- for link in main_menu.links -%}
-          <a href="{{ link.url }}" class="aero-mobile-drawer__link">{{ link.title | escape }}</a>
+          {%- assign m_title_lower = link.title | strip | downcase -%}
+          {%- assign m_href = link.url -%}
+          {%- if m_title_lower == 'shop' or m_title_lower == 'shop all' or m_title_lower == 'all products' -%}
+            {%- assign m_href = routes.all_products_collection_url -%}
+          {%- endif -%}
+          <a href="{{ m_href }}" class="aero-mobile-drawer__link">{{ link.title | escape }}</a>
         {%- endfor -%}
       {%- else -%}
         {%- assign wholesale_fallback = routes.collections_url | append: '/frontpage' -%}

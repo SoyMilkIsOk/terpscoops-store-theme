@@ -570,11 +570,68 @@
     });
   }
 
-  /* 6. Client-Side Collection Sort */
+  /* 6. Client-Side Collection Sort & Wholesale Filter */
   function initCollectionSort() {
     const sortSelect = document.querySelector('[data-collection-sort]');
     const grid = document.querySelector('[data-collection-grid]');
-    if (!sortSelect || !grid) return;
+    const wholesaleTab = document.querySelector('[data-wholesale-filter-tab]');
+    const allTab = document.querySelector('[data-all-filter-tab]');
+    const headingEl = document.querySelector('[data-collection-heading]');
+    const initialHeading = headingEl ? headingEl.textContent : '';
+
+    if (!grid) return;
+
+    function applyWholesaleFilter(active) {
+      document.querySelectorAll('.aero-filter-tab').forEach((t) => t.classList.remove('is-active'));
+      if (active && wholesaleTab) {
+        wholesaleTab.classList.add('is-active');
+        if (headingEl) headingEl.textContent = 'Wholesale';
+        grid.querySelectorAll('.aero-grid-item').forEach((item) => {
+          const isJar = item.dataset.productCategory === 'jar';
+          item.hidden = !isJar;
+          item.style.display = isJar ? '' : 'none';
+        });
+      } else {
+        if (allTab) allTab.classList.add('is-active');
+        if (headingEl) headingEl.textContent = initialHeading;
+        grid.querySelectorAll('.aero-grid-item').forEach((item) => {
+          const hideExtra = item.dataset.wholesaleExtra === 'true';
+          item.hidden = hideExtra;
+          item.style.display = hideExtra ? 'none' : '';
+        });
+      }
+    }
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('category') === 'wholesale') {
+      applyWholesaleFilter(true);
+    }
+
+    if (wholesaleTab) {
+      wholesaleTab.addEventListener('click', (e) => {
+        e.preventDefault();
+        applyWholesaleFilter(true);
+        if (window.history && window.history.replaceState) {
+          const nextUrl = new URL(window.location.href);
+          nextUrl.searchParams.set('category', 'wholesale');
+          window.history.replaceState({}, '', nextUrl.toString());
+        }
+      });
+    }
+
+    if (allTab && allTab.dataset.isAllPage === 'true') {
+      allTab.addEventListener('click', (e) => {
+        e.preventDefault();
+        applyWholesaleFilter(false);
+        if (window.history && window.history.replaceState) {
+          const nextUrl = new URL(window.location.href);
+          nextUrl.searchParams.delete('category');
+          window.history.replaceState({}, '', nextUrl.toString());
+        }
+      });
+    }
+
+    if (!sortSelect) return;
 
     sortSelect.addEventListener('change', () => {
       const mode = sortSelect.value;

@@ -84,14 +84,19 @@
           {%- endif -%}
 
           {%- if pack_size == 25 -%}
-            <div class="aero-glass" style="padding:1rem;border-radius:18px;background:rgba(220,250,242,0.5);">
-              <strong style="font-size:0.9rem;">Retail Display Jar · $1.60/scoop</strong>
-              <p class="aero-muted" style="margin:0.35rem 0 0.65rem;font-size:0.9rem;">
-                Packed with 25 assorted Terpscoops, comic instruction label, @terpscoops giveaway callout, and bonus handout stickers. Ordering tax-exempt bulk?
+            <div class="aero-glass" style="padding:1.1rem 1.2rem;border-radius:18px;background:rgba(220,250,242,0.55);display:flex;flex-direction:column;gap:0.6rem;">
+              <strong style="font-size:0.95rem;">Buying Wholesale for a Dispensary or Smoke Shop?</strong>
+              <p class="aero-muted" style="margin:0;font-size:0.9rem;">
+                Use our wholesale profit calculator or reach out directly for tax-exempt bulk orders and retail counter displays.
               </p>
               {%- assign wholesale_fallback = routes.collections_url | append: '/frontpage' -%}
               {%- assign wholesale_url = pages['wholesale'].url | default: wholesale_fallback -%}
-              <a href="{{ wholesale_url }}" class="btn-aero-sky btn-aero-gel--xs">Open Wholesale Margin Calculator</a>
+              <div>
+                <a href="{{ wholesale_url }}" class="btn-aero-sky btn-aero-gel--sm">
+                  <span>Wholesale Calculator &amp; Contact</span>
+                  {% render 'aero-icon', icon: 'arrow-right' %}
+                </a>
+              </div>
             </div>
           {%- endif -%}
 

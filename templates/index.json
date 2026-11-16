@@ -24,7 +24,7 @@
         "step-2": {
           "type": "step",
           "settings": {
-            "icon": "scoop",
+            "icon": "no-pinch",
             "title": "Zero Sticky Fingers or Waste",
             "description": "Injection-molded bowl geometry lifts the perfect rounded scoop cleanly into bowls, cones, or vaporizers."
           }

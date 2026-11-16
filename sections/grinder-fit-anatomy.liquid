@@ -11,8 +11,14 @@
       {%- for block in section.blocks -%}
         <div class="aero-glass" {{ block.shopify_attributes }}>
           <div class="aero-step-card">
+            {%- liquid
+              assign step_icon = block.settings.icon
+              if block.settings.title contains 'Sticky' and step_icon == 'scoop'
+                assign step_icon = 'no-pinch'
+              endif
+            -%}
             <div class="aero-step-card__icon">
-              {% render 'aero-icon', icon: block.settings.icon %}
+              {% render 'aero-icon', icon: step_icon %}
             </div>
             <h3 style="margin-bottom:0.2rem;">{{ block.settings.title | escape }}</h3>
             <p class="aero-muted" style="margin-bottom:0;font-size:0.95rem;">
@@ -54,6 +60,7 @@
           "label": "Icon",
           "options": [
             { "value": "grinder", "label": "Grinder" },
+            { "value": "no-pinch", "label": "No Pinching" },
             { "value": "scoop", "label": "Scoop" },
             { "value": "mountain", "label": "Mountain (Boulder)" },
             { "value": "droplet", "label": "Droplet" },
@@ -91,7 +98,7 @@
         {
           "type": "step",
           "settings": {
-            "icon": "scoop",
+            "icon": "no-pinch",
             "title": "Zero Sticky Fingers or Waste",
             "description": "Injection-molded bowl geometry lifts the perfect rounded scoop cleanly into bowls, cones, or vaporizers."
           }

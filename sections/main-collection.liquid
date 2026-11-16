@@ -1,6 +1,13 @@
 {%- liquid
-  assign wholesale_fallback = routes.collections_url | append: '/frontpage'
-  assign wholesale_url = pages['wholesale'].url | default: wholesale_fallback
+  assign is_all_collection = false
+  if collection.handle == 'all' or collection.handle == 'all-products'
+    assign is_all_collection = true
+  endif
+
+  assign source_collection = collection
+  if is_all_collection and collections['all'].products_count > 0
+    assign source_collection = collections['all']
+  endif
 -%}
 
 {%- if collection.handle == 'frontpage' or collection.handle == 'wholesale' -%}
@@ -10,8 +17,8 @@
     <div class="page-width">
       <div class="aero-glass aero-window" style="padding:1.5rem 1.75rem;margin-bottom:1.75rem;">
         <div style="margin-bottom:1.1rem;">
-          <h1 style="margin:0;font-size:clamp(1.75rem, 3.2vw, 2.5rem);">
-            {%- if collection.handle == 'all' -%}
+          <h1 style="margin:0;font-size:clamp(1.75rem, 3.2vw, 2.5rem);" data-collection-heading>
+            {%- if is_all_collection -%}
               Shop All
             {%- else -%}
               {{ collection.title }}
@@ -26,7 +33,9 @@
           <nav class="aero-filter-tabs" aria-label="Filter by category">
             <a
               href="{{ routes.all_products_collection_url }}"
-              class="aero-filter-tab{% if collection.handle == 'all' %} is-active{% endif %}"
+              class="aero-filter-tab{% if is_all_collection %} is-active{% endif %}"
+              data-all-filter-tab
+              {% if is_all_collection %}data-is-all-page="true"{% endif %}
             >
               <span>All Products</span>
               {%- if collections['all'].products_count > 0 -%}
@@ -64,8 +73,13 @@
               {%- endif -%}
             </a>
 
-            <a href="{{ wholesale_url }}" class="aero-filter-tab">
+            <a
+              href="{{ routes.all_products_collection_url }}?category=wholesale"
+              class="aero-filter-tab"
+              data-wholesale-filter-tab
+            >
               <span>Wholesale</span>
+              <span class="aero-filter-tab__count">1</span>
             </a>
           </nav>
 
@@ -81,11 +95,12 @@
         </div>
       </div>
 
-      {% paginate collection.products by 48 %}
-        {%- if collection.products.size > 0 -%}
-          {%- assign ordered_products = collection.products | sort: 'price' -%}
-          {%- assign category_passes = 'color,metal,jar,merch' | split: ',' -%}
+      {% paginate source_collection.products by 48 %}
+        {%- if source_collection.products.size > 0 -%}
+          {%- assign ordered_products = source_collection.products | sort: 'price' -%}
+          {%- assign category_passes = 'color,jar,metal,merch' | split: ',' -%}
           {%- assign feat_idx = 0 -%}
+          {%- assign has_jar_in_grid = false -%}
 
           <div class="aero-grid-4" data-collection-grid>
             {%- for pass in category_passes -%}
@@ -102,6 +117,9 @@
                   endif
                 -%}
                 {%- if prod_cat == pass -%}
+                  {%- if prod_cat == 'jar' -%}
+                    {%- assign has_jar_in_grid = true -%}
+                  {%- endif -%}
                   {%- assign feat_idx = feat_idx | plus: 1 -%}
                   <div
                     class="aero-grid-item"
@@ -115,6 +133,24 @@
                 {%- endif -%}
               {%- endfor -%}
             {%- endfor -%}
+
+            {%- unless has_jar_in_grid -%}
+              {%- assign jar_prod = all_products['jar-of-scoops'] -%}
+              {%- if jar_prod != blank and jar_prod.id != blank -%}
+                <div
+                  class="aero-grid-item"
+                  data-featured-index="999"
+                  data-product-price="{{ jar_prod.price }}"
+                  data-product-title="{{ jar_prod.title | escape }}"
+                  data-product-category="jar"
+                  data-wholesale-extra="true"
+                  hidden
+                  style="display:none;"
+                >
+                  {% render 'product-card-aero', product: jar_prod, show_swatches: true %}
+                </div>
+              {%- endif -%}
+            {%- endunless -%}
           </div>
 
           {%- if paginate.pages > 1 -%}
