@@ -961,10 +961,11 @@ p {
 
 .aero-hero-color-bar {
   display: flex;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: center;
-  gap: 0.55rem;
+  gap: clamp(0.25rem, 1.3vw, 0.55rem);
+  width: 100%;
 }
 
 .aero-hero-color-btn {
@@ -976,19 +977,40 @@ p {
   -webkit-backdrop-filter: blur(14px) saturate(170%);
   box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9), 0 4px 12px rgba(0, 130, 195, 0.14);
   cursor: pointer;
-  transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+  flex-shrink: 0;
+  transition:
+    transform 0.26s cubic-bezier(0.34, 1.56, 0.64, 1),
+    border-color 0.24s ease,
+    background 0.24s ease,
+    box-shadow 0.24s ease;
 }
 
 .aero-hero-color-btn.is-selected,
 .aero-hero-color-btn:hover {
-  transform: scale(1.14);
+  transform: scale(1.16);
   border-color: var(--aero-gel-sky);
-  background: rgba(255, 255, 255, 0.42);
+  background: rgba(255, 255, 255, 0.48);
+  box-shadow: inset 0 1px 0 #FFFFFF, 0 0 0 2px rgba(0, 150, 214, 0.22), 0 6px 14px rgba(0, 130, 195, 0.22);
 }
 
 @media (max-width: 900px) {
   .aero-hero-grid {
     grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .aero-hero-color-bar {
+    gap: clamp(0.2rem, 1.2vw, 0.38rem);
+  }
+
+  .aero-hero-color-btn {
+    padding: 0.2rem;
+  }
+
+  .aero-hero-color-btn .swatch-aero-resin {
+    width: clamp(18px, 5.2vw, 22px);
+    height: clamp(18px, 5.2vw, 22px);
   }
 }
 
@@ -1471,7 +1493,7 @@ p {
   pointer-events: none;
 }
 
-.aero-option-pill > span {
+.aero-option-pill>span {
   display: inline-flex;
   align-items: center;
   gap: 0.42rem;
@@ -1488,17 +1510,17 @@ p {
   transition: all 0.16s ease;
 }
 
-.aero-option-pill > span:hover {
+.aero-option-pill>span:hover {
   background: rgba(255, 255, 255, 0.38);
 }
 
-.scheme-aero-chrome .aero-option-pill > span {
+.scheme-aero-chrome .aero-option-pill>span {
   background: rgba(255, 255, 255, 0.12);
   border-color: rgba(255, 255, 255, 0.28);
   color: #FFFFFF;
 }
 
-.aero-option-pill input:checked + span {
+.aero-option-pill input:checked+span {
   background: rgba(255, 255, 255, 0.46);
   border-color: var(--aero-gel-sky);
   color: var(--aero-ink);
@@ -1511,7 +1533,7 @@ p {
     max-width: 455px;
   }
 
-  .aero-option-pills--terpscoop .aero-option-pill > span {
+  .aero-option-pills--terpscoop .aero-option-pill>span {
     padding: 0.36rem clamp(0.45rem, 0.7vw, 0.64rem);
     gap: 0.3rem;
     font-size: clamp(0.75rem, 0.85vw, 0.81rem);
@@ -2444,4 +2466,3 @@ p {
   border-radius: 999px;
   background: linear-gradient(90deg, rgba(255, 255, 255, 0.9) 0%, rgba(0, 150, 214, 0.28) 55%, transparent 100%);
 }
-
