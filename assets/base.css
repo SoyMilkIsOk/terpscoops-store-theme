@@ -2801,3 +2801,49 @@ p {
     border-radius: 11px;
   }
 }
+
+/* ==========================================================================
+   Shopify Dynamic Checkout (Shop Pay Buy Button)
+   ========================================================================== */
+
+.aero-dynamic-checkout {
+  margin-top: 0.65rem;
+  --shopify-accelerated-checkout-button-border-radius: 999px;
+  --shopify-accelerated-checkout-button-block-size: 46px;
+}
+
+.aero-dynamic-checkout[hidden] {
+  display: none;
+}
+
+.aero-dynamic-checkout .shopify-payment-button__button {
+  border-radius: 999px !important;
+  min-height: 46px;
+  font-family: var(--font-body);
+  font-weight: 700;
+  overflow: hidden;
+  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), filter 0.2s ease;
+}
+
+.aero-dynamic-checkout .shopify-payment-button__button:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.04);
+}
+
+.aero-dynamic-checkout .shopify-payment-button__button--unbranded {
+  background: linear-gradient(180deg, #53D4FF 0%, #0096D6 52%, #006EA6 100%);
+  border: 1px solid rgba(255, 255, 255, 0.72);
+  color: #FFFFFF;
+}
+
+.aero-dynamic-checkout .shopify-payment-button__more-options {
+  font-family: var(--font-body);
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--aero-ink-muted);
+  margin-top: 0.45rem;
+}
+
+.scheme-aero-chrome .aero-dynamic-checkout .shopify-payment-button__more-options {
+  color: #B4C8DC;
+}

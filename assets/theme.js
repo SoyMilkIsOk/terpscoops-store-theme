@@ -94,6 +94,7 @@
       this.restockVariantInput = this.section.querySelector('[data-restock-variant-label]');
       this.galleryMainImg = this.section.querySelector('[data-gallery-main-img]');
       this.galleryViewer = this.section.querySelector('[data-aero-photo-viewer]');
+      this.dynamicCheckout = this.section.querySelector('[data-dynamic-checkout]');
 
       this.addEventListener('change', () => this.onOptionChange());
       this.onOptionChange(true);
@@ -171,6 +172,10 @@
         if (this.restockVariantInput) {
           this.restockVariantInput.value = matched.title;
         }
+      }
+
+      if (this.dynamicCheckout) {
+        this.dynamicCheckout.hidden = !matched.available;
       }
 
       document.dispatchEvent(

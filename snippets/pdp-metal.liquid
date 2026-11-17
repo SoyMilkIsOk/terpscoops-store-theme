@@ -116,6 +116,10 @@
                 {%- endif -%}
               </span>
             </button>
+
+            <div class="aero-dynamic-checkout" data-dynamic-checkout {% unless current_variant.available %}hidden{% endunless %}>
+              {{ form | payment_button }}
+            </div>
           {% endform %}
 
           <div class="aero-restock-box" data-restock-drawer {% if current_variant.available %}hidden{% endif %}>

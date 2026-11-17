@@ -163,6 +163,10 @@
                 {%- endif -%}
               </span>
             </button>
+
+            <div class="aero-dynamic-checkout" data-dynamic-checkout {% unless current_variant.available %}hidden{% endunless %}>
+              {{ form | payment_button }}
+            </div>
           {% endform %}
 
           <div class="aero-muted" style="font-size:0.95rem;">
