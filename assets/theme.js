@@ -472,21 +472,44 @@
     let spinVelocity = 0;
     let isDragging = false;
     let lastPointerAngle = 0;
+    let currentGlowRgb = { r: 96, g: 174, b: 219 };
+    let targetGlowRgb = { r: 96, g: 174, b: 219 };
+    let lastGlowRgbStr = '';
+
+    function hexToRgb(hex) {
+      const clean = String(hex || '').replace('#', '');
+      if (clean.length === 3) {
+        return {
+          r: parseInt(clean[0] + clean[0], 16),
+          g: parseInt(clean[1] + clean[1], 16),
+          b: parseInt(clean[2] + clean[2], 16),
+        };
+      }
+      if (clean.length === 6) {
+        return {
+          r: parseInt(clean.slice(0, 2), 16),
+          g: parseInt(clean.slice(2, 4), 16),
+          b: parseInt(clean.slice(4, 6), 16),
+        };
+      }
+      return { r: 96, g: 174, b: 219 };
+    }
 
     function setActiveColorUI(colorName) {
       if (!colorName || colorName === activeColorName) return;
       activeColorName = colorName;
       let activeHex = '#60AEDB';
       colorBtns.forEach((btn) => {
+        if (btn.dataset.colorHex) {
+          btn.style.setProperty('--active-orb-color', btn.dataset.colorHex);
+        }
         const match = btn.dataset.colorName === colorName;
         btn.classList.toggle('is-selected', match);
         if (match && btn.dataset.colorHex) {
           activeHex = btn.dataset.colorHex;
         }
       });
-      if (previewOrb) {
-        previewOrb.style.setProperty('--resin-color', activeHex);
-      }
+      targetGlowRgb = hexToRgb(activeHex);
     }
 
     function syncTopColorFromAngle(currentAngle) {
@@ -572,9 +595,19 @@
             angle += remaining * 0.14;
           }
         } else {
-          angle = (angle + 0.22 + spinVelocity) % 360;
+          angle = (angle - 0.22 + spinVelocity) % 360;
           spinVelocity *= 0.94;
           syncTopColorFromAngle(angle);
+        }
+        if (previewOrb) {
+          currentGlowRgb.r += (targetGlowRgb.r - currentGlowRgb.r) * 0.08;
+          currentGlowRgb.g += (targetGlowRgb.g - currentGlowRgb.g) * 0.08;
+          currentGlowRgb.b += (targetGlowRgb.b - currentGlowRgb.b) * 0.08;
+          const nextRgbStr = `rgb(${Math.round(currentGlowRgb.r)}, ${Math.round(currentGlowRgb.g)}, ${Math.round(currentGlowRgb.b)})`;
+          if (nextRgbStr !== lastGlowRgbStr) {
+            lastGlowRgbStr = nextRgbStr;
+            previewOrb.style.setProperty('--resin-color', nextRgbStr);
+          }
         }
         wheelEl.style.transform = `rotate(${angle.toFixed(2)}deg)`;
         window.requestAnimationFrame(tick);
