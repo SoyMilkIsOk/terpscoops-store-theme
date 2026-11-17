@@ -110,13 +110,6 @@
         "subheading": "Real community reviews from daily Terpscoops owners across the country."
       }
     },
-    "merch-editorial-grid": {
-      "type": "merch-editorial-grid",
-      "settings": {
-        "heading": "Terp Merch",
-        "subheading": "Made-to-order heavyweight 100% ring-spun cotton tees and low-profile embroidered chino twill hats."
-      }
-    },
     "wholesale-cta-banner": {
       "type": "wholesale-cta-banner",
       "settings": {
@@ -132,7 +125,6 @@
     "metal-vault-showcase",
     "founder-story-banner",
     "judgeme-editorial-reviews",
-    "merch-editorial-grid",
     "wholesale-cta-banner"
   ]
 }

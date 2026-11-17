@@ -73,6 +73,7 @@
                 <span class="aero-muted" style="font-family:var(--font-mono);font-size:0.84rem;">{{ unit_cents | money }} / scoop</span>
               {%- endif -%}
             </div>
+            <div class="aero-muted" style="font-size:0.84rem;margin-top:0.35rem;">Ships from {{ settings.origin_city | default: 'Boulder, CO' }} in 1–2 business days · Free US shipping over ${{ settings.cart_free_shipping_threshold | default: 35 }}</div>
 
             <div class="jdgm-widget jdgm-preview-badge" data-id="{{ product.id }}" style="margin-top:0.5rem;">
               {{ product.metafields.judgeme.badge }}
@@ -168,6 +169,35 @@
               {{ form | payment_button }}
             </div>
           {% endform %}
+
+          <div class="aero-restock-box" data-restock-drawer {% if current_variant.available %}hidden{% endif %}>
+            <strong style="font-size:0.92rem;">Restock Alert</strong>
+            <p class="aero-muted" style="font-size:0.9rem;margin:0.3rem 0 0.75rem;">
+              This option is currently sold out. Enter your email to get notified the instant our next Boulder batch drops.
+            </p>
+            {% form 'customer', id: 'ColorPackRestockForm' %}
+              <input type="hidden" name="contact[tags]" value="notify:{{ product.handle }}">
+              <input type="hidden" name="contact[note]" value="{{ current_variant.title | escape }}" data-restock-variant-label>
+              {%- if form.posted_successfully? -%}
+                <div class="aero-form-alert aero-form-alert--success">
+                  {{ 'products.notify_success' | t }}
+                </div>
+              {%- endif -%}
+              <div style="display:flex;gap:0.5rem;flex-wrap:wrap;">
+                <input
+                  type="email"
+                  name="contact[email]"
+                  class="aero-input"
+                  placeholder="you@domain.com"
+                  required
+                  style="flex:1;min-width:180px;"
+                >
+                <button type="submit" class="btn-aero-sky btn-aero-gel--sm">
+                  {{ 'products.notify_me' | t }}
+                </button>
+              </div>
+            {% endform %}
+          </div>
 
           <div class="aero-muted" style="font-size:0.95rem;">
             {{ product.description }}

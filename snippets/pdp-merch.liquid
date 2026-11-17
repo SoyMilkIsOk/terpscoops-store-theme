@@ -27,6 +27,7 @@
                 {{ current_variant.compare_at_price | money }}
               </s>
             </div>
+            <div class="aero-muted" style="font-size:0.84rem;margin-top:0.35rem;">Ships in 1–2 business days · Free US shipping over ${{ settings.cart_free_shipping_threshold | default: 35 }}</div>
           </div>
 
           {% form 'product', product, id: product_form_id, data-ajax-cart-form: 'true' %}
