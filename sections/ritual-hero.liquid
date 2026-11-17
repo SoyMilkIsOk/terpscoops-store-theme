@@ -1,5 +1,13 @@
 <section class="aero-section aero-section--tight" data-hero-showcase>
   <div class="page-width">
+    <div class="aero-hero-top-gallery">
+      {% render 'aero-photo-viewer',
+        blocks: section.blocks,
+        viewer_mode: 'hero',
+        autoplay: true
+      %}
+    </div>
+
     <div class="aero-hero-grid">
       <div class="aero-glass aero-window aero-hero-panel">
         <div class="aero-window__bar">
@@ -145,6 +153,24 @@
       "type": "url",
       "id": "secondary_cta_link",
       "label": "Secondary button link"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "photo",
+      "name": "Gallery Photo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photo"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Optional caption"
+        }
+      ]
     }
   ],
   "presets": [

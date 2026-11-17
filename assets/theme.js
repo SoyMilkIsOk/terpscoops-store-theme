@@ -93,6 +93,7 @@
       this.restockDrawer = this.section.querySelector('[data-restock-drawer]');
       this.restockVariantInput = this.section.querySelector('[data-restock-variant-label]');
       this.galleryMainImg = this.section.querySelector('[data-gallery-main-img]');
+      this.galleryViewer = this.section.querySelector('[data-aero-photo-viewer]');
 
       this.addEventListener('change', () => this.onOptionChange());
       this.onOptionChange(true);
@@ -124,9 +125,21 @@
         window.history.replaceState({}, '', url.toString());
       }
 
-      if (!initial && this.galleryMainImg && matched.featured_image && matched.featured_image.src) {
-        this.galleryMainImg.src = matched.featured_image.src;
-        this.galleryMainImg.srcset = '';
+      if (!initial && matched.featured_image && matched.featured_image.src) {
+        let handledByViewer = false;
+        if (this.galleryViewer && typeof this.galleryViewer._terpViewerGoToFile === 'function') {
+          const fileName = matched.featured_image.src.split('?')[0].split('/').pop();
+          handledByViewer = this.galleryViewer._terpViewerGoToFile(fileName);
+        }
+        if (!handledByViewer) {
+          const fallbackImg =
+            (this.galleryViewer && this.galleryViewer.querySelector('.aero-photo-viewer__slide.is-active img')) ||
+            this.galleryMainImg;
+          if (fallbackImg) {
+            fallbackImg.src = matched.featured_image.src;
+            fallbackImg.srcset = '';
+          }
+        }
       }
 
       if (this.priceEl) {
@@ -636,19 +649,6 @@
         }
       });
     });
-
-    document.querySelectorAll('[data-gallery-thumb]').forEach((thumb) => {
-      thumb.addEventListener('click', () => {
-        const gallery = thumb.closest('[data-product-gallery]');
-        if (!gallery) return;
-        const mainImg = gallery.querySelector('[data-gallery-main-img]');
-        if (!mainImg || !thumb.dataset.fullSrc) return;
-        mainImg.src = thumb.dataset.fullSrc;
-        mainImg.srcset = '';
-        gallery.querySelectorAll('[data-gallery-thumb]').forEach((t) => t.classList.remove('is-active'));
-        thumb.classList.add('is-active');
-      });
-    });
   }
 
   /* 6. Client-Side Collection Sort & Wholesale Filter */
@@ -805,6 +805,132 @@
     });
   }
 
+  /* 8. TerpAero OS Photo Viewers (Hero, PDP & About) */
+  function initPhotoViewers() {
+    document.querySelectorAll('[data-aero-photo-viewer]').forEach((viewer) => {
+      const stage = viewer.querySelector('[data-viewer-stage]');
+      const slides = Array.from(viewer.querySelectorAll('[data-viewer-slide]'));
+      const thumbs = Array.from(viewer.querySelectorAll('[data-viewer-thumb]'));
+      const counterEl = viewer.querySelector('[data-viewer-counter]');
+      const prevBtn = viewer.querySelector('[data-viewer-prev]');
+      const nextBtn = viewer.querySelector('[data-viewer-next]');
+      const dockEl = viewer.querySelector('.aero-photo-viewer__dock');
+      if (slides.length === 0) return;
+
+      let activeIdx = slides.findIndex((s) => s.classList.contains('is-active'));
+      if (activeIdx < 0) activeIdx = 0;
+
+      const useAutoplay = viewer.dataset.autoplay === 'true' && slides.length > 1;
+      let timerId = null;
+
+      function goToSlide(nextIdx) {
+        const idx = ((nextIdx % slides.length) + slides.length) % slides.length;
+        activeIdx = idx;
+        slides.forEach((slide, i) => slide.classList.toggle('is-active', i === idx));
+        thumbs.forEach((thumb, i) => thumb.classList.toggle('is-active', i === idx));
+        if (counterEl) {
+          counterEl.textContent = `${idx + 1} / ${slides.length}`;
+        }
+        if (dockEl && thumbs[idx]) {
+          const t = thumbs[idx];
+          dockEl.scrollTo({
+            left: Math.max(0, t.offsetLeft - dockEl.clientWidth / 2 + t.clientWidth / 2),
+            behavior: 'smooth',
+          });
+        }
+      }
+
+      function stopAutoplay() {
+        if (timerId !== null) {
+          window.clearInterval(timerId);
+          timerId = null;
+        }
+      }
+
+      function startAutoplay() {
+        if (!useAutoplay || timerId !== null) return;
+        timerId = window.setInterval(() => {
+          if (!document.hidden) goToSlide(activeIdx + 1);
+        }, 4200);
+      }
+
+      function resetAutoplay() {
+        stopAutoplay();
+        startAutoplay();
+      }
+
+      viewer._terpViewerGoToFile = (fileName) => {
+        if (!fileName) return false;
+        const matchedIdx = slides.findIndex((s) => s.dataset.imageFile === fileName);
+        if (matchedIdx >= 0) {
+          goToSlide(matchedIdx);
+          return true;
+        }
+        return false;
+      };
+
+      if (prevBtn) {
+        prevBtn.addEventListener('click', () => {
+          goToSlide(activeIdx - 1);
+          resetAutoplay();
+        });
+      }
+
+      if (nextBtn) {
+        nextBtn.addEventListener('click', () => {
+          goToSlide(activeIdx + 1);
+          resetAutoplay();
+        });
+      }
+
+      thumbs.forEach((thumb) => {
+        thumb.addEventListener('click', () => {
+          const idx = Number(thumb.dataset.slideIndex || 0);
+          goToSlide(idx);
+          resetAutoplay();
+        });
+      });
+
+      if (stage && slides.length > 1) {
+        let swipeStartX = null;
+        let swipeStartY = null;
+
+        stage.addEventListener('pointerdown', (e) => {
+          if (e.target.closest('button')) return;
+          swipeStartX = e.clientX;
+          swipeStartY = e.clientY;
+        });
+
+        stage.addEventListener('pointerup', (e) => {
+          if (swipeStartX === null) return;
+          const dx = e.clientX - swipeStartX;
+          const dy = e.clientY - swipeStartY;
+          swipeStartX = null;
+          swipeStartY = null;
+          if (Math.abs(dx) > 36 && Math.abs(dx) > Math.abs(dy)) {
+            goToSlide(dx < 0 ? activeIdx + 1 : activeIdx - 1);
+            resetAutoplay();
+          }
+        });
+
+        stage.addEventListener('pointercancel', () => {
+          swipeStartX = null;
+          swipeStartY = null;
+        });
+      }
+
+      if (useAutoplay) {
+        viewer.addEventListener('pointerenter', stopAutoplay);
+        viewer.addEventListener('pointerleave', startAutoplay);
+        viewer.addEventListener('focusin', stopAutoplay);
+        viewer.addEventListener('focusout', startAutoplay);
+        viewer.addEventListener('touchstart', stopAutoplay, { passive: true });
+        viewer.addEventListener('touchend', startAutoplay, { passive: true });
+        startAutoplay();
+      }
+    });
+  }
+
   document.addEventListener('DOMContentLoaded', () => {
     initAgeGate();
     initCartDrawer();
@@ -812,6 +938,7 @@
     initInteractiveUI();
     initCollectionSort();
     initAnnouncementBar();
+    initPhotoViewers();
   });
 })();
 

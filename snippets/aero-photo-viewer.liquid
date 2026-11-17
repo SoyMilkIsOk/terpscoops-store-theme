@@ -1,0 +1,293 @@
+{%- comment -%}
+  TerpAero OS Photo Viewer Window
+  Params:
+    - product: Shopify product object (optional)
+    - blocks: section.blocks array of type "photo" (optional)
+    - viewer_mode: 'hero' | 'pdp' | 'about' (optional, default 'pdp')
+    - chrome_mode: boolean (optional, default false)
+    - autoplay: boolean (optional, default false)
+{%- endcomment -%}
+
+{%- liquid
+  assign mode = viewer_mode | default: 'pdp'
+  assign is_chrome = chrome_mode | default: false
+  assign use_autoplay = autoplay | default: false
+  assign slide_count = 0
+  assign active_index = 0
+  assign slides_html = ''
+  assign thumbs_html = ''
+-%}
+
+{%- if product != blank -%}
+  {%- assign featured = product.selected_or_first_available_variant.featured_media | default: product.featured_media -%}
+  {%- if product.media.size > 0 -%}
+    {%- assign slide_count = product.media.size -%}
+    {%- for media in product.media -%}
+      {%- if featured != blank and media.id == featured.id -%}
+        {%- assign active_index = forloop.index0 -%}
+      {%- endif -%}
+    {%- endfor -%}
+
+    {%- capture slides_html -%}
+      {%- for media in product.media -%}
+        {%- assign is_slide_active = false -%}
+        {%- if forloop.index0 == active_index -%}
+          {%- assign is_slide_active = true -%}
+        {%- endif -%}
+        {%- assign image_file = media | image_url: width: 1200 | split: '?' | first | split: '/' | last -%}
+        <div
+          class="aero-photo-viewer__slide{% if is_slide_active %} is-active{% endif %}"
+          data-viewer-slide
+          data-slide-index="{{ forloop.index0 }}"
+          data-media-id="{{ media.id }}"
+          data-image-file="{{ image_file | escape }}"
+        >
+          <img
+            src="{{ media | image_url: width: 1200 }}"
+            srcset="
+              {{ media | image_url: width: 540 }} 540w,
+              {{ media | image_url: width: 840 }} 840w,
+              {{ media | image_url: width: 1200 }} 1200w
+            "
+            sizes="(min-width: 990px) 50vw, 100vw"
+            alt="{{ media.alt | default: product.title | escape }}"
+            width="{{ media.width | default: 1200 }}"
+            height="{{ media.height | default: 1200 }}"
+            {% if forloop.first %}loading="eager"{% else %}loading="lazy"{% endif %}
+            class="aero-photo-viewer__img"
+            {% if is_slide_active %}data-gallery-main-img{% endif %}
+          >
+        </div>
+      {%- endfor -%}
+    {%- endcapture -%}
+
+    {%- if slide_count > 1 -%}
+      {%- capture thumbs_html -%}
+        {%- for media in product.media -%}
+          {%- assign is_thumb_active = false -%}
+          {%- if forloop.index0 == active_index -%}
+            {%- assign is_thumb_active = true -%}
+          {%- endif -%}
+          <button
+            type="button"
+            class="aero-photo-viewer__thumb{% if is_thumb_active %} is-active{% endif %}"
+            data-viewer-thumb
+            data-slide-index="{{ forloop.index0 }}"
+            data-media-id="{{ media.id }}"
+            aria-label="View photo {{ forloop.index }} of {{ slide_count }}"
+          >
+            <img
+              src="{{ media | image_url: width: 180 }}"
+              alt="{{ media.alt | default: product.title | escape }}"
+              width="72"
+              height="72"
+              loading="lazy"
+            >
+          </button>
+        {%- endfor -%}
+      {%- endcapture -%}
+    {%- endif -%}
+  {%- else -%}
+    {%- assign slide_count = 1 -%}
+    {%- capture slides_html -%}
+      <div class="aero-photo-viewer__slide is-active" data-viewer-slide data-slide-index="0">
+        <div class="aero-product-card__placeholder" style="height:100%;">
+          {% render 'aero-icon', icon: 'scoop' %}
+        </div>
+      </div>
+    {%- endcapture -%}
+  {%- endif -%}
+{%- else -%}
+  {%- assign custom_count = 0 -%}
+  {%- if blocks != blank -%}
+    {%- for block in blocks -%}
+      {%- if block.type == 'photo' and block.settings.image != blank -%}
+        {%- assign custom_count = custom_count | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
+
+  {%- if custom_count > 0 -%}
+    {%- assign slide_count = custom_count -%}
+    {%- assign idx = 0 -%}
+    {%- capture slides_html -%}
+      {%- for block in blocks -%}
+        {%- if block.type == 'photo' and block.settings.image != blank -%}
+          {%- assign img = block.settings.image -%}
+          <div
+            class="aero-photo-viewer__slide{% if idx == 0 %} is-active{% endif %}"
+            data-viewer-slide
+            data-slide-index="{{ idx }}"
+            {{ block.shopify_attributes }}
+          >
+            <img
+              src="{{ img | image_url: width: 1400 }}"
+              srcset="
+                {{ img | image_url: width: 600 }} 600w,
+                {{ img | image_url: width: 1000 }} 1000w,
+                {{ img | image_url: width: 1400 }} 1400w
+              "
+              sizes="(min-width: 990px) 80vw, 100vw"
+              alt="{{ block.settings.caption | default: img.alt | default: shop.name | escape }}"
+              width="{{ img.width }}"
+              height="{{ img.height }}"
+              {% if idx == 0 %}loading="eager"{% else %}loading="lazy"{% endif %}
+              class="aero-photo-viewer__img"
+            >
+            {%- if block.settings.caption != blank -%}
+              <div class="aero-photo-viewer__caption">{{ block.settings.caption | escape }}</div>
+            {%- endif -%}
+          </div>
+          {%- assign idx = idx | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+
+    {%- if custom_count > 1 -%}
+      {%- assign tidx = 0 -%}
+      {%- capture thumbs_html -%}
+        {%- for block in blocks -%}
+          {%- if block.type == 'photo' and block.settings.image != blank -%}
+            {%- assign img = block.settings.image -%}
+            <button
+              type="button"
+              class="aero-photo-viewer__thumb{% if tidx == 0 %} is-active{% endif %}"
+              data-viewer-thumb
+              data-slide-index="{{ tidx }}"
+              aria-label="View photo {{ tidx | plus: 1 }} of {{ custom_count }}"
+            >
+              <img
+                src="{{ img | image_url: width: 180 }}"
+                alt="{{ block.settings.caption | default: img.alt | default: shop.name | escape }}"
+                width="72"
+                height="72"
+                loading="lazy"
+              >
+            </button>
+            {%- assign tidx = tidx | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endcapture -%}
+    {%- endif -%}
+  {%- else -%}
+    {%- if mode == 'about' -%}
+      {%- assign fallback_handles = 'jar-of-scoops,terpscoop-8pk,solid-silver-terpscoop,titanium-terpscoop,terpscoop-2pk' | split: ',' -%}
+    {%- else -%}
+      {%- assign fallback_handles = 'terpscoop-8pk,terpscoop-2pk,titanium-terpscoop,solid-silver-terpscoop,jar-of-scoops' | split: ',' -%}
+    {%- endif -%}
+
+    {%- assign fidx = 0 -%}
+    {%- capture slides_html -%}
+      {%- for handle in fallback_handles -%}
+        {%- assign p = all_products[handle] -%}
+        {%- if p != blank and p.featured_media != blank -%}
+          {%- assign m = p.featured_media -%}
+          <div
+            class="aero-photo-viewer__slide{% if fidx == 0 %} is-active{% endif %}"
+            data-viewer-slide
+            data-slide-index="{{ fidx }}"
+          >
+            <img
+              src="{{ m | image_url: width: 1400 }}"
+              srcset="
+                {{ m | image_url: width: 600 }} 600w,
+                {{ m | image_url: width: 1000 }} 1000w,
+                {{ m | image_url: width: 1400 }} 1400w
+              "
+              sizes="(min-width: 990px) 80vw, 100vw"
+              alt="{{ m.alt | default: p.title | escape }}"
+              width="{{ m.width | default: 1200 }}"
+              height="{{ m.height | default: 1200 }}"
+              {% if fidx == 0 %}loading="eager"{% else %}loading="lazy"{% endif %}
+              class="aero-photo-viewer__img"
+            >
+          </div>
+          {%- assign fidx = fidx | plus: 1 -%}
+        {%- endif -%}
+      {%- endfor -%}
+    {%- endcapture -%}
+
+    {%- assign slide_count = fidx -%}
+    {%- if slide_count > 1 -%}
+      {%- assign ftidx = 0 -%}
+      {%- capture thumbs_html -%}
+        {%- for handle in fallback_handles -%}
+          {%- assign p = all_products[handle] -%}
+          {%- if p != blank and p.featured_media != blank -%}
+            {%- assign m = p.featured_media -%}
+            <button
+              type="button"
+              class="aero-photo-viewer__thumb{% if ftidx == 0 %} is-active{% endif %}"
+              data-viewer-thumb
+              data-slide-index="{{ ftidx }}"
+              aria-label="View photo {{ ftidx | plus: 1 }} of {{ slide_count }}"
+            >
+              <img
+                src="{{ m | image_url: width: 180 }}"
+                alt="{{ m.alt | default: p.title | escape }}"
+                width="72"
+                height="72"
+                loading="lazy"
+              >
+            </button>
+            {%- assign ftidx = ftidx | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endcapture -%}
+    {%- endif -%}
+  {%- endif -%}
+{%- endif -%}
+
+<div
+  class="{% if is_chrome %}aero-chrome-glass{% else %}aero-glass{% endif %} aero-window aero-photo-viewer aero-photo-viewer--{{ mode }}"
+  data-aero-photo-viewer
+  data-autoplay="{{ use_autoplay }}"
+  data-active-index="{{ active_index }}"
+>
+  <div class="aero-window__bar">
+    <span class="aero-window__dots" aria-hidden="true">
+      <span class="aero-window__dot aero-window__dot--cyan"></span>
+      <span class="aero-window__dot aero-window__dot--green"></span>
+      <span class="aero-window__dot aero-window__dot--pink"></span>
+    </span>
+    {%- if slide_count > 1 -%}
+      <span class="aero-photo-viewer__counter" data-viewer-counter>{{ active_index | plus: 1 }} / {{ slide_count }}</span>
+    {%- endif -%}
+  </div>
+
+  <div class="aero-photo-viewer__stage" data-viewer-stage>
+    <div class="aero-photo-viewer__slides">
+      {{ slides_html }}
+    </div>
+
+    {%- if slide_count > 1 -%}
+      <button
+        type="button"
+        class="aero-photo-viewer__arrow aero-photo-viewer__arrow--prev"
+        data-viewer-prev
+        aria-label="Previous photo"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M15 18l-6-6 6-6"/>
+        </svg>
+      </button>
+      <button
+        type="button"
+        class="aero-photo-viewer__arrow aero-photo-viewer__arrow--next"
+        data-viewer-next
+        aria-label="Next photo"
+      >
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M9 18l6-6-6-6"/>
+        </svg>
+      </button>
+    {%- endif -%}
+  </div>
+
+  {%- if slide_count > 1 -%}
+    <div class="aero-photo-viewer__dock" role="list" aria-label="Photo viewer thumbnails">
+      {{ thumbs_html }}
+    </div>
+  {%- endif -%}
+</div>
+

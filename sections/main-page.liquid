@@ -1,4 +1,11 @@
-{%- assign page_handle_lower = page.handle | downcase -%}
+{%- liquid
+  assign page_handle_lower = page.handle | downcase
+  assign is_about_page = false
+  if page_handle_lower contains 'about' or page_handle_lower contains 'story' or section.blocks.size > 0
+    assign is_about_page = true
+  endif
+-%}
+
 {%- if page_handle_lower contains 'wholesale' -%}
   {% render 'wholesale-portal-content' %}
 {%- elsif page_handle_lower contains 'contact' -%}
@@ -6,23 +13,53 @@
 {%- else -%}
   <section class="aero-section aero-section--tight">
     <div class="page-width">
-      <div class="aero-glass aero-window aero-policy-window">
-        <div class="aero-window__bar">
-          <span class="aero-window__dots" aria-hidden="true">
-            <span class="aero-window__dot aero-window__dot--cyan"></span>
-            <span class="aero-window__dot aero-window__dot--green"></span>
-            <span class="aero-window__dot aero-window__dot--pink"></span>
-          </span>
-        </div>
-        <div class="aero-policy-window__body">
-          <div class="shopify-policy__title">
-            <h1>{{ page.title | escape }}</h1>
+      {%- if is_about_page -%}
+        <div class="aero-about-layout">
+          <div class="aero-glass aero-window aero-policy-window aero-about-layout__content">
+            <div class="aero-window__bar">
+              <span class="aero-window__dots" aria-hidden="true">
+                <span class="aero-window__dot aero-window__dot--cyan"></span>
+                <span class="aero-window__dot aero-window__dot--green"></span>
+                <span class="aero-window__dot aero-window__dot--pink"></span>
+              </span>
+            </div>
+            <div class="aero-policy-window__body">
+              <div class="shopify-policy__title">
+                <h1>{{ page.title | escape }}</h1>
+              </div>
+              <div class="aero-rte">
+                {{ page.content }}
+              </div>
+            </div>
           </div>
-          <div class="aero-rte">
-            {{ page.content }}
+
+          <div class="aero-about-layout__gallery">
+            {% render 'aero-photo-viewer',
+              blocks: section.blocks,
+              viewer_mode: 'about',
+              autoplay: true
+            %}
           </div>
         </div>
-      </div>
+      {%- else -%}
+        <div class="aero-glass aero-window aero-policy-window">
+          <div class="aero-window__bar">
+            <span class="aero-window__dots" aria-hidden="true">
+              <span class="aero-window__dot aero-window__dot--cyan"></span>
+              <span class="aero-window__dot aero-window__dot--green"></span>
+              <span class="aero-window__dot aero-window__dot--pink"></span>
+            </span>
+          </div>
+          <div class="aero-policy-window__body">
+            <div class="shopify-policy__title">
+              <h1>{{ page.title | escape }}</h1>
+            </div>
+            <div class="aero-rte">
+              {{ page.content }}
+            </div>
+          </div>
+        </div>
+      {%- endif -%}
     </div>
   </section>
 {%- endif -%}
@@ -30,7 +67,24 @@
 {% schema %}
 {
   "name": "Aero Standard Page",
+  "blocks": [
+    {
+      "type": "photo",
+      "name": "About Gallery Photo",
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Photo"
+        },
+        {
+          "type": "text",
+          "id": "caption",
+          "label": "Optional caption"
+        }
+      ]
+    }
+  ],
   "settings": []
 }
 {% endschema %}
-
