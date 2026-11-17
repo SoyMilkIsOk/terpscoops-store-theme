@@ -1,7 +1,20 @@
 {%- liquid
   assign page_handle_lower = page.handle | downcase
+  assign has_custom_gallery = false
+  if section.blocks.size > 0
+    assign has_custom_gallery = true
+  else
+    for i in (1..8)
+      assign img_key = 'gallery_image_' | append: i
+      if section.settings[img_key] != blank
+        assign has_custom_gallery = true
+        break
+      endif
+    endfor
+  endif
+
   assign is_about_page = false
-  if page_handle_lower contains 'about' or page_handle_lower contains 'story' or section.blocks.size > 0
+  if page_handle_lower contains 'about' or page_handle_lower contains 'story' or has_custom_gallery
     assign is_about_page = true
   endif
 -%}
@@ -36,6 +49,7 @@
           <div class="aero-about-layout__gallery">
             {% render 'aero-photo-viewer',
               blocks: section.blocks,
+              section_settings: section.settings,
               viewer_mode: 'about',
               autoplay: true
             %}
@@ -67,6 +81,52 @@
 {% schema %}
 {
   "name": "Aero Standard Page",
+  "settings": [
+    {
+      "type": "header",
+      "content": "About Page Photo Gallery"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_1",
+      "label": "Gallery photo 1"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_2",
+      "label": "Gallery photo 2"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_3",
+      "label": "Gallery photo 3"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_4",
+      "label": "Gallery photo 4"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_5",
+      "label": "Gallery photo 5"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_6",
+      "label": "Gallery photo 6"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_7",
+      "label": "Gallery photo 7"
+    },
+    {
+      "type": "image_picker",
+      "id": "gallery_image_8",
+      "label": "Gallery photo 8"
+    }
+  ],
   "blocks": [
     {
       "type": "photo",
@@ -76,15 +136,9 @@
           "type": "image_picker",
           "id": "image",
           "label": "Photo"
-        },
-        {
-          "type": "text",
-          "id": "caption",
-          "label": "Optional caption"
         }
       ]
     }
-  ],
-  "settings": []
+  ]
 }
 {% endschema %}

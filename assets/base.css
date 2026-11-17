@@ -932,9 +932,9 @@ p {
   height: 215px;
   border-radius: 50%;
   background: radial-gradient(circle,
-  color-mix(in srgb, var(--resin-color) 52%, rgba(255, 255, 255, 0.38)) 0%,
-  color-mix(in srgb, var(--resin-color) 20%, transparent) 56%,
-  transparent 76%);
+      color-mix(in srgb, var(--resin-color) 52%, rgba(255, 255, 255, 0.38)) 0%,
+      color-mix(in srgb, var(--resin-color) 20%, transparent) 56%,
+      transparent 76%);
   filter: blur(20px);
   pointer-events: none;
   transition:
@@ -1008,10 +1008,10 @@ p {
   transform: translateY(0) scale(1);
   will-change: transform, box-shadow;
   transition:
-  transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
-  border-color 0.34s ease,
-  background-color 0.34s ease,
-  box-shadow 0.38s ease;
+    transform 0.38s cubic-bezier(0.22, 1, 0.36, 1),
+    border-color 0.34s ease,
+    background-color 0.34s ease,
+    box-shadow 0.38s ease;
 }
 
 .aero-hero-color-btn:hover {
@@ -2509,24 +2509,10 @@ p {
    TerpAero OS Photo Viewer Window
    ========================================================================== */
 
-.aero-hero-top-gallery {
-  margin-bottom: clamp(1.1rem, 2.5vw, 1.65rem);
-}
-
 .aero-photo-viewer {
   display: flex;
   flex-direction: column;
   overflow: hidden;
-}
-
-.aero-photo-viewer__counter {
-  font-family: var(--font-mono);
-  font-size: 0.74rem;
-  font-weight: 700;
-  padding: 0.16rem 0.55rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.55);
-  color: var(--aero-ink-muted);
 }
 
 .aero-photo-viewer__stage {
@@ -2534,15 +2520,10 @@ p {
   overflow: hidden;
   margin: 0.65rem 0.65rem 0;
   border-radius: 18px;
-  background: rgba(255, 255, 255, 0.28);
-  border: 1px solid rgba(255, 255, 255, 0.78);
+  background: radial-gradient(circle at 50% 45%, rgba(255, 255, 255, 0.72) 0%, rgba(220, 245, 255, 0.34) 100%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.9);
   touch-action: pan-y;
-}
-
-.aero-photo-viewer--hero .aero-photo-viewer__stage {
-  aspect-ratio: 21 / 9;
-  max-height: 390px;
-  width: calc(100% - 1.3rem);
 }
 
 .aero-photo-viewer--pdp .aero-photo-viewer__stage,
@@ -2563,9 +2544,13 @@ p {
   position: relative;
   width: 100%;
   height: 100%;
+  padding: 0.45rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
   opacity: 0;
   pointer-events: none;
-  transform: scale(1.04);
+  transform: scale(1.03);
   filter: blur(4px);
   transition:
     opacity 0.38s ease,
@@ -2584,25 +2569,10 @@ p {
 .aero-photo-viewer__img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 12px;
   display: block;
-}
-
-.aero-photo-viewer__caption {
-  position: absolute;
-  left: 0.75rem;
-  bottom: 0.75rem;
-  z-index: 2;
-  max-width: calc(100% - 1.5rem);
-  padding: 0.32rem 0.72rem;
-  border-radius: 999px;
-  background: rgba(255, 255, 255, 0.76);
-  backdrop-filter: blur(12px) saturate(160%);
-  -webkit-backdrop-filter: blur(12px) saturate(160%);
-  border: 1px solid rgba(255, 255, 255, 0.92);
-  color: var(--aero-ink);
-  font-size: 0.8rem;
-  font-weight: 600;
 }
 
 .aero-photo-viewer__arrow {
@@ -2614,10 +2584,10 @@ p {
   height: 34px;
   border-radius: 50%;
   border: 1.5px solid rgba(255, 255, 255, 0.88);
-  background: rgba(255, 255, 255, 0.56);
+  background: rgba(255, 255, 255, 0.62);
   backdrop-filter: blur(12px) saturate(170%);
   -webkit-backdrop-filter: blur(12px) saturate(170%);
-  box-shadow: 0 4px 14px rgba(0, 90, 140, 0.16);
+  box-shadow: inset 0 1px 0 #FFFFFF, 0 4px 14px rgba(0, 90, 140, 0.16);
   color: var(--aero-ink);
   display: inline-flex;
   align-items: center;
@@ -2628,7 +2598,7 @@ p {
 
 .aero-photo-viewer__arrow:hover {
   transform: translateY(-50%) scale(1.08);
-  background: rgba(255, 255, 255, 0.86);
+  background: rgba(255, 255, 255, 0.9);
 }
 
 .aero-photo-viewer__arrow--prev {
@@ -2639,49 +2609,103 @@ p {
   right: 0.6rem;
 }
 
+/* TerpAero OS Glass Dock */
+.aero-photo-viewer__dock-shell {
+  margin: 0.65rem;
+  padding: 0.45rem 0.6rem;
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.56) 0%, rgba(196, 236, 255, 0.34) 100%);
+  backdrop-filter: blur(14px) saturate(170%);
+  -webkit-backdrop-filter: blur(14px) saturate(170%);
+  border: 1px solid rgba(255, 255, 255, 0.85);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), 0 6px 18px -6px rgba(0, 118, 178, 0.16);
+}
+
 .aero-photo-viewer__dock {
   display: flex;
   flex-wrap: nowrap;
   align-items: center;
-  gap: 0.45rem;
-  padding: 0.6rem 0.75rem 0.7rem;
+  gap: 0.5rem;
+  padding-block: 0.25rem;
   overflow-x: auto;
-  scrollbar-width: none;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(0, 150, 214, 0.32) transparent;
 }
 
 .aero-photo-viewer__dock::-webkit-scrollbar {
-  display: none;
+  height: 4px;
+}
+
+.aero-photo-viewer__dock::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.aero-photo-viewer__dock::-webkit-scrollbar-thumb {
+  background: rgba(0, 150, 214, 0.32);
+  border-radius: 999px;
 }
 
 .aero-photo-viewer__thumb {
-  width: 46px;
-  height: 46px;
-  padding: 0.18rem;
-  border-radius: 12px;
-  border: 1.5px solid rgba(255, 255, 255, 0.78);
-  background: rgba(255, 255, 255, 0.32);
+  position: relative;
+  width: 54px;
+  height: 54px;
+  padding: 0.2rem;
+  border-radius: 14px;
+  border: 1.5px solid rgba(255, 255, 255, 0.85);
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.72) 0%, rgba(226, 245, 255, 0.42) 100%);
+  box-shadow: inset 0 1px 0 #FFFFFF, 0 3px 10px rgba(0, 90, 140, 0.1);
   cursor: pointer;
   flex-shrink: 0;
   overflow: hidden;
-  transition: transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1), border-color 0.2s ease, box-shadow 0.2s ease;
+  opacity: 0.68;
+  transform: translateY(0) scale(1);
+  transition:
+    transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1),
+    opacity 0.22s ease,
+    border-color 0.22s ease,
+    box-shadow 0.26s ease;
+}
+
+.aero-photo-viewer__thumb:first-child {
+  margin-left: auto;
+}
+
+.aero-photo-viewer__thumb:last-child {
+  margin-right: auto;
+}
+
+.aero-photo-viewer__thumb::after {
+  content: "";
+  position: absolute;
+  inset: 2px 2px 52% 2px;
+  border-radius: 10px 10px 45% 45%;
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0.05) 100%);
+  pointer-events: none;
 }
 
 .aero-photo-viewer__thumb:hover {
-  transform: translateY(-1px);
-  border-color: var(--aero-gel-sky);
+  opacity: 0.96;
+  transform: translateY(-2px) scale(1.03);
+  border-color: rgba(255, 255, 255, 0.95);
 }
 
 .aero-photo-viewer__thumb.is-active {
+  opacity: 1;
+  transform: translateY(-3px) scale(1.08);
   border-color: var(--aero-gel-sky);
-  transform: scale(1.06);
-  box-shadow: 0 0 0 2px rgba(0, 150, 214, 0.24);
+  background: linear-gradient(180deg, #FFFFFF 0%, rgba(210, 244, 255, 0.88) 100%);
+  box-shadow:
+    inset 0 1px 0 #FFFFFF,
+    0 0 0 2px rgba(0, 150, 214, 0.26),
+    0 8px 16px rgba(0, 150, 214, 0.28);
 }
 
 .aero-photo-viewer__thumb img {
   width: 100%;
   height: 100%;
-  object-fit: cover;
-  border-radius: 8px;
+  object-fit: contain;
+  object-position: center;
+  border-radius: 9px;
 }
 
 .aero-chrome-glass.aero-photo-viewer .aero-window__bar {
@@ -2689,25 +2713,30 @@ p {
   border-bottom-color: rgba(226, 240, 255, 0.18);
 }
 
-.aero-chrome-glass .aero-photo-viewer__counter {
-  background: rgba(255, 255, 255, 0.14);
-  color: #CFE7FA;
-}
-
 .aero-chrome-glass .aero-photo-viewer__stage {
-  background: rgba(8, 20, 33, 0.65);
+  background: radial-gradient(circle at 50% 45%, rgba(30, 41, 59, 0.9) 0%, rgba(8, 20, 33, 0.95) 100%);
   border-color: rgba(226, 240, 255, 0.24);
 }
 
 .aero-chrome-glass .aero-photo-viewer__arrow {
-  background: rgba(15, 23, 42, 0.68);
+  background: rgba(15, 23, 42, 0.72);
   border-color: rgba(226, 240, 255, 0.36);
   color: #FFFFFF;
 }
 
+.aero-chrome-glass .aero-photo-viewer__dock-shell {
+  background: linear-gradient(180deg, rgba(255, 255, 255, 0.12) 0%, rgba(0, 229, 255, 0.08) 100%);
+  border-color: rgba(226, 240, 255, 0.22);
+}
+
 .aero-chrome-glass .aero-photo-viewer__thumb {
   background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(226, 240, 255, 0.24);
+  border-color: rgba(226, 240, 255, 0.26);
+}
+
+.aero-chrome-glass .aero-photo-viewer__thumb.is-active {
+  border-color: var(--aero-chrome-accent);
+  box-shadow: 0 0 0 2px rgba(0, 229, 255, 0.32), 0 8px 16px rgba(0, 229, 255, 0.22);
 }
 
 .aero-about-layout {
@@ -2734,20 +2763,21 @@ p {
 }
 
 @media (max-width: 768px) {
-  .aero-photo-viewer--hero .aero-photo-viewer__stage {
-    aspect-ratio: 16 / 10;
-    max-height: 240px;
-  }
-
   .aero-photo-viewer--pdp .aero-photo-viewer__stage,
   .aero-photo-viewer--about .aero-photo-viewer__stage {
     aspect-ratio: 4 / 3;
     max-height: 300px;
   }
 
+  .aero-photo-viewer__dock-shell {
+    margin: 0.5rem 0.55rem 0.55rem;
+    padding: 0.35rem 0.45rem;
+    border-radius: 14px;
+  }
+
   .aero-photo-viewer__thumb {
-    width: 38px;
-    height: 38px;
-    border-radius: 10px;
+    width: 44px;
+    height: 44px;
+    border-radius: 11px;
   }
 }

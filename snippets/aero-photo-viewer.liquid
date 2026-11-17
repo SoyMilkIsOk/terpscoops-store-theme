@@ -3,7 +3,8 @@
   Params:
     - product: Shopify product object (optional)
     - blocks: section.blocks array of type "photo" (optional)
-    - viewer_mode: 'hero' | 'pdp' | 'about' (optional, default 'pdp')
+    - section_settings: section.settings object with gallery_image_1..8 (optional)
+    - viewer_mode: 'pdp' | 'about' (optional, default 'pdp')
     - chrome_mode: boolean (optional, default false)
     - autoplay: boolean (optional, default false)
 {%- endcomment -%}
@@ -99,6 +100,14 @@
   {%- endif -%}
 {%- else -%}
   {%- assign custom_count = 0 -%}
+  {%- if section_settings != blank -%}
+    {%- for i in (1..8) -%}
+      {%- assign img_key = 'gallery_image_' | append: i -%}
+      {%- if section_settings[img_key] != blank -%}
+        {%- assign custom_count = custom_count | plus: 1 -%}
+      {%- endif -%}
+    {%- endfor -%}
+  {%- endif -%}
   {%- if blocks != blank -%}
     {%- for block in blocks -%}
       {%- if block.type == 'photo' and block.settings.image != blank -%}
@@ -111,71 +120,120 @@
     {%- assign slide_count = custom_count -%}
     {%- assign idx = 0 -%}
     {%- capture slides_html -%}
-      {%- for block in blocks -%}
-        {%- if block.type == 'photo' and block.settings.image != blank -%}
-          {%- assign img = block.settings.image -%}
-          <div
-            class="aero-photo-viewer__slide{% if idx == 0 %} is-active{% endif %}"
-            data-viewer-slide
-            data-slide-index="{{ idx }}"
-            {{ block.shopify_attributes }}
-          >
-            <img
-              src="{{ img | image_url: width: 1400 }}"
-              srcset="
-                {{ img | image_url: width: 600 }} 600w,
-                {{ img | image_url: width: 1000 }} 1000w,
-                {{ img | image_url: width: 1400 }} 1400w
-              "
-              sizes="(min-width: 990px) 80vw, 100vw"
-              alt="{{ block.settings.caption | default: img.alt | default: shop.name | escape }}"
-              width="{{ img.width }}"
-              height="{{ img.height }}"
-              {% if idx == 0 %}loading="eager"{% else %}loading="lazy"{% endif %}
-              class="aero-photo-viewer__img"
+      {%- if section_settings != blank -%}
+        {%- for i in (1..8) -%}
+          {%- assign img_key = 'gallery_image_' | append: i -%}
+          {%- assign s_img = section_settings[img_key] -%}
+          {%- if s_img != blank -%}
+            <div
+              class="aero-photo-viewer__slide{% if idx == 0 %} is-active{% endif %}"
+              data-viewer-slide
+              data-slide-index="{{ idx }}"
             >
-            {%- if block.settings.caption != blank -%}
-              <div class="aero-photo-viewer__caption">{{ block.settings.caption | escape }}</div>
-            {%- endif -%}
-          </div>
-          {%- assign idx = idx | plus: 1 -%}
-        {%- endif -%}
-      {%- endfor -%}
+              <img
+                src="{{ s_img | image_url: width: 1400 }}"
+                srcset="
+                  {{ s_img | image_url: width: 600 }} 600w,
+                  {{ s_img | image_url: width: 1000 }} 1000w,
+                  {{ s_img | image_url: width: 1400 }} 1400w
+                "
+                sizes="(min-width: 990px) 50vw, 100vw"
+                alt="{{ s_img.alt | default: shop.name | escape }}"
+                width="{{ s_img.width }}"
+                height="{{ s_img.height }}"
+                {% if idx == 0 %}loading="eager"{% else %}loading="lazy"{% endif %}
+                class="aero-photo-viewer__img"
+              >
+            </div>
+            {%- assign idx = idx | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
+      {%- if blocks != blank -%}
+        {%- for block in blocks -%}
+          {%- if block.type == 'photo' and block.settings.image != blank -%}
+            {%- assign img = block.settings.image -%}
+            <div
+              class="aero-photo-viewer__slide{% if idx == 0 %} is-active{% endif %}"
+              data-viewer-slide
+              data-slide-index="{{ idx }}"
+              {{ block.shopify_attributes }}
+            >
+              <img
+                src="{{ img | image_url: width: 1400 }}"
+                srcset="
+                  {{ img | image_url: width: 600 }} 600w,
+                  {{ img | image_url: width: 1000 }} 1000w,
+                  {{ img | image_url: width: 1400 }} 1400w
+                "
+                sizes="(min-width: 990px) 50vw, 100vw"
+                alt="{{ img.alt | default: shop.name | escape }}"
+                width="{{ img.width }}"
+                height="{{ img.height }}"
+                {% if idx == 0 %}loading="eager"{% else %}loading="lazy"{% endif %}
+                class="aero-photo-viewer__img"
+              >
+            </div>
+            {%- assign idx = idx | plus: 1 -%}
+          {%- endif -%}
+        {%- endfor -%}
+      {%- endif -%}
     {%- endcapture -%}
 
     {%- if custom_count > 1 -%}
       {%- assign tidx = 0 -%}
       {%- capture thumbs_html -%}
-        {%- for block in blocks -%}
-          {%- if block.type == 'photo' and block.settings.image != blank -%}
-            {%- assign img = block.settings.image -%}
-            <button
-              type="button"
-              class="aero-photo-viewer__thumb{% if tidx == 0 %} is-active{% endif %}"
-              data-viewer-thumb
-              data-slide-index="{{ tidx }}"
-              aria-label="View photo {{ tidx | plus: 1 }} of {{ custom_count }}"
-            >
-              <img
-                src="{{ img | image_url: width: 180 }}"
-                alt="{{ block.settings.caption | default: img.alt | default: shop.name | escape }}"
-                width="72"
-                height="72"
-                loading="lazy"
+        {%- if section_settings != blank -%}
+          {%- for i in (1..8) -%}
+            {%- assign img_key = 'gallery_image_' | append: i -%}
+            {%- assign s_img = section_settings[img_key] -%}
+            {%- if s_img != blank -%}
+              <button
+                type="button"
+                class="aero-photo-viewer__thumb{% if tidx == 0 %} is-active{% endif %}"
+                data-viewer-thumb
+                data-slide-index="{{ tidx }}"
+                aria-label="View photo {{ tidx | plus: 1 }} of {{ custom_count }}"
               >
-            </button>
-            {%- assign tidx = tidx | plus: 1 -%}
-          {%- endif -%}
-        {%- endfor -%}
+                <img
+                  src="{{ s_img | image_url: width: 180 }}"
+                  alt="{{ s_img.alt | default: shop.name | escape }}"
+                  width="72"
+                  height="72"
+                  loading="lazy"
+                >
+              </button>
+              {%- assign tidx = tidx | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
+        {%- if blocks != blank -%}
+          {%- for block in blocks -%}
+            {%- if block.type == 'photo' and block.settings.image != blank -%}
+              {%- assign img = block.settings.image -%}
+              <button
+                type="button"
+                class="aero-photo-viewer__thumb{% if tidx == 0 %} is-active{% endif %}"
+                data-viewer-thumb
+                data-slide-index="{{ tidx }}"
+                aria-label="View photo {{ tidx | plus: 1 }} of {{ custom_count }}"
+              >
+                <img
+                  src="{{ img | image_url: width: 180 }}"
+                  alt="{{ img.alt | default: shop.name | escape }}"
+                  width="72"
+                  height="72"
+                  loading="lazy"
+                >
+              </button>
+              {%- assign tidx = tidx | plus: 1 -%}
+            {%- endif -%}
+          {%- endfor -%}
+        {%- endif -%}
       {%- endcapture -%}
     {%- endif -%}
   {%- else -%}
-    {%- if mode == 'about' -%}
-      {%- assign fallback_handles = 'jar-of-scoops,terpscoop-8pk,solid-silver-terpscoop,titanium-terpscoop,terpscoop-2pk' | split: ',' -%}
-    {%- else -%}
-      {%- assign fallback_handles = 'terpscoop-8pk,terpscoop-2pk,titanium-terpscoop,solid-silver-terpscoop,jar-of-scoops' | split: ',' -%}
-    {%- endif -%}
-
+    {%- assign fallback_handles = 'jar-of-scoops,terpscoop-8pk,solid-silver-terpscoop,titanium-terpscoop,terpscoop-2pk' | split: ',' -%}
     {%- assign fidx = 0 -%}
     {%- capture slides_html -%}
       {%- for handle in fallback_handles -%}
@@ -194,7 +252,7 @@
                 {{ m | image_url: width: 1000 }} 1000w,
                 {{ m | image_url: width: 1400 }} 1400w
               "
-              sizes="(min-width: 990px) 80vw, 100vw"
+              sizes="(min-width: 990px) 50vw, 100vw"
               alt="{{ m.alt | default: p.title | escape }}"
               width="{{ m.width | default: 1200 }}"
               height="{{ m.height | default: 1200 }}"
@@ -250,9 +308,6 @@
       <span class="aero-window__dot aero-window__dot--green"></span>
       <span class="aero-window__dot aero-window__dot--pink"></span>
     </span>
-    {%- if slide_count > 1 -%}
-      <span class="aero-photo-viewer__counter" data-viewer-counter>{{ active_index | plus: 1 }} / {{ slide_count }}</span>
-    {%- endif -%}
   </div>
 
   <div class="aero-photo-viewer__stage" data-viewer-stage>
@@ -285,9 +340,10 @@
   </div>
 
   {%- if slide_count > 1 -%}
-    <div class="aero-photo-viewer__dock" role="list" aria-label="Photo viewer thumbnails">
-      {{ thumbs_html }}
+    <div class="aero-photo-viewer__dock-shell">
+      <div class="aero-photo-viewer__dock" role="list" aria-label="Photo viewer thumbnails">
+        {{ thumbs_html }}
+      </div>
     </div>
   {%- endif -%}
 </div>
-
