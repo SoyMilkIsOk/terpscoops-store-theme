@@ -35,7 +35,7 @@
     "subtotal": "Subtotal",
     "checkout": "Check Out",
     "view_cart": "View Full Cart",
-    "note_label": "Order / Custom Color Note",
+    "note_label": "Order Notes",
     "note_placeholder": "Any special instructions for Boulder fulfillment...",
     "free_shipping_progress": "Add {{ amount }} more for Free US Shipping",
     "free_shipping_unlocked": "Unlocked! Free Shipping from Boulder, CO"

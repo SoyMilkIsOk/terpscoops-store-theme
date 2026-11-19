@@ -18,12 +18,12 @@
           </p>
 
           <div class="aero-hero-ctas">
-            <a href="{{ section.settings.primary_cta_link | default: routes.all_products_collection_url }}" class="btn-aero-gel">
+            {%- assign fallback_scoops_url = all_products['terpscoop-2pk'].url | default: '/products/terpscoop-2pk' -%}
+            <a href="{{ section.settings.primary_cta_link | default: fallback_scoops_url }}" class="btn-aero-gel">
               <span>{{ section.settings.primary_cta_label | escape }}</span>
               {% render 'aero-icon', icon: 'arrow-right' %}
             </a>
-            {%- assign fallback_scoops_url = routes.collections_url | append: '/shop-terpscoops' -%}
-            <a href="{{ section.settings.secondary_cta_link | default: fallback_scoops_url }}" class="btn-aero-sky">
+            <a href="{{ section.settings.secondary_cta_link | default: routes.all_products_collection_url }}" class="btn-aero-sky">
               <span>{{ section.settings.secondary_cta_label | escape }}</span>
             </a>
           </div>
@@ -150,7 +150,7 @@
       "type": "text",
       "id": "primary_cta_label",
       "label": "Primary button label",
-      "default": "Shop All Products"
+      "default": "Shop Terpscoops"
     },
     {
       "type": "url",
@@ -161,7 +161,7 @@
       "type": "text",
       "id": "secondary_cta_label",
       "label": "Secondary button label",
-      "default": "Shop Terpscoops"
+      "default": "Shop All Products"
     },
     {
       "type": "url",
