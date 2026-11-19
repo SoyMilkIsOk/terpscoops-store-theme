@@ -20,7 +20,9 @@ class TerpPackBuilder extends HTMLElement {
 
     this.colorButtons.forEach((btn) => {
       btn.addEventListener('click', () => {
-        this.addColorToNextSlot(btn.dataset.colorChoice);
+        const colorName = btn.dataset.colorChoice;
+        this.addColorToNextSlot(colorName);
+        this.showColorInViewer(colorName);
       });
     });
 
@@ -70,6 +72,28 @@ class TerpPackBuilder extends HTMLElement {
       targetIdx = this.packSize - 1;
     }
     this.setSlot(targetIdx, colorName);
+  }
+
+  showColorInViewer(colorName) {
+    if (!colorName) return;
+    const section = this.closest('[data-product-section]') || document;
+    const viewer = section.querySelector('[data-aero-photo-viewer]');
+    if (!viewer) return;
+
+    if (typeof viewer._terpViewerGoToColor === 'function') {
+      viewer._terpViewerGoToColor(colorName);
+      return;
+    }
+
+    const colorIdx = this.rainbowOrder.findIndex(
+      (c) => c.toLowerCase() === String(colorName).trim().toLowerCase()
+    );
+    if (colorIdx < 0) return;
+    const slides = viewer.querySelectorAll('[data-viewer-slide]');
+    if (slides.length < this.rainbowOrder.length) return;
+    const targetIdx = slides.length - this.rainbowOrder.length + colorIdx;
+    const thumb = viewer.querySelector(`[data-viewer-thumb][data-slide-index="${targetIdx}"]`);
+    if (thumb) thumb.click();
   }
 
   setSlot(idx, colorName) {

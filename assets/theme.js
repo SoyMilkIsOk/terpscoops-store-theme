@@ -126,13 +126,32 @@
         window.history.replaceState({}, '', url.toString());
       }
 
-      if (!initial && matched.featured_image && matched.featured_image.src) {
+      if (!initial) {
         let handledByViewer = false;
-        if (this.galleryViewer && typeof this.galleryViewer._terpViewerGoToFile === 'function') {
+        const mediaId =
+          (matched.featured_media && matched.featured_media.id) ||
+          (matched.featured_image && matched.featured_image.id);
+        if (this.galleryViewer && mediaId && typeof this.galleryViewer._terpViewerGoToMediaId === 'function') {
+          handledByViewer = this.galleryViewer._terpViewerGoToMediaId(mediaId);
+        }
+        if (
+          !handledByViewer &&
+          this.galleryViewer &&
+          matched.featured_image &&
+          matched.featured_image.src &&
+          typeof this.galleryViewer._terpViewerGoToFile === 'function'
+        ) {
           const fileName = matched.featured_image.src.split('?')[0].split('/').pop();
           handledByViewer = this.galleryViewer._terpViewerGoToFile(fileName);
         }
-        if (!handledByViewer) {
+        if (
+          !handledByViewer &&
+          this.galleryViewer &&
+          typeof this.galleryViewer._terpViewerGoToColor === 'function'
+        ) {
+          handledByViewer = this.galleryViewer._terpViewerGoToColor(matched.title);
+        }
+        if (!handledByViewer && matched.featured_image && matched.featured_image.src) {
           const fallbackImg =
             (this.galleryViewer && this.galleryViewer.querySelector('.aero-photo-viewer__slide.is-active img')) ||
             this.galleryMainImg;
@@ -873,14 +892,42 @@
         startAutoplay();
       }
 
+      const proygbivColors = ['pink', 'red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'purple'];
+
+      viewer._terpViewerGoToIndex = (index) => {
+        const idx = Number(index);
+        if (!Number.isInteger(idx) || idx < 0 || idx >= slides.length) return false;
+        goToSlide(idx);
+        resetAutoplay();
+        return true;
+      };
+
       viewer._terpViewerGoToFile = (fileName) => {
         if (!fileName) return false;
         const matchedIdx = slides.findIndex((s) => s.dataset.imageFile === fileName);
         if (matchedIdx >= 0) {
-          goToSlide(matchedIdx);
-          return true;
+          return viewer._terpViewerGoToIndex(matchedIdx);
         }
         return false;
+      };
+
+      viewer._terpViewerGoToMediaId = (mediaId) => {
+        if (mediaId === undefined || mediaId === null || mediaId === '') return false;
+        const targetId = String(mediaId);
+        const matchedIdx = slides.findIndex((s) => s.dataset.mediaId === targetId);
+        if (matchedIdx >= 0) {
+          return viewer._terpViewerGoToIndex(matchedIdx);
+        }
+        return false;
+      };
+
+      viewer._terpViewerGoToColor = (colorName) => {
+        if (!colorName || slides.length < proygbivColors.length) return false;
+        const normalized = String(colorName).trim().toLowerCase();
+        const colorIdx = proygbivColors.indexOf(normalized);
+        if (colorIdx < 0) return false;
+        const targetIdx = slides.length - proygbivColors.length + colorIdx;
+        return viewer._terpViewerGoToIndex(targetIdx);
       };
 
       if (prevBtn) {
