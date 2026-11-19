@@ -471,6 +471,7 @@
     const wheelStage = document.querySelector('[data-hero-wheel-stage]');
     const wheelWrap = document.querySelector('[data-hero-wheel-wrap]');
     const wheelEl = document.querySelector('[data-hero-wheel]');
+    const wheelShadowEls = Array.from(document.querySelectorAll('[data-hero-wheel-shadow]'));
     const colorBtns = Array.from(document.querySelectorAll('[data-hero-color-btn]'));
     const previewOrb = document.querySelector('[data-hero-preview-orb]');
     const wheelTargetAngles = {
@@ -558,6 +559,8 @@
         const nx = ((e.clientX - rect.left) / rect.width - 0.5) * 2;
         const ny = ((e.clientY - rect.top) / rect.height - 0.5) * 2;
         wheelWrap.style.transform = `perspective(700px) rotateX(${(-ny * 10).toFixed(2)}deg) rotateY(${(nx * 10).toFixed(2)}deg)`;
+        wheelWrap.style.setProperty('--wheel-shadow-shift-x', `${(-nx * 3.5).toFixed(2)}px`);
+        wheelWrap.style.setProperty('--wheel-shadow-shift-y', `${(-ny * 3.5).toFixed(2)}px`);
 
         if (isDragging) {
           const nextAngle = getPointerAngle(e);
@@ -573,6 +576,8 @@
 
       wheelStage.addEventListener('pointerleave', () => {
         wheelWrap.style.transform = '';
+        wheelWrap.style.removeProperty('--wheel-shadow-shift-x');
+        wheelWrap.style.removeProperty('--wheel-shadow-shift-y');
         isDragging = false;
       });
 
@@ -627,7 +632,11 @@
             previewOrb.style.setProperty('--resin-color', nextRgbStr);
           }
         }
-        wheelEl.style.transform = `rotate(${angle.toFixed(2)}deg)`;
+        const rotateTransform = `rotate(${angle.toFixed(2)}deg)`;
+        wheelEl.style.transform = rotateTransform;
+        for (let i = 0; i < wheelShadowEls.length; i += 1) {
+          wheelShadowEls[i].style.transform = rotateTransform;
+        }
         window.requestAnimationFrame(tick);
       };
       window.requestAnimationFrame(tick);
